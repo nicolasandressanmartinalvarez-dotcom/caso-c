@@ -8,11 +8,10 @@ function Footer() {
 
 const styles = {
   footer: {
-    marginTop: "20px",
-    padding: "10px",
-    borderTop: "2px solid black",
-    textAlign: "center",
-    backgroundColor: "#7074ec"
+    background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+    color: "white",
+    padding: "15px",
+    textAlign: "center"
   }
 };
 
