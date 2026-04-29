@@ -1,13 +1,61 @@
-import mapa from "../assets/captura.png";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import { useEffect, useState } from "react";
+
 function Map() {
+
+  const containerStyle = {
+    width: "100%",
+    height: "100%"
+  };
+
+  const center = {
+    lat: -33.4489,
+    lng: -70.6693
+  };
+
+  const [seleccionado, setSeleccionado] = useState(null);
+  const [mascotas, setMascotas] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/mascotas")
+      .then((res) => res.json())
+      .then((data) => {
+        setMascotas(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div style={styles.container}>
-        <img 
-        src={mapa} 
-        alt="Mapa" 
-        style={{with: "100%",height:"100%", objectFit:"cover"}}/>
+      <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={12}
+        >
+
+          {mascotas.map((m, i) => (
+            <Marker
+              key={i}
+              position={{ lat: m.lat, lng: m.lng }}
+              onClick={() => setSeleccionado(m)}
+            />
+          ))}
+
+          {seleccionado && (
+            <InfoWindow
+              position={seleccionado.coords}
+              onCloseClick={() => setSeleccionado(null)}
+            >
+              <div>
+                <strong>{seleccionado.nombre}</strong>
+              </div>
+            </InfoWindow>
+          )}
+
+        </GoogleMap>
+      </LoadScript>
     </div>
-    //mas adelante mapa de api de google maps
   );
 }
 
@@ -16,12 +64,7 @@ const styles = {
     height: "400px",
     margin: "40px auto",
     width: "80%",
-    border: "3px solid black",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "90vh",
-    backgroundColor: "#000000"
+    border: "3px solid black"
   }
 };
 
