@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import './diseño/Header.css'
 function Header() {
 
   const {
@@ -66,13 +67,14 @@ const styles = {
     alignItems: "center",
     padding: "10px",
     borderBottom: "2px solid black",
-    backgroundColor: "#7074ec",
+    backgroundColor: "#00ff95",  /*buged ?*/
+
     color: "white"
   },
   boton_diseño: {
     marginLeft: "10px",
     padding: "8px 15px",
-    backgroundColor: "#00c853",
+    backgroundColor: "#12d412d3", /** color de los botones, falta arreglar con el ccs */
     color: "white",
     border: "none",
     borderRadius: "8px",
