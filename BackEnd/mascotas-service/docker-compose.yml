@@ -36,12 +36,12 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
-  # 4. Base de Datos PostgreSQL (Para el microservicio de Inventario)
-  db-inventory:
+  # 4. Base de Datos PostgreSQL (Para el microservicio de Mascotas)
+  db-mascotas:
     image: postgres:15
-    container_name: db-inventory
+    container_name: db-mascotas
     environment:
-      POSTGRES_DB: inventory_db
+      POSTGRES_DB: mascotas_db
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
     ports:
@@ -50,11 +50,11 @@ services:
   # entorno grafico para administrar la base de datos PostgreSQL
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin_shopsmart
+    container_name: pgadmin_mascotas
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
     depends_on:
-      - db-inventory
+      - db-mascotas
