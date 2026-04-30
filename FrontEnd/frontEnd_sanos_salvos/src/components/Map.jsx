@@ -17,7 +17,7 @@ function Map() {
   const [mascotas, setMascotas] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/mascotas")
+    fetch("http://localhost:8081/api/mascotas")
       .then((res) => res.json())
       .then((data) => {
         setMascotas(data);
@@ -34,24 +34,33 @@ function Map() {
           zoom={12}
         >
 
-          {mascotas.map((m, i) => (
+          {mascotas.map((m) => (
             <Marker
-              key={i}
-              position={{ lat: m.lat, lng: m.lng }}
+              key={m.id}
+              position={{
+                lat: -33.4489,
+                lng: -70.6693
+              }}
               onClick={() => setSeleccionado(m)}
             />
           ))}
 
           {seleccionado && (
             <InfoWindow
-              position={seleccionado.coords}
+              position={{
+                lat: -33.4489,
+                lng: -70.6693
+              }}
               onCloseClick={() => setSeleccionado(null)}
             >
               <div>
-                <strong>{seleccionado.nombre}</strong>
+                <h3>{seleccionado.nombre}</h3>
+                <p>{seleccionado.descripcion}</p>
+                <p>{seleccionado.tipoDeRaza}</p>
               </div>
             </InfoWindow>
           )}
+          
 
         </GoogleMap>
       </LoadScript>
