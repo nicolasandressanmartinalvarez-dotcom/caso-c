@@ -23,7 +23,7 @@ function Map() {
         setMascotas(data);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, []); 
 
   return (
     <div style={styles.container}>
@@ -33,7 +33,6 @@ function Map() {
           center={center}
           zoom={12}
         >
-
           {mascotas.map((m, i) => (
             <Marker
               key={i}
@@ -41,7 +40,6 @@ function Map() {
               onClick={() => setSeleccionado(m)}
             />
           ))}
-
           {seleccionado && (
             <InfoWindow
               position={seleccionado.coords}
@@ -52,7 +50,6 @@ function Map() {
               </div>
             </InfoWindow>
           )}
-
         </GoogleMap>
       </LoadScript>
     </div>
