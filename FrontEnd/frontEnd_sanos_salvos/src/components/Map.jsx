@@ -61,9 +61,9 @@ function Map() {
 
 const styles = {
   container: {
-    height: "400px",
+    height: "500px",
     margin: "40px auto",
-    width: "80%",
+    width: "100%",
     border: "3px solid black"
   }
 };
