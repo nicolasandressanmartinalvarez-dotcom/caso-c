@@ -33,7 +33,7 @@ function RegistrarMascota() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion || !mascota.imagen) {
+    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion) {
       setMensaje('Todos los campos son obligatorios');
       return;
     }
@@ -84,61 +84,25 @@ function RegistrarMascota() {
   return (
     <div style={styles.container}>
       <h2>Registrar Mascota</h2>
-
       <form onSubmit={handleSubmit}>
-
         <div style={styles.formGroup}>
           <label style={styles.label}>Nombre:</label>
-          <input
-            type="text"
-            name="nombre"
-            value={mascota.nombre}
-            onChange={handleChange}
-            style={styles.input}
-            required
-          />
+          <input type="text" name="nombre" value={mascota.nombre} onChange={handleChange} style={styles.input} required/>
         </div>
-
         <div style={styles.formGroup}>
           <label style={styles.label}>Descripción:</label>
-          <textarea
-            name="descripcion"
-            value={mascota.descripcion}
-            onChange={handleChange}
-            style={{ ...styles.input, height: '80px' }}
-            required
-          />
+          <textarea name="descripcion" value={mascota.descripcion} onChange={handleChange} style={{ ...styles.input, height: '80px' }} required/>
         </div>
-
         <div style={styles.formGroup}>
           <label style={styles.label}>Tipo de Raza:</label>
-          <input
-            type="text"
-            name="tipoDeRaza"
-            value={mascota.tipoDeRaza}
-            onChange={handleChange}
-            style={styles.input}
-            required
-          />
+          <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} style={styles.input} required/>
         </div>
-
         <div style={styles.formGroup}>
           <label style={styles.label}>Dirección:</label>
-          <input
-            type="text"
-            name="direccion"
-            value={mascota.direccion}
-            onChange={handleChange}
-            style={styles.input}
-            required
-          />
+          <input type="text" name="direccion" value={mascota.direccion} onChange={handleChange} style={styles.input} required/>
         </div>
-
-
-
         <button type="submit" style={styles.button}>Registrar mascota</button>
       </form>
-
       <button onClick={handleVolver} style={styles.buttonVolver}>
         Volver
       </button>
