@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function RegistrarMascota() {
   const [mascota, setMascota] = useState({
     nombre: '',
     descripcion: '',
     tipoDeRaza: '',
-    direccion: '',
-    imagen: null
+    direccion: ''
   });
 
   const [mensaje, setMensaje] = useState('');
   const navigate = useNavigate();
+  const { getAccessTokenSilently, user } = useAuth0();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -38,27 +39,25 @@ function RegistrarMascota() {
     }
 
     try {
-      const formData = new FormData();
-      formData.append('nombre', mascota.nombre);
-      formData.append('descripcion', mascota.descripcion);
-      formData.append('tipoDeRaza', mascota.tipoDeRaza);
-      formData.append('direccion', mascota.direccion);
-      formData.append('imagen', mascota.imagen);
+      const token = await getAccessTokenSilently();
+
+      const mascotaConCorreo = {
+        ...mascota,
+        correoReportante: user?.email || ''
+      };
 
       const response = await fetch('http://localhost:8081/api/mascotas', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(mascotaConCorreo)
       });
 
       if (response.ok) {
-        setMensaje('¡Mascota registrada con éxito!');
-        setMascota({
-          nombre: '',
-          descripcion: '',
-          tipoDeRaza: '',
-          direccion: '',
-          imagen: null
-        });
+        setMensaje('Mascota registrada con éxito');
+        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', direccion: '' });
       } else {
         setMensaje('Error al registrar la mascota.');
       }
@@ -135,21 +134,9 @@ function RegistrarMascota() {
           />
         </div>
 
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Imagen:</label>
-          <input
-            type="file"
-            name="imagen"
-            accept="image/*"
-            onChange={handleChange}
-            style={styles.input}
-            required
-          />
-        </div>
 
-        <button type="submit" style={styles.button}>
-          Registrar mascota
-        </button>
+
+        <button type="submit" style={styles.button}>Registrar mascota</button>
       </form>
 
       <button onClick={handleVolver} style={styles.buttonVolver}>
