@@ -22,8 +22,8 @@ public class Mascota {
 
     private String tipoDeRaza;
 
-    private String direccion;
+    private Double latitud;
 
-    private String correoReportante;
+    private Double longitud;
 
 }
