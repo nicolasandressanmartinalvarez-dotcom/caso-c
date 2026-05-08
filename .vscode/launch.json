@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MascotasServiceApplication",
+            "request": "launch",
+            "mainClass": "com.sanosysalvos.mascotas_service.MascotasServiceApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-MascotasServiceApplication<mascotas-service>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
