@@ -47,6 +47,18 @@ services:
     ports:
       - "5433:5432"
 
+  # Base de datos de las notificaciones, echa api notificaciones
+  db-notificaciones:
+    image: postgres:15
+    container_name: db-notificaciones
+    environment:
+      POSTGRES_DB: notificaciones-db
+      POSTGRES_USER: admin-noti
+      POSTGRES_PASSWORD: password-noti
+    ports:
+      - "5434:5432"
+  
+
   # entorno grafico para administrar la base de datos PostgreSQL
   pgadmin:
     image: dpage/pgadmin4
