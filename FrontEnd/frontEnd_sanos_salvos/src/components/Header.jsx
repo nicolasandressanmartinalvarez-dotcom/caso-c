@@ -53,6 +53,10 @@ function Header() {
             <button style={styles.boton_diseño} onClick={() => navigate("/registrar")}>
               Registrar Mascota
             </button>
+            
+            <button style={styles.boton_diseño}>
+              Mandar notificacion
+            </button>
           </>
         )}
       </div>
