@@ -1,4 +1,5 @@
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import ListarMascotas from './ListarMascotas'
 import { useEffect, useState } from "react";
 
 function Map() {
@@ -30,6 +31,7 @@ function Map() {
   }, [mapRef, mascotas]);
 
   return (
+    <div>
     <div style={styles.container}>
       <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
         <GoogleMap
@@ -54,6 +56,8 @@ function Map() {
           )}
         </GoogleMap>
       </LoadScript>
+    </div>
+    <ListarMascotas/>
     </div>
   );
 }
