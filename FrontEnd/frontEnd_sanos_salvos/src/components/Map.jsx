@@ -1,5 +1,5 @@
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
-import ListarMascotas from '../pages/ListarMascotas'
+import ListarMascotas from '../pages/ListarMascota'
 import { useEffect, useState } from "react";
 
 function Map() {
