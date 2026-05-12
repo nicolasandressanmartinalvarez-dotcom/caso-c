@@ -1,7 +1,5 @@
 import HomeCSS from './Home.module.css'; 
 
-
-
 function Home() {
   return (
     <>
