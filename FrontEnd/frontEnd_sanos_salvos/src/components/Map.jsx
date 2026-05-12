@@ -1,5 +1,5 @@
 import { GoogleMap, LoadScript, Marker, InfoWindow, Circle } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Map() {
@@ -8,7 +8,7 @@ function Map() {
     height: "100%"
   };
   const { getAccessTokenSilently } = useAuth0();
-
+  const circleRef = useRef(null);
   const [seleccionado, setSeleccionado] = useState(null);
   const [mascotas, setMascotas] = useState([]);
   const [mapRef, setMapRef] = useState(null);
@@ -71,13 +71,26 @@ function Map() {
             position={marcadorCentral}
             draggable={true}
             onDragEnd={(e) => {
-              setMarcadorCentral({ lat: e.latLng.lat(), lng: e.latLng.lng() });
-              console.log("Nueva posición central:", marcadorCentral);
+              const nuevaPosicion = {
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng()
+              };
+
+              setMarcadorCentral(nuevaPosicion);
             }}
           />
 
 
           <Circle
+            onLoad={(circle) => {
+              circleRef.current = circle;
+            }}
+            onUnmount={() => {
+              if (circleRef.current) {
+                circleRef.current.setMap(null);
+                circleRef.current = null;
+              }
+            }}
             center={marcadorCentral}
             radius={radio}
             options={{
@@ -116,6 +129,12 @@ function Map() {
       </LoadScript>
     </div>
   );
+
+  useEffect(() => {
+    if (circleRef.current) {
+      circleRef.current.setCenter(marcadorCentral);
+    }
+  }, [marcadorCentral]);
 }
 
 const styles = {
