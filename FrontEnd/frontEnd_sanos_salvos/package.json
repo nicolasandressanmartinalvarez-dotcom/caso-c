@@ -15,6 +15,7 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2",
+    "rolldown": "^1.0.0",
     "vote": "^0.0.1"
   },
   "devDependencies": {
