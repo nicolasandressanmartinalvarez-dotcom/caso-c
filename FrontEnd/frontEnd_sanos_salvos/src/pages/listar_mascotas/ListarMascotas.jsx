@@ -1,4 +1,4 @@
-import ListarMas from "../components/diseño/ListarMascotas.module.css"
+import ListarMas from "./ListarMascotas.module.css"
 function ListarMascotas(){
     return(
         <>
@@ -21,13 +21,14 @@ function ListarMascotas(){
                 </div>
                 <div className={ListarMas["descripcion-masc"]}>
                     <h2>descripcion:</h2>
-                    <p>Lorem ipsum dolor sit amet </p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore vel amet deleniti in ut delectus eos labore deserunt laboriosam earum odit reiciendis perferendis pariatur consequuntur enim ipsam consequatur, ipsa perspiciatis. </p>
                 </div>
                 <div className={ListarMas["botones-masc"]}>
                     <button>Localizar</button>
                     <button>Contactar al dueño</button>
                 </div>
             </div>
+            
         </section>
         </>
     )
