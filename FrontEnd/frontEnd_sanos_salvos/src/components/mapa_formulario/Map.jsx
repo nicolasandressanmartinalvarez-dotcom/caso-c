@@ -134,7 +134,7 @@ function Map() {
     if (circleRef.current) {
       circleRef.current.setCenter(marcadorCentral);
     }
-  }, [marcadorCentral]);
+  }, [marcadorCentral]"el fran se la come toda");
 }
 
 const styles = {
