@@ -1,6 +1,7 @@
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import ListarMascotas from '../pages/ListarMascotas'
 import { useEffect, useState } from "react";
+import MapaModule from "../components/diseño/Map.module.css"
 
 function Map() {
   const containerStyle = {
@@ -31,32 +32,32 @@ function Map() {
   }, [mapRef, mascotas]);
 
   return (
-    <div>
-    <div style={styles.container}>
-      <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          zoom={12}
-          onLoad={(map) => setMapRef(map)}
-        >
-          {mascotas.map((m) => (
-            <Marker key={m.id} position={{ lat: m.latitud, lng: m.longitud }} onClick={() => setSeleccionado(m)}/>
-          ))}
-          {seleccionado && (
-            <InfoWindow
-              position={{ lat: seleccionado.latitud, lng: seleccionado.longitud }}
-              onCloseClick={() => setSeleccionado(null)}
-            >
-              <div>
-                <h3>{seleccionado.nombre}</h3>
-                <p>{seleccionado.descripcion}</p>
-                <p>{seleccionado.tipoDeRaza}</p>
-              </div>
-            </InfoWindow>
-          )}
-        </GoogleMap>
-      </LoadScript>
-    </div>
+    <div className={MapaModule["contenedor-mapa-lista"]}>
+      <div style={styles.container}>
+        <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            zoom={12}
+            onLoad={(map) => setMapRef(map)}
+          >
+            {mascotas.map((m) => (
+              <Marker key={m.id} position={{ lat: m.latitud, lng: m.longitud }} onClick={() => setSeleccionado(m)}/>
+            ))}
+            {seleccionado && (
+              <InfoWindow
+                position={{ lat: seleccionado.latitud, lng: seleccionado.longitud }}
+                onCloseClick={() => setSeleccionado(null)}
+              >
+                <div>
+                  <h3>{seleccionado.nombre}</h3>
+                  <p>{seleccionado.descripcion}</p>
+                  <p>{seleccionado.tipoDeRaza}</p>
+                </div>
+              </InfoWindow>
+            )}
+          </GoogleMap>
+        </LoadScript>
+      </div>
     <ListarMascotas/>
     </div>
   );

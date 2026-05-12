@@ -1,0 +1,34 @@
+.contenedor-masc{
+    display: flex;
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+    background-color: rgb(53, 61, 76);
+    padding: 10px;
+    border-radius: 15px; 
+    border: 4px solid black;
+}
+.div-mascotas{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-width: min-content;
+    max-width: 300px;
+    max-height: max-content;
+}
+.cont-img-masc{
+    grid-column: 2;
+}
+.informacion-masc{
+    justify-content: center;
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+}
+.descripcion-masc{
+    grid-column: 1/3;
+}
+.botones-masc{
+    grid-column: 1/3;
+    width: 50%;
+    height: 50%;
+}
