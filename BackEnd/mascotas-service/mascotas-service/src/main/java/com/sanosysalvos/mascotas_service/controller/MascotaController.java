@@ -20,8 +20,6 @@ public class MascotaController {
     @Autowired
     private MascotaRepository mascotaRepository;
 
-    @Autowired
-    private KafkaService kafkaService;
 
     @Autowired
     private GeocodingService geocodingService;

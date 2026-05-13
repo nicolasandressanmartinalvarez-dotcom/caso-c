@@ -12,7 +12,8 @@ function RegistrarMascota() {
     tipoDeRaza: '',
     direccion: '',
     latitud: '',
-    longitud: ''
+    longitud: '',
+    imagen: ''
   });
 
   const circleRef = useRef(null);
@@ -45,31 +46,32 @@ function RegistrarMascota() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza) {
+    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion || !mascota.imagen) {
       setMensaje('Todos los campos son obligatorios');
       return;
     }
 
     try {
       const token = await getAccessTokenSilently();
-
-      const mascotaConCorreo = {
-        ...mascota,
-        correoReportante: user?.email || ''
-      };
+      const formData = new FormData();
+      formData.append('imagen', mascota.imagen);
+      formData.append('nombre', mascota.nombre);
+      formData.append('descripcion', mascota.descripcion);
+      formData.append('tipoDeRaza', mascota.tipoDeRaza);
+      formData.append('direccion', mascota.direccion);
+      formData.append('correoReportante', user?.email || '');
 
       const response = await fetch('http://localhost:8081/api/mascotas', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(mascotaConCorreo)
+        body: formData
       });
 
       if (response.ok) {
         setMensaje('Mascota registrada con éxito');
-        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', direccion: '' });
+        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', direccion: '', imagen: '' });
       } else {
         setMensaje('Error al registrar la mascota.');
       }

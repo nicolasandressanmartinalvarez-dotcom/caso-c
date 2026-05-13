@@ -24,6 +24,8 @@ public class Mascota {
 
     private String direccion;
 
+    private String imagen;
+
     private String correoReportante;
 
     private Double latitud;
