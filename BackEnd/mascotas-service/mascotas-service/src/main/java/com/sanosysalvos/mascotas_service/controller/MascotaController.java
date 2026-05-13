@@ -3,7 +3,7 @@ package com.sanosysalvos.mascotas_service.controller;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.service.GeocodingService;
 import com.sanosysalvos.mascotas_service.service.KafkaService;
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,15 +32,18 @@ public class MascotaController {
     }
 
     @PostMapping
-    public ResponseEntity<Mascota> createMascota(Authentication authentication, @RequestBody Mascota mascota) {
+public ResponseEntity<Mascota> createMascota(Authentication authentication, @RequestBody Mascota mascota) {
+
+    if (mascota.getDireccion() != null && !mascota.getDireccion().isBlank()) {
 
         double[] coordenadas = geocodingService.obtenerCoordenadas(mascota.getDireccion());
 
         mascota.setLatitud(coordenadas[0]);
         mascota.setLongitud(coordenadas[1]);
-
-        Mascota nuevaMascota = mascotaRepository.save(mascota);
-
-        return new ResponseEntity<>(nuevaMascota, HttpStatus.CREATED);
     }
+
+    Mascota nuevaMascota = mascotaRepository.save(mascota);
+
+    return new ResponseEntity<>(nuevaMascota, HttpStatus.CREATED);
+}
 }

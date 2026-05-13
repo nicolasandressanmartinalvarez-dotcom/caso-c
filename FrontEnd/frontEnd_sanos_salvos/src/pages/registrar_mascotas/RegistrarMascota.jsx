@@ -10,9 +10,9 @@ function RegistrarMascota() {
     nombre: '',
     descripcion: '',
     tipoDeRaza: '',
-    direccion: '' ,
-    longitud: -33.4489,
-    latitud: -70.6693
+    direccion: '',
+    latitud: -33.400,
+    longitud: -70.600
   });
 
   const circleRef = useRef(null);
@@ -20,7 +20,7 @@ function RegistrarMascota() {
   const [mensaje, setMensaje] = useState('');
   const navigate = useNavigate();
   const { getAccessTokenSilently, user } = useAuth0();
-  const [marcadorCentral, setMarcadorCentral] = useState({ lat: -33.4489, lng: -70.6693 });
+  const [marcadorCentral, setMarcadorCentral] = useState({ lat: -33.400, lng: -70.600 });
   const containerStyle = {
     width: "100%",
     height: "100%"
@@ -45,7 +45,7 @@ function RegistrarMascota() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion) {
+    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza) {
       setMensaje('Todos los campos son obligatorios');
       return;
     }
@@ -104,23 +104,27 @@ function RegistrarMascota() {
             <div className={FormRegisMasc["mini_mapa"]}>
               <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
                 <GoogleMap mapContainerStyle={containerStyle} center={marcadorCentral} zoom={14}>
-                <Marker position={marcadorCentral} draggable={true} onDragEnd={(e) => {setMarcadorCentral({lat: e.latLng.lat(), lng: e.latLng.lng()});}}/>
+                  <Marker position={marcadorCentral} draggable={true}onDragEnd={(e) => {const nuevaPosicion = { lat: e.latLng.lat(),lng: e.latLng.lng()};
+                      setMarcadorCentral(nuevaPosicion);
+                      setMascota((prevMascota) => ({...prevMascota,latitud: nuevaPosicion.lat, longitud: nuevaPosicion.lng}));
+                    }}
+                  />
                   <Circle onLoad={(circle) => { circleRef.current = circle; }} onUnmount={() => {
                     if (circleRef.current) {
                       circleRef.current.setMap(null);
                       circleRef.current = null;
                     }
+                  }}
+                    center={marcadorCentral}
+                    radius={radio}
+                    options={{
+                      fillColor: "#00BFFF",
+                      fillOpacity: 0.2,
+                      strokeColor: "#1E90FF",
+                      strokeOpacity: 0.8,
+                      strokeWeight: 2,
                     }}
-            center={marcadorCentral}
-            radius={radio}
-            options={{
-              fillColor: "#00BFFF",
-              fillOpacity: 0.2,
-              strokeColor: "#1E90FF",
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-            }}
-          />
+                  />
                 </GoogleMap>
               </LoadScript>
             </div>
