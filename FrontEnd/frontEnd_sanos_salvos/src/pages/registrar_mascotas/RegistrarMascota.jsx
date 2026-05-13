@@ -85,7 +85,6 @@ function RegistrarMascota() {
       setMensaje('Error de conexión con el servidor.');
     }
   };
-console.log(mascota)
   const handleVolver = () => {
     navigate(-1);
   };

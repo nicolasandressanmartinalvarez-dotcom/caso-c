@@ -4,10 +4,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function Map({coordenadas}) {
 
-    useEffect (()=>{
-        console.log("Coordenas recibidas")
-    },[coordenadas])
-
     const containerStyle = {
         width: "100%",
         height: "100%"

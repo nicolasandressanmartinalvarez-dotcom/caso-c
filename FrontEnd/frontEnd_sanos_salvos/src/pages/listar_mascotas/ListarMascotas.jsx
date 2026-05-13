@@ -26,6 +26,8 @@ function ListarMascotas({setNuevaMascota}){
     }, []);
 
     const setCoordenadas = (coordenadasMascota)=>{
+        console.log(coordenadasMascota)
+        console.log(user?.email)
         const latitudYLongitud = {
             lat:coordenadasMascota.latitud,
             lng: coordenadasMascota.longitud
@@ -38,30 +40,36 @@ function ListarMascotas({setNuevaMascota}){
     //Empieza el boton contactar
 
     
-    const contactarDueño = (datMas)=>{
+    // Empieza el boton contactar
+    const contactarDueño = async (datMas) => {
         const usuario = "admin";
         const password = "admin123";
         const credenciales = btoa(`${usuario}:${password}`);
-        
-        setCorreos(
-            {
-                correoRemitente: datMas.correoReportante,
-                correoEmisor: user?.email
-            }
-        )
 
+        const datosAEnviar = {
+            correoRemitente: datMas.correoReportante,
+            correoEmisor: user?.email
+        };
+        setCorreos(datosAEnviar);
 
-        const response = fetch('http://localhost:8082/api/registro/v1', {
-            method: 'POST',
+        try {
+            const response = await fetch('http://localhost:8082/api/registro/v1', {
+                method: 'POST',
                 headers: {
-                "Authorization": `Basic ${credenciales}`,
-                "Content-Type": "application/json"
-            },
-            body:JSON.stringify(correos)
-        });
-    }
-
-
+                    "Authorization": `Basic ${credenciales}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datosAEnviar)
+            });
+            if (response.ok) {
+                console.log("Solicitud enviada con éxito:", datosAEnviar);
+            } else {
+                console.error("Error en la respuesta de la API");
+            }
+        } catch (error) {
+            console.error("Error al conectar con la API:", error);
+        }
+    };
     return (
         <>
             {isAuthenticated ? (
