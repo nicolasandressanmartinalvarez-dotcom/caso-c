@@ -2,16 +2,11 @@ import { useState } from "react";
 import ListarMas from "./ListarMascotas.module.css"
 function ListarMascotas({setNuevaMascota}){
 
-    const [listaMascotas, setListaMascotas] = useState({lat: 33.4489, lng: 70.6693 });
-
-
     const setDatos = () => {
         setNuevaMascota(listaMascotas)
     }
 
-
-
-    
+    const [listaMascotas, setListaMascotas] = useState({lat: 33.4489, lng: 70.6693 });
     return(
         <>
         <section className={ListarMas["contenedor-masc"]}>

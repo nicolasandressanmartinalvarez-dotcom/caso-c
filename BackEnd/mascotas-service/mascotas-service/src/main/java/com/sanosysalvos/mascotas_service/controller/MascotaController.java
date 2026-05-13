@@ -3,7 +3,7 @@ package com.sanosysalvos.mascotas_service.controller;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.service.GeocodingService;
 import com.sanosysalvos.mascotas_service.service.KafkaService;
-import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
