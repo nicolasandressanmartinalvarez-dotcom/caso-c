@@ -9,7 +9,8 @@ function RegistrarMascota() {
     nombre: '',
     descripcion: '',
     tipoDeRaza: '',
-    direccion: ''
+    direccion: '',
+    imagen: ''
   });
 
   const [mensaje, setMensaje] = useState('');
@@ -35,31 +36,32 @@ function RegistrarMascota() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion) {
+    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion || !mascota.imagen) {
       setMensaje('Todos los campos son obligatorios');
       return;
     }
 
     try {
       const token = await getAccessTokenSilently();
-
-      const mascotaConCorreo = {
-        ...mascota,
-        correoReportante: user?.email || ''
-      };
+      const formData = new FormData();
+      formData.append('imagen', mascota.imagen);
+      formData.append('nombre', mascota.nombre);
+      formData.append('descripcion', mascota.descripcion);
+      formData.append('tipoDeRaza', mascota.tipoDeRaza);
+      formData.append('direccion', mascota.direccion);
+      formData.append('correoReportante', user?.email || '');
 
       const response = await fetch('http://localhost:8081/api/mascotas', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(mascotaConCorreo)
+        body: formData
       });
 
       if (response.ok) {
         setMensaje('Mascota registrada con éxito');
-        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', direccion: '' });
+        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', direccion: '', imagen: '' });
       } else {
         setMensaje('Error al registrar la mascota.');
       }
@@ -70,7 +72,7 @@ function RegistrarMascota() {
   };
 
   const handleVolver = () => {
-    navigate(-1); 
+    navigate(-1);
   };
 
   return (
@@ -80,19 +82,23 @@ function RegistrarMascota() {
         <form onSubmit={handleSubmit} method='POST'>
           <div className={FormRegisMasc["form-group"]}>
             <label>Nombre:</label>
-            <input type="text" name="nombre" value={mascota.nombre} onChange={handleChange} required/>
+            <input type="text" name="nombre" value={mascota.nombre} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Descripción:</label>
-            <textarea name="descripcion" value={mascota.descripcion} onChange={handleChange} required/>
+            <textarea name="descripcion" value={mascota.descripcion} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Tipo de Raza:</label>
-            <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required/>
+            <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Dirección:</label>
-            <input type="text" name="direccion" value={mascota.direccion} onChange={handleChange} required/>
+            <input type="text" name="direccion" value={mascota.direccion} onChange={handleChange} required />
+          </div>
+          <div className={FormRegisMasc["form-group"]}>
+            <label>Imagen:</label>
+            <input type="file" name="imagen" onChange={handleChange} required />
           </div>
           <button type="submit" className={FormRegisMasc["button-form"]}>Registrar Mascota</button>
         </form>
