@@ -47,7 +47,7 @@ function Map() {
 
       mascotas
         .filter((m) => typeof m.latitud === "number" && typeof m.longitud === "number")
-        .forEach(m => bounds.extend({ lat: m.latitud, lng: m.longitud }));
+        .forEach(m => bounds.extend({ lat: Number(m.latitud), lng: Number(m.longitud) }));
 
       mapRef.fitBounds(bounds);
 
@@ -106,11 +106,31 @@ function Map() {
           {mascotas
             .filter((m) => typeof m.latitud === "number" && typeof m.longitud === "number")
             .map((m) => (
-              <Marker
-                key={m.id}
-                position={{ lat: m.latitud, lng: m.longitud }}
-                onClick={() => setSeleccionado(m)}
-              />
+              <>
+                <Marker
+                  key={m.id}
+                  position={{
+                    lat: Number(m.latitud),
+                    lng: Number(m.longitud)
+                  }}
+                  onClick={() => setSeleccionado(m)}
+                />
+
+                <Circle
+                  center={{
+                    lat: Number(m.latitud),
+                    lng: Number(m.longitud)
+                  }}
+                  radius={radio}
+                  options={{
+                    fillColor: "#00BFFF",
+                    fillOpacity: 0.2,
+                    strokeColor: "#1E90FF",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                  }}
+                />
+              </>
             ))}
 
           {seleccionado && (
