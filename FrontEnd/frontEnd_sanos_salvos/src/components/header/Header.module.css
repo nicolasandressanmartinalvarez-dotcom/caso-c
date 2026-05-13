@@ -1,0 +1,21 @@
+.div-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #6a11cb, #008cff);
+    color: white;
+}
+
+.boton_diseño{
+    margin-Left: 10px;
+    padding: 8px 15px;
+    background-Color: #12d412d3; /** color de los botones, falta arreglar con el ccs */
+    color: white;
+    border: none;
+    border-Radius: 8px;
+    cursor: pointer;
+}
+.boton_diseño:hover{
+    opacity: .9;
+}
