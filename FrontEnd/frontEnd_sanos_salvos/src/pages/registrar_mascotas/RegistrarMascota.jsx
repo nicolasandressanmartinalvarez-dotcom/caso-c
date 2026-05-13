@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 import FormRegisMasc from './RegistrarMasc.module.css';
 
@@ -15,6 +16,11 @@ function RegistrarMascota() {
   const [mensaje, setMensaje] = useState('');
   const navigate = useNavigate();
   const { getAccessTokenSilently, user } = useAuth0();
+  const [marcadorCentral, setMarcadorCentral] = useState({ lat: -33.4489, lng: -70.6693 });
+  const containerStyle = {
+    width: "100%",
+    height: "100%"
+  };
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -70,7 +76,7 @@ function RegistrarMascota() {
   };
 
   const handleVolver = () => {
-    navigate(-1); 
+    navigate(-1);
   };
 
   return (
@@ -80,19 +86,49 @@ function RegistrarMascota() {
         <form onSubmit={handleSubmit} method='POST'>
           <div className={FormRegisMasc["form-group"]}>
             <label>Nombre:</label>
-            <input type="text" name="nombre" value={mascota.nombre} onChange={handleChange} required/>
+            <input type="text" name="nombre" value={mascota.nombre} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Descripción:</label>
-            <textarea name="descripcion" value={mascota.descripcion} onChange={handleChange} required/>
+            <textarea name="descripcion" value={mascota.descripcion} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Tipo de Raza:</label>
-            <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required/>
+            <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Dirección:</label>
-            <input type="text" name="direccion" value={mascota.direccion} onChange={handleChange} required/>
+            <input type="text" name="direccion" value={mascota.direccion} onChange={handleChange} required />
+          </div>
+
+          <div className={FormRegisMasc["form-group"]}>
+            <label>Direccion:</label>
+            <input type="text"
+              name="direccion"
+              value={mascota.direccion}
+              onChange={handleChange}
+              required
+            />
+            <div className={FormRegisMasc["mini_mapa"]}>
+              <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={marcadorCentral}
+                  zoom={14}
+                >
+                  <Marker
+                    position={marcadorCentral}
+                    draggable={true}
+                    onDragEnd={(e) => {
+                      setMarcadorCentral({
+                        lat: e.latLng.lat(),
+                        lng: e.latLng.lng()
+                      });
+                    }}
+                  />
+                </GoogleMap>
+              </LoadScript>
+            </div>
           </div>
           <button type="submit" className={FormRegisMasc["button-form"]}>Registrar Mascota</button>
         </form>
