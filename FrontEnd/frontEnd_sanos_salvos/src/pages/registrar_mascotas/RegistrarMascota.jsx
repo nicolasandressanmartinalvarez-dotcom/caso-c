@@ -10,7 +10,9 @@ function RegistrarMascota() {
     nombre: '',
     descripcion: '',
     tipoDeRaza: '',
-    direccion: ''
+    direccion: '' ,
+    longitud: -33.4489,
+    latitud: -70.6693
   });
 
   const [mensaje, setMensaje] = useState('');
