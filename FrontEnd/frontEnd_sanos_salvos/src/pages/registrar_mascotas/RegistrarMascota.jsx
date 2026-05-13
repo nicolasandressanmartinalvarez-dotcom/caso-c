@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, InfoWindow, Circle } from "@react-google-maps/api";
 
 import FormRegisMasc from './RegistrarMasc.module.css';
 
@@ -13,6 +13,8 @@ function RegistrarMascota() {
     direccion: ''
   });
 
+  const circleRef = useRef(null);
+  const radio = 1000;
   const [mensaje, setMensaje] = useState('');
   const navigate = useNavigate();
   const { getAccessTokenSilently, user } = useAuth0();
@@ -97,35 +99,26 @@ function RegistrarMascota() {
             <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
-            <label>Dirección:</label>
-            <input type="text" name="direccion" value={mascota.direccion} onChange={handleChange} required />
-          </div>
-
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Direccion:</label>
-            <input type="text"
-              name="direccion"
-              value={mascota.direccion}
-              onChange={handleChange}
-              required
-            />
             <div className={FormRegisMasc["mini_mapa"]}>
               <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={marcadorCentral}
-                  zoom={14}
-                >
-                  <Marker
-                    position={marcadorCentral}
-                    draggable={true}
-                    onDragEnd={(e) => {
-                      setMarcadorCentral({
-                        lat: e.latLng.lat(),
-                        lng: e.latLng.lng()
-                      });
+                <GoogleMap mapContainerStyle={containerStyle} center={marcadorCentral} zoom={14}>
+                <Marker position={marcadorCentral} draggable={true} onDragEnd={(e) => {setMarcadorCentral({lat: e.latLng.lat(), lng: e.latLng.lng()});}}/>
+                  <Circle onLoad={(circle) => { circleRef.current = circle; }} onUnmount={() => {
+                    if (circleRef.current) {
+                      circleRef.current.setMap(null);
+                      circleRef.current = null;
+                    }
                     }}
-                  />
+            center={marcadorCentral}
+            radius={radio}
+            options={{
+              fillColor: "#00BFFF",
+              fillOpacity: 0.2,
+              strokeColor: "#1E90FF",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+            }}
+          />
                 </GoogleMap>
               </LoadScript>
             </div>
