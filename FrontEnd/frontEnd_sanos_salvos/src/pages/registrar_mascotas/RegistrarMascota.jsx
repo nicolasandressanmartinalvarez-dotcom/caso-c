@@ -11,6 +11,7 @@ function RegistrarMascota() {
     descripcion: '',
     tipoDeRaza: '',
     direccion: ''
+    
   });
 
   const circleRef = useRef(null);

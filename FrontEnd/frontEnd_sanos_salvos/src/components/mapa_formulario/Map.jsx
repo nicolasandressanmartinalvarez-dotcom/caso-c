@@ -58,7 +58,7 @@ function Map() {
   }, [mapRef, mascotas]);
 
   return (
-    <div style={styles.container}>
+    <div>
       <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -136,14 +136,5 @@ function Map() {
     }
   }, [marcadorCentral]);
 }
-
-const styles = {
-  container: {
-    height: "400px",
-    margin: "40px auto",
-    width: "80%",
-    border: "3px solid black"
-  }
-};
 
 export default Map;
