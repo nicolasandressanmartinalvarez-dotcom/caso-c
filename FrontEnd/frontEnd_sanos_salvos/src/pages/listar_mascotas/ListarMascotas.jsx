@@ -37,8 +37,6 @@ function ListarMascotas({setNuevaMascota}){
     }
 
 
-    //Empieza el boton contactar
-
     
     // Empieza el boton contactar
     const contactarDueño = async (datMas) => {
