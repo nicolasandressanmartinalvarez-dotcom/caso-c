@@ -104,3 +104,8 @@
     opacity: 0.9;
     filter: brightness(1.2);
 }
+
+.noLogin{
+    color: white;
+    text-align: center;
+}

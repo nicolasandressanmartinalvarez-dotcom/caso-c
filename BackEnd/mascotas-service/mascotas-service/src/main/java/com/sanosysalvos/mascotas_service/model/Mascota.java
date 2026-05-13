@@ -15,17 +15,14 @@ public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
-
     private String descripcion;
-
     private String tipoDeRaza;
-
     private String direccion;
-
-    private String imagen;
-
     private String correoReportante;
+    private String imagen;
+    private Double latitud;
+    private Double longitud;
+
 
 }

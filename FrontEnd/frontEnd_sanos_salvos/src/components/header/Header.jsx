@@ -30,7 +30,6 @@ function Header() {
           <span>Bienvenido {user?.name}</span>
           <button className={HeaderCSS["boton_diseño"]} onClick={logout}> Logout </button>
           <button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/registrar")}> Registrar Mascota </button>
-          <button className={HeaderCSS["boton_diseño"]}> Mandar notificacion </button>
         </>
         )}
       </div>

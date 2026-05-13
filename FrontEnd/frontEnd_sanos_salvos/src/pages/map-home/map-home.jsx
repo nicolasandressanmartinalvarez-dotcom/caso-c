@@ -6,7 +6,6 @@ function Map({coordenadas}) {
 
     useEffect (()=>{
         console.log("Coordenas recibidas")
-        console.log(coordenadas)
     },[coordenadas])
 
     const containerStyle = {

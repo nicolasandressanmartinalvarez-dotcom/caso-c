@@ -10,7 +10,6 @@ function RegistrarMascota() {
     nombre: '',
     descripcion: '',
     tipoDeRaza: '',
-    direccion: '',
     latitud: '',
     longitud: '',
     imagen: ''
@@ -21,6 +20,8 @@ function RegistrarMascota() {
   const [mensaje, setMensaje] = useState('');
   const navigate = useNavigate();
   const { getAccessTokenSilently, user } = useAuth0();
+
+
   const [marcadorCentral, setMarcadorCentral] = useState({ lat: -33.400, lng: -70.600 });
   const containerStyle = {
     width: "100%",
@@ -46,11 +47,13 @@ function RegistrarMascota() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.direccion || !mascota.imagen) {
+    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.imagen) {
       setMensaje('Todos los campos son obligatorios');
       return;
     }
-
+    const datosMasc = {
+      
+    }
     try {
       const token = await getAccessTokenSilently();
       const formData = new FormData();
@@ -59,6 +62,8 @@ function RegistrarMascota() {
       formData.append('descripcion', mascota.descripcion);
       formData.append('tipoDeRaza', mascota.tipoDeRaza);
       formData.append('direccion', mascota.direccion);
+      formData.append('latitud', mascota.latitud);
+      formData.append('longitud',mascota.longitud)
       formData.append('correoReportante', user?.email || '');
 
       const response = await fetch('http://localhost:8081/api/mascotas', {
@@ -71,7 +76,7 @@ function RegistrarMascota() {
 
       if (response.ok) {
         setMensaje('Mascota registrada con éxito');
-        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', direccion: '', imagen: '' });
+        setMascota({ nombre: '', descripcion: '', tipoDeRaza: '', imagen: '' });
       } else {
         setMensaje('Error al registrar la mascota.');
       }
@@ -80,7 +85,7 @@ function RegistrarMascota() {
       setMensaje('Error de conexión con el servidor.');
     }
   };
-
+console.log(mascota)
   const handleVolver = () => {
     navigate(-1);
   };
@@ -101,6 +106,10 @@ function RegistrarMascota() {
           <div className={FormRegisMasc["form-group"]}>
             <label>Tipo de Raza:</label>
             <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required />
+          </div>
+          <div className={FormRegisMasc["form-group"]}>
+            <label>Imagen:</label>
+            <input type="file" name="imagen" onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <div className={FormRegisMasc["mini_mapa"]}>
