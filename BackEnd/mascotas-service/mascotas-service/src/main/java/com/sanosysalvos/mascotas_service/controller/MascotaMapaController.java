@@ -9,11 +9,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bff")
 @CrossOrigin("*")
-public class MascotaBffController {
+public class MascotaMapaController {
 
     private final MascotaRepository mascotaRepository;
 
-    public MascotaBffController(MascotaRepository mascotaRepository) {
+    public MascotaMapaController(MascotaRepository mascotaRepository) {
         this.mascotaRepository = mascotaRepository;
     }
 

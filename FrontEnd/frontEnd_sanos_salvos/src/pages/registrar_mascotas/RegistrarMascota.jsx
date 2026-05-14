@@ -66,7 +66,7 @@ function RegistrarMascota() {
       formData.append('longitud',mascota.longitud)
       formData.append('correoReportante', user?.email || '');
 
-      const response = await fetch('http://localhost:8081/api/mascotas', {
+      const response = await fetch('http://localhost:8085/api/bff/mascotas', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -88,7 +88,7 @@ function RegistrarMascota() {
   const handleVolver = () => {
     navigate(-1);
   };
-
+    useEffect(() => {console.log(mascota)}, [mascota]);
   return (
     <section className={FormRegisMasc["section-form"]}>
       <div className={FormRegisMasc["container-form"]}>
