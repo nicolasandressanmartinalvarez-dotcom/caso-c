@@ -53,7 +53,7 @@ function ListarMascotas({setNuevaMascota}){
         setCorreos(datosAEnviar);
 
         try {
-            const response = await fetch('http://localhost:8082/api/registro/v1', {
+            const response = await fetch('http://localhost:8085/api/bff/notificaciones', {
                 method: 'POST',
                 headers: {
                     "Authorization": `Basic ${credenciales}`,
