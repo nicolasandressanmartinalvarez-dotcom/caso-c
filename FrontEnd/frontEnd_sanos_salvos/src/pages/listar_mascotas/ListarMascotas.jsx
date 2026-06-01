@@ -6,6 +6,7 @@ function ListarMascotas({setNuevaMascota}){
     const [correos, setCorreos] = useState({correoRemitente: "",correoEmisor: ""})
     const { getAccessTokenSilently, user } = useAuth0();
     const { isAuthenticated, isLoading } = useAuth0();
+    
     useEffect(() => {
         const obtenerMascotas = async () => {
             try {
@@ -38,9 +39,6 @@ function ListarMascotas({setNuevaMascota}){
 
 
     //Empieza el boton contactar
-
-    
-    // Empieza el boton contactar
     const contactarDueño = async (datMas) => {
         const usuario = "admin";
         const password = "admin123";
