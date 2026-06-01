@@ -6,11 +6,12 @@ function ListarMascotas({setNuevaMascota}){
     const [correos, setCorreos] = useState({correoRemitente: "",correoEmisor: ""})
     const { getAccessTokenSilently, user } = useAuth0();
     const { isAuthenticated, isLoading } = useAuth0();
+    
     useEffect(() => {
         const obtenerMascotas = async () => {
             try {
                 const token = await getAccessTokenSilently();
-                const res = await fetch('http://localhost:8081/api/mascotas', {
+                const res = await fetch('http://localhost:8085/api/bff/mascotas', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -38,9 +39,6 @@ function ListarMascotas({setNuevaMascota}){
 
 
     //Empieza el boton contactar
-
-    
-    // Empieza el boton contactar
     const contactarDueño = async (datMas) => {
         const usuario = "admin";
         const password = "admin123";

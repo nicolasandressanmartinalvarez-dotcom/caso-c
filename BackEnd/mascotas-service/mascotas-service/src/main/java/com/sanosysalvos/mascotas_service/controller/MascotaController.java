@@ -36,7 +36,6 @@ public class MascotaController {
             @RequestParam("nombre") String nombre,
             @RequestParam("descripcion") String descripcion,
             @RequestParam("tipoDeRaza") String tipoDeRaza,
-            @RequestParam("direccion") String direccion,
             @RequestParam("correoReportante") String correoReportante,
             @RequestParam("latitud") Double latitud,
             @RequestParam("longitud") Double longitud,
