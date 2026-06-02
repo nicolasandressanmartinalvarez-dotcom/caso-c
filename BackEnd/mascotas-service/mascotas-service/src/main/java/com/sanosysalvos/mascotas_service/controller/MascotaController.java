@@ -21,9 +21,7 @@ public class MascotaController {
 
     @Autowired
     private MascotaRepository mascotaRepository;
-
-
-
+    
     @GetMapping
     public List<Mascota> getAllMascotas() {
         return mascotaRepository.findAll();
