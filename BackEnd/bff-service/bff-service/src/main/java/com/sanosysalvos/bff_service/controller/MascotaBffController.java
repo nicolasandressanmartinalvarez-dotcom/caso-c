@@ -1,6 +1,8 @@
 package com.sanosysalvos.bff_service.controller;
 
 import com.sanosysalvos.bff_service.client.MascotaClient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MascotaBffController {
 
-    private final MascotaClient mascotaClient;
-
-    public MascotaBffController(MascotaClient mascotaClient) {
-        this.mascotaClient = mascotaClient;
-    }
+    @Autowired
+    private MascotaClient mascotaClient;
 
     @GetMapping("/mascotas")
     public String obtenerMascotas(@RequestHeader("Authorization") String authorization) {
