@@ -1,9 +1,9 @@
 package com.sanosysalvos.mascotas_service.service;
 
 import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.dto.MascotaResponseDTO;
-import com.sanosysalvos.mascotas_service.mapper.MascotaMapper;
 import com.sanosysalvos.mascotas_service.model.Mascota;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,28 +15,14 @@ import java.util.List;
 @Service
 public class MascotaService {
 
-    private final MascotaRepository mascotaRepository;
-    private final MascotaMapper mascotaMapper;
+    @Autowired
+    private MascotaRepository mascotaRepository;
 
-    // Inyectamos el Repositorio y el Mapeador por constructor
-    public MascotaService(MascotaRepository mascotaRepository, MascotaMapper mascotaMapper) {
-        this.mascotaRepository = mascotaRepository;
-        this.mascotaMapper = mascotaMapper;
+    public List<Mascota> obtenerTodasLasMascotas() {
+        return mascotaRepository.findAll();
     }
 
-    /**
-     * Obtiene todas las mascotas y las convierte a DTOs de respuesta
-     */
-    public List<MascotaResponseDTO> obtenerTodasLasMascotas() {
-        return mascotaRepository.findAll().stream()
-                .map(mascotaMapper::toResponseDTO)
-                .toList();
-    }
-
-    /**
-     * lógica para registrar una mascota, incluyendo la subida física de la imagen
-     */
-    public MascotaResponseDTO registrarMascota(
+    public Mascota registrarMascota(
             String nombre,
             String descripcion,
             String tipoDeRaza,
@@ -53,7 +39,6 @@ public class MascotaService {
         mascota.setLatitud(latitud);
         mascota.setLongitud(longitud);
 
-        // Lógica física de guardado de imagen
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
                 String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");
@@ -68,6 +53,6 @@ public class MascotaService {
         }
 
         Mascota nuevaMascota = mascotaRepository.save(mascota);
-        return mascotaMapper.toResponseDTO(nuevaMascota);
+        return nuevaMascota;
     }
 }
