@@ -1,7 +1,7 @@
 package com.sanosysalvos.mascotas_service.controller;
 
-import com.sanosysalvos.mascotas_service.model.Mascota;
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.dto.MascotaResponseDTO;
+import com.sanosysalvos.mascotas_service.service.MascotaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,14 +11,14 @@ import java.util.List;
 @CrossOrigin("*")
 public class MascotaMapaController {
 
-    private final MascotaRepository mascotaRepository;
+    private final MascotaService mascotaService;
 
-    public MascotaMapaController(MascotaRepository mascotaRepository) {
-        this.mascotaRepository = mascotaRepository;
+    public MascotaMapaController(MascotaService mascotaService) {
+        this.mascotaService = mascotaService;
     }
 
     @GetMapping("/mascotas-mapa")
-    public List<Mascota> obtenerMascotasParaMapa() {
-        return mascotaRepository.findAll();
+    public List<MascotaResponseDTO> obtenerMascotasParaMapa() {
+        return mascotaService.obtenerTodasLasMascotas();
     }
 }
