@@ -1,7 +1,8 @@
 package com.sanosysalvos.mascotas_service.controller;
 
 import com.sanosysalvos.mascotas_service.model.Mascota;
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
