@@ -10,6 +10,9 @@ function RegistrarMascota() {
     nombre: '',
     descripcion: '',
     tipoDeRaza: '',
+    color: '',
+    tamanio: '',
+    entidadReportante: '',
     latitud: '',
     longitud: '',
     imagen: ''
@@ -52,7 +55,7 @@ function RegistrarMascota() {
       return;
     }
     const datosMasc = {
-      
+
     }
     try {
       const token = await getAccessTokenSilently();
@@ -61,9 +64,12 @@ function RegistrarMascota() {
       formData.append('nombre', mascota.nombre);
       formData.append('descripcion', mascota.descripcion);
       formData.append('tipoDeRaza', mascota.tipoDeRaza);
+      formData.append('color', mascota.color);
+      formData.append('tamanio', mascota.tamanio);
+      formData.append('entidadReportante', mascota.entidadReportante);
       formData.append('direccion', mascota.direccion);
       formData.append('latitud', mascota.latitud);
-      formData.append('longitud',mascota.longitud)
+      formData.append('longitud', mascota.longitud)
       formData.append('correoReportante', user?.email || '');
 
       const response = await fetch('http://localhost:8085/api/bff/mascotas', {
@@ -88,7 +94,7 @@ function RegistrarMascota() {
   const handleVolver = () => {
     navigate(-1);
   };
-    useEffect(() => {console.log(mascota)}, [mascota]);
+  useEffect(() => { console.log(mascota) }, [mascota]);
   return (
     <section className={FormRegisMasc["section-form"]}>
       <div className={FormRegisMasc["container-form"]}>
@@ -107,6 +113,18 @@ function RegistrarMascota() {
             <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
+            <label>Color:</label>
+            <input type="text" name="color" value={mascota.color} onChange={handleChange} required />
+          </div>
+          <div className={FormRegisMasc["form-group"]}>
+            <label>Tamaño:</label>
+            <input type="text" name="tamanio" value={mascota.tamanio} onChange={handleChange} required />
+          </div>
+          <div className={FormRegisMasc["form-group"]}>
+            <label>Entidad Reportante:</label>
+            <input type="text" name="entidadReportante" value={mascota.entidadReportante} onChange={handleChange} required />
+          </div>
+          <div className={FormRegisMasc["form-group"]}>
             <label>Imagen:</label>
             <input type="file" name="imagen" onChange={handleChange} required />
           </div>
@@ -114,10 +132,11 @@ function RegistrarMascota() {
             <div className={FormRegisMasc["mini_mapa"]}>
               <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
                 <GoogleMap mapContainerStyle={containerStyle} center={marcadorCentral} zoom={14}>
-                  <Marker position={marcadorCentral} draggable={true}onDragEnd={(e) => {const nuevaPosicion = { lat: e.latLng.lat(),lng: e.latLng.lng()};
-                      setMarcadorCentral(nuevaPosicion);
-                      setMascota((prevMascota) => ({...prevMascota,latitud: nuevaPosicion.lat, longitud: nuevaPosicion.lng}));
-                    }}
+                  <Marker position={marcadorCentral} draggable={true} onDragEnd={(e) => {
+                    const nuevaPosicion = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+                    setMarcadorCentral(nuevaPosicion);
+                    setMascota((prevMascota) => ({ ...prevMascota, latitud: nuevaPosicion.lat, longitud: nuevaPosicion.lng }));
+                  }}
                   />
                   <Circle onLoad={(circle) => { circleRef.current = circle; }} onUnmount={() => {
                     if (circleRef.current) {

@@ -37,6 +37,9 @@ public class MascotaController {
             @RequestParam("nombre") String nombre,
             @RequestParam("descripcion") String descripcion,
             @RequestParam("tipoDeRaza") String tipoDeRaza,
+            @RequestParam("color") String color,
+            @RequestParam("tamanio") String tamanio,
+            @RequestParam("entidadReportante") String entidadReportante,
             @RequestParam("correoReportante") String correoReportante,
             @RequestParam("latitud") Double latitud,
             @RequestParam("longitud") Double longitud,
@@ -47,6 +50,9 @@ public class MascotaController {
         mascota.setDescripcion(descripcion);
         mascota.setTipoDeRaza(tipoDeRaza);
         mascota.setCorreoReportante(correoReportante);
+        mascota.setColor(color);
+        mascota.setTamanio(tamanio);
+        mascota.setEntidadReportante(entidadReportante);
         mascota.setLatitud(latitud);
         mascota.setLongitud(longitud);
         if (!imagenArchivo.isEmpty()) {

@@ -21,6 +21,11 @@ public class Mascota {
     private String direccion;
     private String correoReportante;
     private String imagen;
+
+    private String color;
+    private String tamanio;
+    private String entidadReportante;
+    
     private Double latitud;
     private Double longitud;
 
