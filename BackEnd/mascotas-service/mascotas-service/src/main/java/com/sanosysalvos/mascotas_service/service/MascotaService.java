@@ -1,73 +1,69 @@
 package com.sanosysalvos.mascotas_service.service;
 
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.dto.MascotaResponseDTO;
-import com.sanosysalvos.mascotas_service.mapper.MascotaMapper;
-import com.sanosysalvos.mascotas_service.model.Mascota;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.Repository.TipoRazaRepository;
+import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
+import com.sanosysalvos.mascotas_service.model.Mascota;
+import com.sanosysalvos.mascotas_service.model.TipoRaza;
 
 @Service
 public class MascotaService {
 
     private final MascotaRepository mascotaRepository;
-    private final MascotaMapper mascotaMapper;
+    private final TipoRazaRepository tipoRazaRepository;
+    private final String CARPETA_IMAGENES = "uploads";
 
-    // Inyectamos el Repositorio y el Mapeador por constructor
-    public MascotaService(MascotaRepository mascotaRepository, MascotaMapper mascotaMapper) {
+    public MascotaService(MascotaRepository mascotaRepository, TipoRazaRepository tipoRazaRepository) {
         this.mascotaRepository = mascotaRepository;
-        this.mascotaMapper = mascotaMapper;
+        this.tipoRazaRepository = tipoRazaRepository;
     }
 
-    /**
-     * Obtiene todas las mascotas y las convierte a DTOs de respuesta
-     */
-    public List<MascotaResponseDTO> obtenerTodasLasMascotas() {
-        return mascotaRepository.findAll().stream()
-                .map(mascotaMapper::toResponseDTO)
-                .toList();
+    // Todas las mascotas
+    public List<MascotaDatosDTO> obtenerTodasLasMascotas() {
+        return mascotaRepository.findAll();
     }
 
-    /**
-     * lógica para registrar una mascota, incluyendo la subida física de la imagen
-     */
-    public MascotaResponseDTO registrarMascota(
-            String nombre,
-            String descripcion,
-            String tipoDeRaza,
-            String correoReportante,
-            Double latitud,
-            Double longitud,
-            MultipartFile imagenArchivo) {
+    // Guardar Mascota
+    public MascotaDatosDTO registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, MultipartFile imagen)
+            throws IOException {
 
-        Mascota mascota = new Mascota();
-        mascota.setNombre(nombre);
-        mascota.setDescripcion(descripcion);
-        mascota.setTipoDeRaza(tipoDeRaza);
-        mascota.setCorreoReportante(correoReportante);
-        mascota.setLatitud(latitud);
-        mascota.setLongitud(longitud);
-
-        // Lógica física de guardado de imagen
-        if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
-            try {
-                String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");
-                String fileName = System.currentTimeMillis() + "_" + originalName;
-                Path path = Paths.get("uploads/" + fileName);
-                Files.createDirectories(path.getParent());
-                Files.write(path, imagenArchivo.getBytes());
-                mascota.setImagen(fileName);
-            } catch (Exception e) {
-                throw new RuntimeException("Error al guardar la imagen en el servidor", e);
-            }
+        TipoRaza tipoRaza = null;
+        if (idTipoRaza != null) {
+            tipoRaza = tipoRazaRepository.findById(idTipoRaza).orElse(null);
         }
 
-        Mascota nuevaMascota = mascotaRepository.save(mascota);
-        return mascotaMapper.toResponseDTO(nuevaMascota);
+        Mascota mascota = new Mascota();
+
+        mascota.setNombre(mascotaDTO.getNombre());
+        mascota.setDescripcion(mascotaDTO.getDescripcion());
+        mascota.setDireccion(mascotaDTO.getDireccion());
+        mascota.setCorreoReportante(mascotaDTO.getCorreoReportante());
+        mascota.setLatitud(mascotaDTO.getLatitud());
+        mascota.setLongitud(mascotaDTO.getLongitud());
+
+        // Crear ruta imagen (Idéntico a ProductoService)
+        if (imagen != null && !imagen.isEmpty()) {
+            String nombreDeImagen = UUID.randomUUID().toString() + "_" + imagen.getOriginalFilename();
+            Path rutaImagen = Paths.get(CARPETA_IMAGENES).resolve(nombreDeImagen).toAbsolutePath();
+            Files.createDirectories(rutaImagen.getParent());
+            Files.copy(imagen.getInputStream(), rutaImagen);
+            mascota.setImagen(nombreDeImagen);
+        }
+
+        if (tipoRaza != null) {
+            mascota.setTipoDeRaza(tipoRaza);
+        }
+
+        return mascotaRepository.save(mascota);
     }
 }

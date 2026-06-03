@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import jakarta.persistence.*;
 
-@Data
 @Entity
 @Table(name = "mascotas")
 public class Mascota {
@@ -17,12 +19,44 @@ public class Mascota {
     private Long id;
     private String nombre;
     private String descripcion;
-    private String tipoDeRaza;
     private String direccion;
+    
+    @ManyToOne
+    @JoinColumn(name = "tipo_raza_id")
+    private TipoRaza tipoDeRaza;
+    
     private String correoReportante;
     private String imagen;
     private Double latitud;
     private Double longitud;
 
+    public Mascota() {}
 
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public String getDireccion() { return direccion; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public TipoRaza getTipoDeRaza() { return tipoDeRaza; }
+    public void setTipoDeRaza(TipoRaza tipoDeRaza) { this.tipoDeRaza = tipoDeRaza; }
+
+    public String getCorreoReportante() { return correoReportante; }
+    public void setCorreoReportante(String correoReportante) { this.correoReportante = correoReportante; }
+
+    public String getImagen() { return imagen; }
+    public void setImagen(String imagen) { this.imagen = imagen; }
+
+    public Double getLatitud() { return latitud; }
+    public void setLatitud(Double latitud) { this.latitud = latitud; }
+
+    public Double getLongitud() { return longitud; }
+    public void setLongitud(Double longitud) { this.longitud = longitud; }
 }
