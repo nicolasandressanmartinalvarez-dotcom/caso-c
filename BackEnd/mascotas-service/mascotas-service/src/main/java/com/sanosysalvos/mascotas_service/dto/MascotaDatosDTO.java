@@ -2,13 +2,13 @@ package com.sanosysalvos.mascotas_service.dto;
 
 public class MascotaDatosDTO {
 
-    private TipoRaza tipoRaza;
     private String nombre;
     private String descripcion;
     private String direccion;
     private String correoReportante;
     private Double latitud;
     private Double longitud;
+    private TipoRaza tipoRaza;
 
     public static class TipoRaza {
         private Long idTipoRaza;

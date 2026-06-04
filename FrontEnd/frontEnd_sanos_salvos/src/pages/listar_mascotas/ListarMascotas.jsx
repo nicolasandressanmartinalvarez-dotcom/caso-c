@@ -27,16 +27,12 @@ function ListarMascotas({setNuevaMascota}){
     }, []);
 
     const setCoordenadas = (coordenadasMascota)=>{
-        console.log(coordenadasMascota)
-        console.log(user?.email)
         const latitudYLongitud = {
             lat:coordenadasMascota.latitud,
             lng: coordenadasMascota.longitud
         }
         setNuevaMascota(latitudYLongitud)
-        console.log(latitudYLongitud)
     }
-
 
     //Empieza el boton contactar
     const contactarDueño = async (datMas) => {
@@ -76,7 +72,7 @@ function ListarMascotas({setNuevaMascota}){
                     <div className={ListarMas["div-mascotas"]} key={m.id}>
                     <div className={ListarMas["informacion-masc"]}>
                         <div><h2>Nombre</h2><p>{m.nombre}</p></div>
-                        <div><h2>Raza</h2><p>{m.tipoDeRaza}</p></div>
+                        <div><h2>Raza</h2><p>{m.tipoDeRaza ?(m.tipoDeRaza.nombre):("Sin raza")}</p></div>
                     </div>
                     <div className={ListarMas["cont-img-masc"]}>
                         <img src={`http://localhost:8081/imagenes/${m.imagen}`} alt="Mascota" />

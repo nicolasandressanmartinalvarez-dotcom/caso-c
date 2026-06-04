@@ -9,7 +9,6 @@ function RegistrarMascota() {
   const [mascota, setMascota] = useState({
     nombre: '',
     descripcion: '',
-    tipoDeRaza: '',
     latitud: '',
     longitud: '',
     imagen: ''
@@ -47,26 +46,29 @@ function RegistrarMascota() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mascota.nombre || !mascota.descripcion || !mascota.tipoDeRaza || !mascota.imagen) {
+    if (!mascota.nombre || !mascota.descripcion || !mascota.imagen) {
       setMensaje('Todos los campos son obligatorios');
       return;
     }
     const datosMasc = {
-      
+      nombre:mascota.nombre,
+      descripcion:mascota.descripcion,
+      direccion:mascota.direccion,
+      correoReportante: user ?.email || '',
+      latitud: mascota.latitud,
+      longitud: mascota.longitud,
+      tipoRaza:{
+        idTipoRaza: 1
+      }
     }
+    console.log(datosMasc);
     try {
       const token = await getAccessTokenSilently();
       const formData = new FormData();
-      formData.append('imagen', mascota.imagen);
-      formData.append('nombre', mascota.nombre);
-      formData.append('descripcion', mascota.descripcion);
-      formData.append('tipoDeRaza', mascota.tipoDeRaza);
-      formData.append('direccion', mascota.direccion);
-      formData.append('latitud', mascota.latitud);
-      formData.append('longitud',mascota.longitud)
-      formData.append('correoReportante', user?.email || '');
+      formData.append('file', mascota.imagen);
+      formData.append('mascota', new Blob([JSON.stringify(datosMasc)],{type:"application/json"}));
 
-      const response = await fetch('http://localhost:8085/api/bff/mascotas', {
+      const response = await fetch('http://localhost:8081/api/mascotas', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -104,7 +106,7 @@ function RegistrarMascota() {
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Tipo de Raza:</label>
-            <input type="text" name="tipoDeRaza" value={mascota.tipoDeRaza} onChange={handleChange} required />
+            <input type="text" name="tipoDeRaza" required />
           </div>
           <div className={FormRegisMasc["form-group"]}>
             <label>Imagen:</label>
