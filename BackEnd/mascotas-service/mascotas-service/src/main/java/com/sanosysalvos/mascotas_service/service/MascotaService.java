@@ -1,16 +1,6 @@
 package com.sanosysalvos.mascotas_service.service;
 
-<<<<<<< HEAD
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.model.Mascota;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-=======
 import java.io.IOException;
->>>>>>> Nico
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,47 +19,6 @@ import com.sanosysalvos.mascotas_service.model.TipoRaza;
 @Service
 public class MascotaService {
 
-<<<<<<< HEAD
-    @Autowired
-    private MascotaRepository mascotaRepository;
-
-    public List<Mascota> obtenerTodasLasMascotas() {
-        return mascotaRepository.findAll();
-    }
-
-    public Mascota registrarMascota(
-            String nombre,
-            String descripcion,
-            String tipoDeRaza,
-            String correoReportante,
-            Double latitud,
-            Double longitud,
-            MultipartFile imagenArchivo) {
-
-        Mascota mascota = new Mascota();
-        mascota.setNombre(nombre);
-        mascota.setDescripcion(descripcion);
-        mascota.setTipoDeRaza(tipoDeRaza);
-        mascota.setCorreoReportante(correoReportante);
-        mascota.setLatitud(latitud);
-        mascota.setLongitud(longitud);
-
-        if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
-            try {
-                String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");
-                String fileName = System.currentTimeMillis() + "_" + originalName;
-                Path path = Paths.get("uploads/" + fileName);
-                Files.createDirectories(path.getParent());
-                Files.write(path, imagenArchivo.getBytes());
-                mascota.setImagen(fileName);
-            } catch (Exception e) {
-                throw new RuntimeException("Error al guardar la imagen en el servidor", e);
-            }
-        }
-
-        Mascota nuevaMascota = mascotaRepository.save(mascota);
-        return nuevaMascota;
-=======
     private final MascotaRepository mascotaRepository;
     private final TipoRazaRepository tipoRazaRepository;
     private final String CARPETA_IMAGENES = "uploads";
@@ -80,12 +29,12 @@ public class MascotaService {
     }
 
     // Todas las mascotas
-    public List<MascotaDatosDTO> obtenerTodasLasMascotas() {
+    public List<Mascota> obtenerTodasLasMascotas() {
         return mascotaRepository.findAll();
     }
 
     // Guardar Mascota
-    public MascotaDatosDTO registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, MultipartFile imagen)
+    public Mascota registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, MultipartFile imagen)
             throws IOException {
 
         TipoRaza tipoRaza = null;
@@ -116,6 +65,5 @@ public class MascotaService {
         }
 
         return mascotaRepository.save(mascota);
->>>>>>> Nico
     }
 }
