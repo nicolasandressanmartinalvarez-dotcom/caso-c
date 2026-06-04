@@ -25,4 +25,14 @@ public class MascotaController {
     public List<Mascota> getAllMascotas() {
         return mascotaService.obtenerTodasLasMascotas();
     }
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Mascota createMascota(
+            @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
+            @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+
+        Long idTipoRaza = (mascotaDTO.getTipoRaza() != null) ? mascotaDTO.getTipoRaza().getIdTipoRaza() : null;
+
+        return mascotaService.registrarMascota(mascotaDTO, idTipoRaza, file);
+    }
 }

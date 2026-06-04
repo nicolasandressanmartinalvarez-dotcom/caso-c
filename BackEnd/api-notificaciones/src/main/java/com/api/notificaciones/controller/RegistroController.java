@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.api.notificaciones.model.Registro;
+import com.api.notificaciones.services.MailService;
 import com.api.notificaciones.services.RegistroService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
