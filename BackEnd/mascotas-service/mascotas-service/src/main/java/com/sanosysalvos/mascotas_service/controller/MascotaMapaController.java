@@ -1,6 +1,5 @@
 package com.sanosysalvos.mascotas_service.controller;
 
-import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.service.MascotaService;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class MascotaMapaController {
     }
 
     @GetMapping("/mascotas-mapa")
-    public List<MascotaDatosDTO> obtenerMascotasParaMapa() {
+    public List<Mascota> obtenerMascotasParaMapa() {
         return mascotaService.obtenerTodasLasMascotas();
     }
 }

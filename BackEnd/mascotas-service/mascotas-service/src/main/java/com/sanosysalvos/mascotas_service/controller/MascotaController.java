@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.service.MascotaService;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/mascotas")
@@ -23,12 +22,12 @@ public class MascotaController {
     }
 
     @GetMapping
-    public List<MascotaDatosDTO> getAllMascotas() {
+    public List<Mascota> getAllMascotas() {
         return mascotaService.obtenerTodasLasMascotas();
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public MascotaDatosDTO createMascota(
+    public Mascota createMascota(
             @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
             @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
 
