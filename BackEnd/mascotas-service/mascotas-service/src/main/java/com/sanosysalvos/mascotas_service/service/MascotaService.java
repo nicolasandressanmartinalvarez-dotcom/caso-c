@@ -80,12 +80,12 @@ public class MascotaService {
     }
 
     // Todas las mascotas
-    public List<MascotaDatosDTO> obtenerTodasLasMascotas() {
+    public List<Mascota> obtenerTodasLasMascotas() {
         return mascotaRepository.findAll();
     }
 
     // Guardar Mascota
-    public MascotaDatosDTO registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, MultipartFile imagen)
+    public Mascota registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, MultipartFile imagen)
             throws IOException {
 
         TipoRaza tipoRaza = null;
