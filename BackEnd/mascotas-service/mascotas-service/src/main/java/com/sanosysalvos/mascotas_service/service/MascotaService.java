@@ -1,58 +1,69 @@
 package com.sanosysalvos.mascotas_service.service;
 
-<<<<<<< HEAD
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.model.Mascota;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-=======
-import java.io.IOException;
->>>>>>> Nico
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
 import com.sanosysalvos.mascotas_service.Repository.TipoRazaRepository;
+import com.sanosysalvos.mascotas_service.Repository.TipoMascotaRepository; // Importar nuevo repositorio
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
+import com.sanosysalvos.mascotas_service.model.TipoMascota; // Importar nuevo modelo
+import com.sanosysalvos.mascotas_service.model.EstadoMascota; // Importar Enum de Estado
 
 @Service
 public class MascotaService {
 
-<<<<<<< HEAD
     @Autowired
     private MascotaRepository mascotaRepository;
+
+    @Autowired
+    private TipoRazaRepository tipoRazaRepository;
+
+    @Autowired
+    private TipoMascotaRepository tipoMascotaRepository; // Inyectar nuevo repositorio
 
     public List<Mascota> obtenerTodasLasMascotas() {
         return mascotaRepository.findAll();
     }
 
-    public Mascota registrarMascota(
-            String nombre,
-            String descripcion,
-            String tipoDeRaza,
-            String correoReportante,
-            Double latitud,
-            Double longitud,
+    // Firma modificada agregando: Long idTipoMascota
+    public Mascota registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, Long idTipoMascota,
             MultipartFile imagenArchivo) {
 
+        TipoRaza tipoRaza = null;
+        if (idTipoRaza != null) {
+            tipoRaza = tipoRazaRepository.findById(idTipoRaza).orElse(null);
+        }
+
+        // Buscar el Tipo de Mascota en la BD
+        TipoMascota tipoMascota = null;
+        if (idTipoMascota != null) {
+            tipoMascota = tipoMascotaRepository.findById(idTipoMascota).orElse(null);
+        }
+
         Mascota mascota = new Mascota();
-        mascota.setNombre(nombre);
-        mascota.setDescripcion(descripcion);
-        mascota.setTipoDeRaza(tipoDeRaza);
-        mascota.setCorreoReportante(correoReportante);
-        mascota.setLatitud(latitud);
-        mascota.setLongitud(longitud);
+        mascota.setNombre(mascotaDTO.getNombre());
+        mascota.setDescripcion(mascotaDTO.getDescripcion());
+        mascota.setCorreoReportante(mascotaDTO.getCorreoReportante());
+        mascota.setLatitud(mascotaDTO.getLatitud());
+        mascota.setLongitud(mascotaDTO.getLongitud());
+
+        // Asignar Estado de Mascota convirtiendo el String a Enum
+        if (mascotaDTO.getEstado() != null) {
+            try {
+                mascota.setEstado(EstadoMascota.valueOf(mascotaDTO.getEstado().toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException("Estado inválido. Los estados permitidos son: PERDIDO, ENCONTRADO");
+            }
+        }
 
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
@@ -67,55 +78,15 @@ public class MascotaService {
             }
         }
 
-        Mascota nuevaMascota = mascotaRepository.save(mascota);
-        return nuevaMascota;
-=======
-    private final MascotaRepository mascotaRepository;
-    private final TipoRazaRepository tipoRazaRepository;
-    private final String CARPETA_IMAGENES = "uploads";
-
-    public MascotaService(MascotaRepository mascotaRepository, TipoRazaRepository tipoRazaRepository) {
-        this.mascotaRepository = mascotaRepository;
-        this.tipoRazaRepository = tipoRazaRepository;
-    }
-
-    // Todas las mascotas
-    public List<Mascota> obtenerTodasLasMascotas() {
-        return mascotaRepository.findAll();
-    }
-
-    // Guardar Mascota
-    public Mascota registrarMascota(MascotaDatosDTO mascotaDTO, Long idTipoRaza, MultipartFile imagen)
-            throws IOException {
-
-        TipoRaza tipoRaza = null;
-        if (idTipoRaza != null) {
-            tipoRaza = tipoRazaRepository.findById(idTipoRaza).orElse(null);
-        }
-
-        Mascota mascota = new Mascota();
-
-        mascota.setNombre(mascotaDTO.getNombre());
-        mascota.setDescripcion(mascotaDTO.getDescripcion());
-        mascota.setDireccion(mascotaDTO.getDireccion());
-        mascota.setCorreoReportante(mascotaDTO.getCorreoReportante());
-        mascota.setLatitud(mascotaDTO.getLatitud());
-        mascota.setLongitud(mascotaDTO.getLongitud());
-
-        // Crear ruta imagen (Idéntico a ProductoService)
-        if (imagen != null && !imagen.isEmpty()) {
-            String nombreDeImagen = UUID.randomUUID().toString() + "_" + imagen.getOriginalFilename();
-            Path rutaImagen = Paths.get(CARPETA_IMAGENES).resolve(nombreDeImagen).toAbsolutePath();
-            Files.createDirectories(rutaImagen.getParent());
-            Files.copy(imagen.getInputStream(), rutaImagen);
-            mascota.setImagen(nombreDeImagen);
-        }
-
         if (tipoRaza != null) {
             mascota.setTipoDeRaza(tipoRaza);
         }
 
+        // Asignar el Tipo de Mascota si se encontró
+        if (tipoMascota != null) {
+            mascota.setTipoMascota(tipoMascota);
+        }
+
         return mascotaRepository.save(mascota);
->>>>>>> Nico
     }
 }
