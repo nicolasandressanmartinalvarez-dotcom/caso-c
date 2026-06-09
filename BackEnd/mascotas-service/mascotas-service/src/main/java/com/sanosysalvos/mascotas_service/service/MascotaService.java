@@ -10,8 +10,8 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.Repository.TipoRazaRepository;
+import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
