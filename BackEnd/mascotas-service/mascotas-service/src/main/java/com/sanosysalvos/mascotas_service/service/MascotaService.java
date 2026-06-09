@@ -57,14 +57,6 @@ public class MascotaService {
         mascota.setLongitud(mascotaDTO.getLongitud());
 
         // Asignar Estado de Mascota convirtiendo el String a Enum
-        if (mascotaDTO.getEstado() != null) {
-            try {
-                mascota.setEstado(EstadoMascota.valueOf(mascotaDTO.getEstado().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Estado inválido. Los estados permitidos son: PERDIDO, ENCONTRADO");
-            }
-        }
-
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
                 String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");
