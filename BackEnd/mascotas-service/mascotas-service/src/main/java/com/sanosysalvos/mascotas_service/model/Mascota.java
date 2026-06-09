@@ -1,6 +1,8 @@
 package com.sanosysalvos.mascotas_service.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,12 +19,18 @@ public class Mascota {
     private Long id;
     private String nombre;
     private String descripcion;
-    private String direccion;
-    
+
     @ManyToOne
     @JoinColumn(name = "tipo_raza_id")
     private TipoRaza tipoDeRaza;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_mascota_id")
+    private TipoMascota tipoMascota;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoMascota estado;
+
     private String correoReportante;
     private String imagen;
 
@@ -33,33 +41,87 @@ public class Mascota {
     private Double latitud;
     private Double longitud;
 
-    public Mascota() {}
+    public Mascota() {
+    }
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getDireccion() { return direccion; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public TipoRaza getTipoDeRaza() { return tipoDeRaza; }
-    public void setTipoDeRaza(TipoRaza tipoDeRaza) { this.tipoDeRaza = tipoDeRaza; }
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-    public String getCorreoReportante() { return correoReportante; }
-    public void setCorreoReportante(String correoReportante) { this.correoReportante = correoReportante; }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-    public String getImagen() { return imagen; }
-    public void setImagen(String imagen) { this.imagen = imagen; }
+    public TipoRaza getTipoDeRaza() {
+        return tipoDeRaza;
+    }
 
-    public Double getLatitud() { return latitud; }
-    public void setLatitud(Double latitud) { this.latitud = latitud; }
+    public void setTipoDeRaza(TipoRaza tipoDeRaza) {
+        this.tipoDeRaza = tipoDeRaza;
+    }
 
-    public Double getLongitud() { return longitud; }
-    public void setLongitud(Double longitud) { this.longitud = longitud; }
+    public String getCorreoReportante() {
+        return correoReportante;
+    }
+
+    public void setCorreoReportante(String correoReportante) {
+        this.correoReportante = correoReportante;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
+
+    public TipoMascota getTipoMascota() {
+        return tipoMascota;
+    }
+
+    public void setTipoMascota(TipoMascota tipoMascota) {
+        this.tipoMascota = tipoMascota;
+    }
+
+    public EstadoMascota getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoMascota estado) {
+        this.estado = estado;
+    }
 }
