@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import ListarMas from "./ListarMascotas.module.css"
-function ListarMascotas({ setNuevaMascota }) {
+function ListarMascotas({setNuevaMascota}){
     const [mascota, setMascota] = useState([]);
-    const [filtros, setFiltros] = useState({
-        raza: '',
-        color: '',
-        tamanio: '',
-        entidadReportante: ''
-    });
-
-    const [correos, setCorreos] = useState({ correoRemitente: "", correoEmisor: "" })
+    const [correos, setCorreos] = useState({correoRemitente: "",correoEmisor: ""})
     const { getAccessTokenSilently, user } = useAuth0();
     const { isAuthenticated, isLoading } = useAuth0();
+    
     useEffect(() => {
         const obtenerMascotas = async () => {
             try {
@@ -32,22 +26,15 @@ function ListarMascotas({ setNuevaMascota }) {
         obtenerMascotas();
     }, []);
 
-    const setCoordenadas = (coordenadasMascota) => {
-        console.log(coordenadasMascota)
-        console.log(user?.email)
+    const setCoordenadas = (coordenadasMascota)=>{
         const latitudYLongitud = {
-            lat: coordenadasMascota.latitud,
+            lat:coordenadasMascota.latitud,
             lng: coordenadasMascota.longitud
         }
         setNuevaMascota(latitudYLongitud)
-        console.log(latitudYLongitud)
     }
 
-
     //Empieza el boton contactar
-
-
-    // Empieza el boton contactar
     const contactarDueño = async (datMas) => {
         const usuario = "admin";
         const password = "admin123";
@@ -79,55 +66,26 @@ function ListarMascotas({ setNuevaMascota }) {
     };
     return (
         <>
-        {/* intento de filtro */}
             {isAuthenticated ? (
                 <section className={ListarMas["contenedor-masc"]}>
-                    <div className={ListarMas["contenedor-filtros"]}>
-                        <input
-                            type="text"
-                            placeholder="Filtrar por raza"
-                            value={filtros.raza}
-                            onChange={(e) =>
-                                setFiltros({ ...filtros, raza: e.target.value })
-                            }
-                        />
-
-                        <input
-                            type="text"
-                            placeholder="Filtrar por color"
-                            value={filtros.color}
-                            onChange={(e) =>
-                                setFiltros({ ...filtros, color: e.target.value })
-                            }
-                        />
+                {mascota.map((m) => (
+                    <div className={ListarMas["div-mascotas"]} key={m.id}>
+                    <div className={ListarMas["informacion-masc"]}>
+                        <div><h2>Nombre</h2><p>{m.nombre}</p></div>
+                        <div><h2>Raza</h2><p>{m.tipoDeRaza ?(m.tipoDeRaza.nombre):("Sin raza")}</p></div>
                     </div>
-                    {mascota
-                        .filter((m) =>
-                            m.tipoDeRaza?.toLowerCase().includes(filtros.raza.toLowerCase()) &&
-                            m.color?.toLowerCase().includes(filtros.color.toLowerCase())
-                        )
-                        .map((m) => (
-                            <div className={ListarMas["div-mascotas"]} key={m.id}>
-                                <div className={ListarMas["informacion-masc"]}>
-
-                                    <div><h2>Nombre</h2><p>{m.nombre}</p></div>
-                                    <div><h2>Raza</h2><p>{m.tipoDeRaza}</p></div>
-                                    <div><h2>Color</h2><p>{m.color}</p></div>
-                                    <div><h2>Tamaño</h2><p>{m.tamanio}</p></div>
-                                    <div><h2>Entidad Reportante</h2><p>{m.entidadReportante}</p></div>
-                                </div>
-                                <div className={ListarMas["cont-img-masc"]}>
-                                    <img src={`http://localhost:8081/imagenes/${m.imagen}`} alt="Mascota" />
-                                </div>
-                                <div className={ListarMas["descripcion-masc"]}>
-                                    <p>{m.descripcion}</p>
-                                </div>
-                                <div className={ListarMas["botones-masc"]}>
-                                    <button className={ListarMas["btn-localizar"]} onClick={() => setCoordenadas(m)}>Localizar</button>
-                                    <button className={ListarMas["btn-contactar"]} onClick={() => contactarDueño(m)}>Contactar</button>
-                                </div>
-                            </div>
-                        ))}
+                    <div className={ListarMas["cont-img-masc"]}>
+                        <img src={`http://localhost:8081/imagenes/${m.imagen}`} alt="Mascota" />
+                    </div>
+                    <div className={ListarMas["descripcion-masc"]}>
+                        <p>{m.descripcion}</p>
+                    </div>
+                    <div className={ListarMas["botones-masc"]}>
+                        <button className={ListarMas["btn-localizar"]} onClick={() => setCoordenadas(m)}>Localizar</button>
+                        <button className={ListarMas["btn-contactar"]} onClick={()=>contactarDueño(m)}>Contactar</button>
+                    </div>
+                    </div>
+                ))}
                 </section>
             ) : (
                 <p className={ListarMas["noLogin"]}>Debe de iniciar sesion para ver a las mascotas</p>
