@@ -30,9 +30,9 @@ public class MascotaController {
     public Mascota createMascota(
             @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
             @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
-
         Long idTipoRaza = (mascotaDTO.getTipoRaza() != null) ? mascotaDTO.getTipoRaza().getIdTipoRaza() : null;
 
-        return mascotaService.registrarMascota(mascotaDTO, idTipoRaza, file);
+        Long idTipoMascota = (mascotaDTO.getTipoMascota() != null) ? mascotaDTO.getTipoMascota().getIdTipoMascota(): null;
+        return mascotaService.registrarMascota(mascotaDTO, idTipoRaza, idTipoMascota, file);
     }
 }

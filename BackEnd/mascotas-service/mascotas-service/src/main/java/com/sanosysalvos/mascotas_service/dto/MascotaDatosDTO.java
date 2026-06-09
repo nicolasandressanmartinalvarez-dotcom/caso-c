@@ -1,14 +1,14 @@
 package com.sanosysalvos.mascotas_service.dto;
 
 public class MascotaDatosDTO {
-
+    private TipoMascota tipoMascota;
+    private TipoRaza tipoRaza;
     private String nombre;
     private String descripcion;
-    private String direccion;
     private String correoReportante;
     private Double latitud;
     private Double longitud;
-    private TipoRaza tipoRaza;
+    private String estado;
 
     public static class TipoRaza {
         private Long idTipoRaza;
@@ -22,7 +22,23 @@ public class MascotaDatosDTO {
         }
     }
 
+    public static class TipoMascota {
+        private Long idTipoMascota;
+
+        public Long getIdTipoMascota() {
+            return idTipoMascota;
+        }
+
+        public void setIdTipoMascota(Long idTipoMascota) {
+            this.idTipoMascota = idTipoMascota;
+        }
+    }
+
     // Getters
+    public TipoMascota getTipoMascota() {
+        return tipoMascota;
+    }
+
     public TipoRaza getTipoRaza() {
         return tipoRaza;
     }
@@ -33,10 +49,6 @@ public class MascotaDatosDTO {
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public String getDireccion() {
-        return direccion;
     }
 
     public String getCorreoReportante() {
@@ -51,7 +63,15 @@ public class MascotaDatosDTO {
         return longitud;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
     // Setters
+    public void setTipoMascota(TipoMascota tipoMascota) {
+        this.tipoMascota = tipoMascota;
+    }
+
     public void setTipoRaza(TipoRaza tipoRaza) {
         this.tipoRaza = tipoRaza;
     }
@@ -64,10 +84,6 @@ public class MascotaDatosDTO {
         this.descripcion = descripcion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
     public void setCorreoReportante(String correoReportante) {
         this.correoReportante = correoReportante;
     }
@@ -78,5 +94,9 @@ public class MascotaDatosDTO {
 
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
