@@ -1,6 +1,9 @@
 package com.sanosysalvos.bff_service.controller;
 
 import com.sanosysalvos.bff_service.client.MascotaClient;
+import com.sanosysalvos.bff_service.dto.MascotaDatosDTO;
+import com.sanosysalvos.bff_service.dto.MascotaDatosDTO;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,28 +33,13 @@ public class MascotaBffController {
     @PostMapping("/mascotas")
     public String registrarMascota(
             @RequestHeader("Authorization") String authorization,
-            @RequestPart("imagen") MultipartFile imagen,
-            @RequestPart("nombre") String nombre,
-            @RequestPart("descripcion") String descripcion,
-            @RequestPart("color") String color,
-            @RequestPart("tamanio") String tamanio,
-            @RequestPart("entidadReportante") String entidadReportante,
-            @RequestPart("tipoDeRaza") String tipoDeRaza,
-            @RequestPart("latitud") String latitud,
-            @RequestPart("longitud") String longitud,
-            @RequestPart("correoReportante") String correoReportante) {
+            @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+
         return mascotaClient.registrarMascota(
                 authorization,
-                imagen,
-                nombre,
-                descripcion,
-                color,
-                tamanio,
-                entidadReportante,
-                tipoDeRaza,
-                latitud,
-                longitud,
-                correoReportante);
+                mascotaDTO,
+                file);
     }
 
 }

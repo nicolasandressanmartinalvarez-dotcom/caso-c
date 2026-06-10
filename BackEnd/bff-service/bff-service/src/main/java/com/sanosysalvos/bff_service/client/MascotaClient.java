@@ -1,5 +1,6 @@
 package com.sanosysalvos.bff_service.client;
 
+import com.sanosysalvos.bff_service.dto.MascotaDatosDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,6 @@ public interface MascotaClient {
     @PostMapping(value = "/api/mascotas", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     String registrarMascota(
             @RequestHeader("Authorization") String authorization,
-            @RequestPart("imagen") MultipartFile imagen,
-            @RequestPart("nombre") String nombre,
-            @RequestPart("descripcion") String descripcion,
-            @RequestPart("color") String color,
-            @RequestPart("tamanio") String tamanio,
-            @RequestPart("entidadReportante") String entidadReportante,
-            @RequestPart("tipoDeRaza") String tipoDeRaza,
-            @RequestPart("latitud") String latitud,
-            @RequestPart("longitud") String longitud,
-            @RequestPart("correoReportante") String correoReportante
-    );
+            @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
+            @RequestPart(value = "file", required = false) MultipartFile file);
 }
