@@ -8,17 +8,17 @@ public class TipoRaza {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idTipoRaza;
 
     @Column(nullable = false, unique = true)
-    private String nombre;
+    private String nombreTipoRaza;
 
     public TipoRaza() {}
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getIdTipoRaza() { return idTipoRaza; }
+    public void setIdTipoRaza(Long idTipoRaza) { this.idTipoRaza = idTipoRaza; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombreTipoRaza() { return nombreTipoRaza; }
+    public void setNombreTipoRaza(String nombreTipoRaza) { this.nombreTipoRaza = nombreTipoRaza; }
 }

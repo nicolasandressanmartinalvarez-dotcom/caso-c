@@ -8,28 +8,28 @@ public class TipoMascota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idTipoMascota;
 
     @Column(nullable = false, unique = true)
-    private String nombre;
+    private String nombreTipoMascota;
 
     public TipoMascota() {
     }
 
     // Getters y Setters
-    public Long getId() {
-        return id;
+    public Long getIdTipoMascota() {
+        return idTipoMascota;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTipoMascota(Long idTipoMascota) {
+        this.idTipoMascota = idTipoMascota;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreTipoMascota() {
+        return nombreTipoMascota;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreTipoMascota(String nombreTipoMascota) {
+        this.nombreTipoMascota = nombreTipoMascota;
     }
 }
