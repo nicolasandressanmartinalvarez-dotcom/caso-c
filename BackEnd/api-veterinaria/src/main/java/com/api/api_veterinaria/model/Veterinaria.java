@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "veterinarias")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,10 +20,4 @@ public class Veterinaria {
     private String direccion;
     private String telefono;
     private String correo;
-
-    private String nombreMascota;
-    private String especie;
-    private String raza;
-    private String descripcion;
-    private String estado;
 }
