@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
 import java.util.List;
 
 @Entity
@@ -25,8 +24,7 @@ public class Municipalidad {
     private Double latitud;
     private Double longitud;
 
-    @ElementCollection
-    @CollectionTable(name = "municipalidad_mascotas", joinColumns = @JoinColumn(name = "municipalidad_id"))
-    @Column(name = "mascota_id")
-    private List<Long> mascotasIds;
+    @OneToMany(mappedBy = "municipalidad", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonManagedReference
+    private List<Mascota> mascotas;
 }
