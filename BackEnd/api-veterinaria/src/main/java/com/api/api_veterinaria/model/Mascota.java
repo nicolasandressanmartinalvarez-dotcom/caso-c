@@ -27,9 +27,6 @@ public class Mascota {
     @JoinColumn(name = "tipo_mascota_id")
     private TipoMascota tipoMascota;
 
-    @Enumerated(EnumType.STRING)
-    private EstadoMascota estado;
-
     private String correoReportante;
     private String imagen;
 
