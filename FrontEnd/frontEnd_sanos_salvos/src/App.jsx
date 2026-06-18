@@ -14,7 +14,7 @@ function AppRoutes(){
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path="/registrar" element={ <ProtectedRoute> <RegistrarMascota/> </ProtectedRoute> } />
-
+      <Routes path="/DashVet" element={}></Routes>
     </Routes>
   )
 }
