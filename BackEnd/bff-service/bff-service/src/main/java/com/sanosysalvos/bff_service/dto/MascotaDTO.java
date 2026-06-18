@@ -1,7 +1,5 @@
 package com.sanosysalvos.bff_service.dto;
 
-import com.sanosysalvos.bff_service.model_Mascota.TipoMascota;
-import com.sanosysalvos.bff_service.model_Mascota.TipoRaza;
 
 
 public class MascotaDTO {
