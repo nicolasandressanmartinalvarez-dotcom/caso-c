@@ -16,7 +16,6 @@ import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
 import com.sanosysalvos.mascotas_service.model.TipoMascota; // Importar nuevo modelo
-import com.sanosysalvos.mascotas_service.model.EstadoMascota; // Importar Enum de Estado
 
 @Service
 public class MascotaService {
@@ -56,13 +55,9 @@ public class MascotaService {
         mascota.setLatitud(mascotaDTO.getLatitud());
         mascota.setLongitud(mascotaDTO.getLongitud());
 
-        // Asignar Estado de Mascota convirtiendo el String a Enum
+        // Asignar Estado de Mascota
         if (mascotaDTO.getEstado() != null) {
-            try {
-                mascota.setEstado(EstadoMascota.valueOf(mascotaDTO.getEstado().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Estado inválido. Los estados permitidos son: PERDIDO, ENCONTRADO");
-            }
+            mascota.setEstado(mascotaDTO.getEstado());
         }
 
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {

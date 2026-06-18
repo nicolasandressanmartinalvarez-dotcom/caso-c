@@ -1,8 +1,6 @@
 package com.sanosysalvos.municipalidades_service.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,8 +26,7 @@ public class Mascota {
     @JoinColumn(name = "tipo_mascota_id")
     private TipoMascota tipoMascota;
 
-    @Enumerated(EnumType.STRING)
-    private EstadoMascota estado;
+    private String estado;
 
     private String correoReportante;
     private String imagen;
@@ -125,11 +122,11 @@ public class Mascota {
         this.tipoMascota = tipoMascota;
     }
 
-    public EstadoMascota getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoMascota estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }
