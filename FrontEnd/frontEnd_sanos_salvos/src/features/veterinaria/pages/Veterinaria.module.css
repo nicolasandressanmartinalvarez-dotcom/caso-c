@@ -1,0 +1,32 @@
+.contenedor-veterinaria {
+    padding: 30px;
+    color: #fbfbfb;
+}
+
+.contenedor-veterinaria h2 {
+    margin-bottom: 20px;
+}
+
+.lista-veterinarias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-veterinaria {
+    background: #242b38;
+    border: 1px solid #00d1ff;
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 0 15px rgba(0, 209, 255, 0.2);
+}
+
+.card-veterinaria h3 {
+    color: #00d1ff;
+    margin-bottom: 15px;
+}
+
+.card-veterinaria p {
+    margin: 8px 0;
+}

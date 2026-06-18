@@ -5,6 +5,8 @@ import './App.css'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 
+import Veterinaria from "./features/veterinaria/pages/Veterinaria";
+
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 import ProtectedRoute from "./components/ProteccionRuta"
 
@@ -14,7 +16,7 @@ function AppRoutes(){
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path="/registrar" element={ <ProtectedRoute> <RegistrarMascota/> </ProtectedRoute> } />
-
+      <Route path="/veterinaria" element={<ProtectedRoute><Veterinaria /></ProtectedRoute>} />
     </Routes>
   )
 }
