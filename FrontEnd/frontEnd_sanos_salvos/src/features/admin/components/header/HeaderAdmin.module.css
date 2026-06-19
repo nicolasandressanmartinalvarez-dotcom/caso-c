@@ -2,24 +2,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #111844, #7288AE);
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #328E6E, #90C67C);
     color: white;
+}
+.div-img{
+    width: 70px;
+}
+.div-img img{
+    width: 100%;
+    height: 100%;
 }
 .boton_diseño{
     transition: .2s;
     color: white;
     padding:10px;
-    border: 0;
+    border:  2px  #90C67C solid;
     border-radius: 10px;
     margin: 10px;
-    background-color: #111844;
+    background-color: #67AE6E;
 }
 .boton_diseño:hover{
     color: white;
     padding:10px;
-    border: 0;
     border-radius: 10px;
-    background-color: #1118447e;
+    background-color: #328E6E;
 }
 

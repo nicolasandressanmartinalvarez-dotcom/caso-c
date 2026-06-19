@@ -17,7 +17,9 @@ function HeaderAdmin (){
 
         return (
             <header className={HeaderAdminCSS["div-header"]}>
-            <h2>Sanos y Salvos</h2>
+            <div className={HeaderAdminCSS["div-img"]}>
+                <img src="/Logo.jpeg" alt="" />
+            </div>
             <div>
                 {isAuthenticated && (
                 <>
