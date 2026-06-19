@@ -39,3 +39,37 @@
 .contenido-veterinaria {
     padding: 30px;
 }
+
+
+.menu-grupo {
+    margin-bottom: 25px;
+}
+
+.menu-grupo h3 {
+    color: #00d1ff;
+    font-size: 15px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0, 209, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.menu-grupo ul {
+    list-style: none;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.menu-grupo li {
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #e2e8f0;
+    font-weight: bold;
+}
+
+.menu-grupo li:hover {
+    background: #00d1ff;
+    color: #0f172a;
+}
