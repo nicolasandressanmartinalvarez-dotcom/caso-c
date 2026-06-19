@@ -1,7 +1,8 @@
-package com.sanosysalvos.mascotas_service.dto;
+package com.sanosysalvos.bff_service.dto;
 
 
-public class MascotaDatosDTO {
+
+public class MascotaDTO {
     private TipoMascota tipoMascota;
     private TipoRaza tipoRaza;
     private String nombre;

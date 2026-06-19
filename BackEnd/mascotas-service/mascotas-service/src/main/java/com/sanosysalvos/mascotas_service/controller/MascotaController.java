@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.service.MascotaService;
@@ -28,12 +29,15 @@ public class MascotaController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mascota createMascota(
-            @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
-            @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+            @RequestPart("mascota") String mascotaJson,
+            @RequestPart(value = "file", required = false) MultipartFile file) throws Exception {
+        
+        ObjectMapper mapper = new ObjectMapper();
+        MascotaDatosDTO mascotaDTO = mapper.readValue(mascotaJson, MascotaDatosDTO.class);
+        
         Long idTipoRaza = (mascotaDTO.getTipoRaza() != null) ? mascotaDTO.getTipoRaza().getIdTipoRaza() : null;
-
-        Long idTipoMascota = (mascotaDTO.getTipoMascota() != null) ? mascotaDTO.getTipoMascota().getIdTipoMascota()
-                : null;
+        Long idTipoMascota = (mascotaDTO.getTipoMascota() != null) ? mascotaDTO.getTipoMascota().getIdTipoMascota() : null;
+        
         return mascotaService.registrarMascota(mascotaDTO, idTipoRaza, idTipoMascota, file);
     }
 }

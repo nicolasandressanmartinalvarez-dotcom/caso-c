@@ -1,35 +1,16 @@
-package com.sanosysalvos.mascotas_service.model;
+package com.sanosysalvos.bff_service.model_Mascota;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "mascotas")
 public class Mascota {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo_raza_id")
     private TipoRaza tipoDeRaza;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo_mascota_id")
     private TipoMascota tipoMascota;
 
-    @Enumerated(EnumType.STRING)
-    private EstadoMascota estado;
 
     private String correoReportante;
     private String imagen;

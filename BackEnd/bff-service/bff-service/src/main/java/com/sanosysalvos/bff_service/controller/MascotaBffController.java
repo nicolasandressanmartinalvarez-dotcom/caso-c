@@ -1,8 +1,14 @@
 package com.sanosysalvos.bff_service.controller;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanosysalvos.bff_service.client.MascotaClient;
-import com.sanosysalvos.bff_service.dto.MascotaDatosDTO;
-import com.sanosysalvos.bff_service.dto.MascotaDatosDTO;
+import com.sanosysalvos.bff_service.dto.MascotaDTO;
+import com.sanosysalvos.bff_service.model_Mascota.Mascota;
+
+import org.springframework.http.MediaType;
+
+import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,20 +32,19 @@ public class MascotaBffController {
     }
 
     @GetMapping("/mascotas")
-    public String obtenerMascotas(@RequestHeader("Authorization") String authorization) {
+    public List<Mascota> obtenerMascotas(@RequestHeader("Authorization") String authorization) {
         return mascotaClient.obtenerMascotas(authorization);
     }
 
-    @PostMapping("/mascotas")
+    @PostMapping(value = "/mascotas", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String registrarMascota(
             @RequestHeader("Authorization") String authorization,
-            @RequestPart("mascota") MascotaDatosDTO mascotaDTO,
-            @RequestPart(value = "file", required = false) MultipartFile file) {
-
-        return mascotaClient.registrarMascota(
-                authorization,
-                mascotaDTO,
-                file);
+            @RequestPart("imagen") MultipartFile imagen,
+            @RequestPart("mascota") MascotaDTO mascotaDTO) throws Exception {
+        
+        ObjectMapper mapper = new ObjectMapper();
+        String mascotaJson = mapper.writeValueAsString(mascotaDTO);
+        return mascotaClient.registrarMascota(authorization, imagen, mascotaJson);
     }
 
 }

@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
-import com.sanosysalvos.mascotas_service.repository.TipoMascotaRepository; // Importar nuevo repositorio
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
+import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.TipoMascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
 import com.sanosysalvos.mascotas_service.model.TipoMascota; // Importar nuevo modelo
 import com.sanosysalvos.mascotas_service.model.EstadoMascota; // Importar Enum de Estado
 
@@ -57,14 +57,6 @@ public class MascotaService {
         mascota.setLongitud(mascotaDTO.getLongitud());
 
         // Asignar Estado de Mascota convirtiendo el String a Enum
-        if (mascotaDTO.getEstado() != null) {
-            try {
-                mascota.setEstado(EstadoMascota.valueOf(mascotaDTO.getEstado().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Estado inválido. Los estados permitidos son: PERDIDO, ENCONTRADO");
-            }
-        }
-
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
                 String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");
