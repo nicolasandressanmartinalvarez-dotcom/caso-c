@@ -1,0 +1,75 @@
+.layout-veterinaria {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: calc(100vh - 160px);
+    background: #f4f7fb;
+}
+
+.sidebar-veterinaria {
+    background: #1e293b;
+    color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-right: 2px solid #00d1ff;
+}
+
+.sidebar-veterinaria h2 {
+    color: #00d1ff;
+    margin-bottom: 20px;
+}
+
+.sidebar-veterinaria button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #334155;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar-veterinaria button:hover {
+    background: #00d1ff;
+    color: #0f172a;
+}
+
+.contenido-veterinaria {
+    padding: 30px;
+}
+
+
+.menu-grupo {
+    margin-bottom: 25px;
+}
+
+.menu-grupo h3 {
+    color: #00d1ff;
+    font-size: 15px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0, 209, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.menu-grupo ul {
+    list-style: none;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.menu-grupo li {
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #e2e8f0;
+    font-weight: bold;
+}
+
+.menu-grupo li:hover {
+    background: #00d1ff;
+    color: #0f172a;
+}
