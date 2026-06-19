@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sanosysalvos.organizaciones_service.dto.OrganizacionDTO;
 import com.sanosysalvos.organizaciones_service.model.Organizacion;
 import com.sanosysalvos.organizaciones_service.service.OrganizacionService;
 
@@ -38,15 +37,15 @@ public class OrganizacionController {
     }
 
     @PostMapping
-    public ResponseEntity<Organizacion> registrarOrganizacion(@RequestBody OrganizacionDTO organizacionDTO) {
-        Organizacion nuevaOrganizacion = organizacionService.crearOrganizacion(organizacionDTO);
+    public ResponseEntity<Organizacion> registrarOrganizacion(@RequestBody Organizacion organizacion) {
+        Organizacion nuevaOrganizacion = organizacionService.crearOrganizacion(organizacion);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaOrganizacion);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Organizacion> actualizarOrganizacion(@PathVariable Long id, @RequestBody OrganizacionDTO organizacionDTO) {
+    public ResponseEntity<Organizacion> actualizarOrganizacion(@PathVariable Long id, @RequestBody Organizacion organizacion) {
         try {
-            Organizacion organizacionActualizada = organizacionService.actualizarOrganizacion(id, organizacionDTO);
+            Organizacion organizacionActualizada = organizacionService.actualizarOrganizacion(id, organizacion);
             return ResponseEntity.ok(organizacionActualizada);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

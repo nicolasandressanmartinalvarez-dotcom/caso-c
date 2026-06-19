@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sanosysalvos.organizaciones_service.dto.OrganizacionDTO;
 import com.sanosysalvos.organizaciones_service.model.Organizacion;
 import com.sanosysalvos.organizaciones_service.repository.OrganizacionRepository;
 
@@ -24,31 +23,22 @@ public class OrganizacionService {
         return organizacionRepository.findById(id);
     }
 
-    public Organizacion crearOrganizacion(OrganizacionDTO organizacionDTO) {
-        Organizacion organizacion = new Organizacion();
-        organizacion.setNombre(organizacionDTO.getNombre());
-        organizacion.setTipoOrganizacion(organizacionDTO.getTipoOrganizacion());
-        organizacion.setRut(organizacionDTO.getRut());
-        organizacion.setDireccion(organizacionDTO.getDireccion());
-        organizacion.setTelefono(organizacionDTO.getTelefono());
-        organizacion.setEmail(organizacionDTO.getEmail());
-        organizacion.setMunicipalidadId(organizacionDTO.getMunicipalidadId());
-
+    public Organizacion crearOrganizacion(Organizacion organizacion) {
         return organizacionRepository.save(organizacion);
     }
 
-    public Organizacion actualizarOrganizacion(Long id, OrganizacionDTO organizacionDTO) {
+    public Organizacion actualizarOrganizacion(Long id, Organizacion organizacionActualizada) {
         Optional<Organizacion> organizacionExistente = organizacionRepository.findById(id);
         
         if (organizacionExistente.isPresent()) {
             Organizacion organizacion = organizacionExistente.get();
-            organizacion.setNombre(organizacionDTO.getNombre());
-            organizacion.setTipoOrganizacion(organizacionDTO.getTipoOrganizacion());
-            organizacion.setRut(organizacionDTO.getRut());
-            organizacion.setDireccion(organizacionDTO.getDireccion());
-            organizacion.setTelefono(organizacionDTO.getTelefono());
-            organizacion.setEmail(organizacionDTO.getEmail());
-            organizacion.setMunicipalidadId(organizacionDTO.getMunicipalidadId());
+            organizacion.setNombre(organizacionActualizada.getNombre());
+            organizacion.setTipoOrganizacion(organizacionActualizada.getTipoOrganizacion());
+            organizacion.setRut(organizacionActualizada.getRut());
+            organizacion.setDireccion(organizacionActualizada.getDireccion());
+            organizacion.setTelefono(organizacionActualizada.getTelefono());
+            organizacion.setEmail(organizacionActualizada.getEmail());
+            organizacion.setMunicipalidad(organizacionActualizada.getMunicipalidad());
             
             return organizacionRepository.save(organizacion);
         } else {

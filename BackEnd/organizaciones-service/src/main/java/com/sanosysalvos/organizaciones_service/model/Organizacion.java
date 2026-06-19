@@ -20,7 +20,7 @@ public class Organizacion {
     private String direccion;
     private String telefono;
     private String email;
-    private Long municipalidadId;
+    private String municipalidad;
 
     public Organizacion() {
     }
@@ -82,11 +82,11 @@ public class Organizacion {
         this.email = email;
     }
 
-    public Long getMunicipalidadId() {
-        return municipalidadId;
+    public String getMunicipalidad() {
+        return municipalidad;
     }
 
-    public void setMunicipalidadId(Long municipalidadId) {
-        this.municipalidadId = municipalidadId;
+    public void setMunicipalidad(String municipalidad) {
+        this.municipalidad = municipalidad;
     }
 }
