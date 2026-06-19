@@ -4,41 +4,131 @@ import VetCss from "./Veterinaria.module.css";
 
 function Veterinaria() {
     const [veterinarias, setVeterinarias] = useState([]);
+    const [mensaje, setMensaje] = useState("");
+    const [form, setForm] = useState({
+        nombreVeterinaria: "",
+        direccion: "",
+        telefono: "",
+        correo: ""
+    });
+
     const { getAccessTokenSilently } = useAuth0();
 
+    const cargarVeterinarias = async () => {
+        try {
+            const token = await getAccessTokenSilently();
+
+            const response = await fetch("http://localhost:8086/api/veterinaria", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            setVeterinarias(data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
-        const cargarVeterinarias = async () => {
-            try {
-                const token = await getAccessTokenSilently();
-
-                const response = await fetch("http://localhost:8086/api/veterinaria", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-
-                const data = await response.json();
-
-                console.log(data);
-                setVeterinarias(data);
-
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
         cargarVeterinarias();
     }, [getAccessTokenSilently]);
 
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const registrarVeterinaria = async (e) => {
+        e.preventDefault();
+
+        try {
+            const token = await getAccessTokenSilently();
+
+            const response = await fetch("http://localhost:8086/api/veterinaria", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(form)
+            });
+
+            if (response.ok) {
+                setMensaje("Veterinaria registrada correctamente");
+
+                setForm({
+                    nombreVeterinaria: "",
+                    direccion: "",
+                    telefono: "",
+                    correo: ""
+                });
+
+                cargarVeterinarias();
+            } else {
+                setMensaje("Error al registrar veterinaria");
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <section className={VetCss["contenedor-veterinaria"]}>
+            <h2>Panel Veterinaria</h2>
+
+            <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
+                <input
+                    type="text"
+                    name="nombreVeterinaria"
+                    placeholder="Nombre veterinaria"
+                    value={form.nombreVeterinaria}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="text"
+                    name="direccion"
+                    placeholder="Dirección"
+                    value={form.direccion}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="text"
+                    name="telefono"
+                    placeholder="Teléfono"
+                    value={form.telefono}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="email"
+                    name="correo"
+                    placeholder="Correo"
+                    value={form.correo}
+                    onChange={handleChange}
+                    required
+                />
+
+                <button type="submit">Registrar Veterinaria</button>
+                {mensaje && <p className={VetCss["mensaje-veterinaria"]}>{mensaje}</p>}
+            </form>
+
             <h2>Veterinarias Registradas</h2>
 
             <div className={VetCss["lista-veterinarias"]}>
                 {veterinarias.map((v) => (
                     <div className={VetCss["card-veterinaria"]} key={v.id}>
                         <h3>{v.nombreVeterinaria}</h3>
-
                         <p><strong>Dirección:</strong> {v.direccion}</p>
                         <p><strong>Teléfono:</strong> {v.telefono}</p>
                         <p><strong>Correo:</strong> {v.correo}</p>
