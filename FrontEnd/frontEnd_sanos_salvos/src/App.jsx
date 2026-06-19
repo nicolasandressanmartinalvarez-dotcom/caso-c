@@ -10,12 +10,13 @@ import RutaProtegidaAdmin from './components/auth/RutaProtegidaAdmin'
 
 
 //Importaciones de los layOuts
-import LayOutAdmin from './layouts/AdminLayOut/AdminLayOut'
+import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
 
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 
 //Importaciones paginas Admin
 import DashBoardAdmin from './features/admin/pages/DashBoardAdmin'
+import Veterinaria from './features/veterinaria/pages/Veterinaria'
 
 
 function App() {
@@ -26,8 +27,10 @@ function App() {
         <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin/> </RutaProtegidaAdmin>}>
           <Route index element={<Navigate to={"DashBoardAdmin"} replace />}/>
           <Route path="DashBoardAdmin" element={<DashBoardAdmin/>}/>
+          <Route path="agr" element={<Veterinaria/>}/>
         </Route>
         <Route path="/" element={<Header/>}/>
+
       </Routes>
     </BrowserRouter>
   );
