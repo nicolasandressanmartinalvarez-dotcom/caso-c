@@ -1,16 +1,18 @@
 import { Outlet } from "react-router-dom";
 
+import HeaderAdmin from '../../features/admin/components/header/HeaderAdmin'
+import FooterAdmin from '../../features/admin/components/footer/FooterAdmin'
 
 function AdminLayOut(){
     return(
         <div className="app-container">
-            <Header/>
+            <HeaderAdmin/>
             <div className="content-area">
                 <main className="content-wrap">
                     <Outlet/>
                 </main>
             </div>
-            <Footer/>
+            <FooterAdmin/>
         </div>
     )
 }

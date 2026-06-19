@@ -1,23 +1,18 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate}from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const ProtectedRoute = ({ children }) => {
-    const { isAuthenticated, isLoading } = useAuth0();
-    const navigate = useNavigat(); 
+function RutaProtegidaAdmin ({ children }){
+    const {isAuthenticated, isLoading } = useAuth0();
     
-    useEffect(()=>{
-        if(!isAuthenticated){
-            alert("Debe de iniciar sesion")
-            navigate("/")
-        }
-    },[])
-
-    if (!isAuthenticated) {
-        return <p>No tienes acceso. Debes iniciar sesión.</p>;
+    if(isLoading){
+        return <p>Cargando.....</p>
     }
-
+    if(!isAuthenticated){
+        alert("Debe de iniciar sesion")
+        return <Navigate to="/" replace/>
+    }
     return children;
 }
 
-export default ProtectedRoute;
+export default RutaProtegidaAdmin;

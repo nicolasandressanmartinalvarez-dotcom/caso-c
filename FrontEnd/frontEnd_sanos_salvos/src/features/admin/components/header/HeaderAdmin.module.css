@@ -1,0 +1,25 @@
+.div-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #111844, #7288AE);
+    color: white;
+}
+.boton_diseño{
+    transition: .2s;
+    color: white;
+    padding:10px;
+    border: 0;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: #111844;
+}
+.boton_diseño:hover{
+    color: white;
+    padding:10px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #1118447e;
+}
+
