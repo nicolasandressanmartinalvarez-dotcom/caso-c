@@ -5,31 +5,34 @@ import HeaderAdminCSS from './HeaderAdmin.module.css'
 
 function HeaderAdmin (){
     const { isLoading, isAuthenticated, error, loginWithRedirect: login, logout: auth0Logout, user} = useAuth0(); 
-        const navigate = useNavigate();
+    const navigate = useNavigate();
 
-        const signup = () =>
-            login({ authorizationParams: { screen_hint: "signup" } });
+    const signup = () =>
+        login({ authorizationParams: { screen_hint: "signup" } });
 
-        const logout = () =>
-            auth0Logout({ logoutParams: { returnTo: window.location.origin } });
+    const logout = () =>
+        auth0Logout({ logoutParams: { returnTo: window.location.origin } });
 
-        if (isLoading) return <p>Cargando...</p>;
+    if (isLoading) return <p>Cargando...</p>;
 
-        return (
-            <header className={HeaderAdminCSS["div-header"]}>
+    return (
+        <header className={HeaderAdminCSS["div-header"]}>
             <div className={HeaderAdminCSS["div-img"]}>
-                <img src="/Logo.jpeg" alt="" />
+                <img src="/Logo.png" alt="Logo" />
             </div>
-            <div>
+            
+            <div className={HeaderAdminCSS["user-info"]}>
                 {isAuthenticated && (
-                <>
-                <span>Bienvenido {user?.name}</span>
-                <button className={HeaderAdminCSS["boton_diseño"]} onClick={logout}> Logout </button>
-                </>
+                    <>
+                        <span>Bienvenido, <strong>{user?.name}</strong></span>
+                        <button className={HeaderAdminCSS["boton_diseño"]} onClick={logout}>
+                            Logout
+                        </button>
+                    </>
                 )}
             </div>
-            </header>
-        );
+        </header>
+    );
 }   
 
 export default HeaderAdmin;

@@ -1,8 +1,10 @@
-
+import FooterAdminCSS from './FooterAdmin.module.css'
 
 function FooterAdmin(){
     return <>
-        <p>FooterAdmin</p>
+        <footer className={FooterAdminCSS["div-footer"]}>
+            <p>© 2026 Sanos y Salvos</p>
+        </footer>
     </>
 
 }
