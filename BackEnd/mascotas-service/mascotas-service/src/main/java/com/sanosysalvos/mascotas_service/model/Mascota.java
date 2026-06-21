@@ -30,6 +30,11 @@ public class Mascota {
 
     private String correoReportante;
     private String imagen;
+
+    private String color;
+    private String tamanio;
+    private String entidadReportante;
+    
     private Double latitud;
     private Double longitud;
 
@@ -107,13 +112,5 @@ public class Mascota {
 
     public void setTipoMascota(TipoMascota tipoMascota) {
         this.tipoMascota = tipoMascota;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 }

@@ -1,21 +1,24 @@
-.div-header {
+.div-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: linear-gradient(135deg, #6a11cb, #008cff);
+    background: linear-gradient(135deg, #328E6E, #90C67C);
     color: white;
 }
-
 .boton_diseño{
-    margin-Left: 10px;
-    padding: 8px 15px;
-    background-Color: #12d412d3; /** color de los botones, falta arreglar con el ccs */
+    transition: .2s;
     color: white;
-    border: none;
-    border-Radius: 8px;
-    cursor: pointer;
+    padding:10px;
+    border:  2px  #90C67C solid;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: #67AE6E;
 }
 .boton_diseño:hover{
-    opacity: .9;
+    color: white;
+    padding:10px;
+    border-radius: 10px;
+    background-color: #328E6E;
 }
+
