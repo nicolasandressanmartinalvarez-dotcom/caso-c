@@ -30,8 +30,8 @@ function Navbar () {
                 </ul>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('Veterinaria')}> Administracion de Veterinaria<GiPlantsAndAnimals /> </button>
                 <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu==='Veterinaria' ? Nav_Bar_CSS.show : ''}`}>
-                    <li> <NavLink>Agregar Veterinaria</NavLink></li>
-                    <li> <NavLink>Agregar usuarios</NavLink></li>
+                    <li> <NavLink to="AgregarVeterinaria">Agregar Veterinaria</NavLink></li>
+                    <li> <NavLink to="AgregarUserVet">Agregar usuarios</NavLink></li>
                     
                 </ul>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('Municipalidad')}> Administracion de Municipalidades<FaTreeCity /> </button>

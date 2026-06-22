@@ -9,7 +9,8 @@ function Veterinaria() {
         nombreVeterinaria: "",
         direccion: "",
         telefono: "",
-        correo: ""
+        correo: "",
+        dominio:""
     });
 
     const { getAccessTokenSilently } = useAuth0();
@@ -65,7 +66,8 @@ function Veterinaria() {
                     nombreVeterinaria: "",
                     direccion: "",
                     telefono: "",
-                    correo: ""
+                    correo: "",
+                    dominio:""
                 });
 
                 cargarVeterinarias();
@@ -80,44 +82,17 @@ function Veterinaria() {
 
     return (
         <section className={VetCss["contenedor-veterinaria"]}>
-            <h2>Panel Veterinaria</h2>
 
             <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
-                <input
-                    type="text"
-                    name="nombreVeterinaria"
-                    placeholder="Nombre veterinaria"
-                    value={form.nombreVeterinaria}
-                    onChange={handleChange}
-                    required
-                />
+                <input type="text" name="nombreVeterinaria" placeholder="Nombre veterinaria" value={form.nombreVeterinaria} onChange={handleChange} required/>
 
-                <input
-                    type="text"
-                    name="direccion"
-                    placeholder="Dirección"
-                    value={form.direccion}
-                    onChange={handleChange}
-                    required
-                />
+                <input type="text" name="direccion" placeholder="Dirección" value={form.direccion} onChange={handleChange} required />
 
-                <input
-                    type="text"
-                    name="telefono"
-                    placeholder="Teléfono"
-                    value={form.telefono}
-                    onChange={handleChange}
-                    required
-                />
+                <input type="text"  name="telefono" placeholder="Teléfono" value={form.telefono} onChange={handleChange} required/>
 
-                <input
-                    type="email"
-                    name="correo"
-                    placeholder="Correo"
-                    value={form.correo}
-                    onChange={handleChange}
-                    required
-                />
+                <input type="email" name="correo" placeholder="Correo" value={form.correo} onChange={handleChange} required/>
+                
+                <input type="text" name="dominio" placeholder="Donimio" value={form.dominio} onChange={handleChange} required/>
 
                 <button type="submit">Registrar Veterinaria</button>
                 {mensaje && <p className={VetCss["mensaje-veterinaria"]}>{mensaje}</p>}
@@ -132,7 +107,9 @@ function Veterinaria() {
                         <p><strong>Dirección:</strong> {v.direccion}</p>
                         <p><strong>Teléfono:</strong> {v.telefono}</p>
                         <p><strong>Correo:</strong> {v.correo}</p>
+                        <p><strong>Dominio:</strong> {v.dominio}</p>
                     </div>
+                    
                 ))}
             </div>
         </section>

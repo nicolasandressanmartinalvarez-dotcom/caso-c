@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import HeaderAdminCSS from './HeaderAdmin.module.css' 
 
@@ -18,13 +18,13 @@ function HeaderAdmin (){
     return (
         <header className={HeaderAdminCSS["div-header"]}>
             <div className={HeaderAdminCSS["div-img"]}>
-                <img src="/Logo.png" alt="Logo" />
+                <NavLink to="DashBoardAdmin"> <img src="/Logo.png" alt="Logo" /> </NavLink>
             </div>
             
             <div className={HeaderAdminCSS["user-info"]}>
                 {isAuthenticated && (
                     <>
-                        <span>Bienvenido, <strong>{user?.name}</strong></span>
+                        <span>Bienvenido, <strong>{user?.nickname}</strong></span>
                         <button className={HeaderAdminCSS["boton_diseño"]} onClick={logout}>
                             Logout
                         </button>

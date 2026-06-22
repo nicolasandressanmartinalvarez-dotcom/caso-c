@@ -1,0 +1,34 @@
+.contenedor-veterinaria {
+    padding: 30px;
+    width: auto;
+    height: 100vh;
+    color: #242b38;
+}
+
+.form-veterinaria {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+    background: #242b38;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #00d1ff;
+    margin-bottom: 30px;
+}
+
+.form-veterinaria input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+}
+
+.form-veterinaria button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #00d1ff;
+    font-weight: bold;
+    cursor: pointer;
+}

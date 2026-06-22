@@ -1,9 +1,12 @@
 .contenedor-veterinaria {
     padding: 30px;
+    width: auto;
+    height: 100vh;
     color: #242b38;
 }
 
 .form-veterinaria {
+    margin: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
