@@ -1,4 +1,4 @@
-import ListarUsuPermCSS from './ListarUsuPerm.module.css';
+import ListarUsuPermCSS from './ListarUsuPermVet.module.css';
 import { FaSearch, FaUserEdit, FaTrashAlt, FaUserShield, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 function ListarUsuPerm() {
@@ -34,7 +34,6 @@ function ListarUsuPerm() {
                 <table className={ListarUsuPermCSS["table-usuarios"]}>
                     <thead>
                         <tr>
-                            <th>RUT</th>
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Rol</th>
@@ -46,7 +45,6 @@ function ListarUsuPerm() {
                     <tbody>
                         {usuariosMock.map((user) => (
                             <tr key={user.id}>
-                                <td className={ListarUsuPermCSS["rut-cell"]}>{user.rut}</td>
                                 <td className={ListarUsuPermCSS["nombre-cell"]}>{user.nombre}</td>
                                 <td>{user.correo}</td>
                                 <td>

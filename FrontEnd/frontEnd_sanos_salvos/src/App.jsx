@@ -17,13 +17,13 @@ import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 
 //Importaciones paginas Admin
 import DashBoardAdmin from './features/admin/pages/dashBoardAdmin/DashBoardAdmin'
+
 import AgregarVeterinaria from './features/admin/pages/pagesVeterinaria/agregarVeterinaria/Veterinaria'
-
-import AgregarUserVet from './features/admin/pages/pagesVeterinaria/adminUserVet/AdminUserVet'
-
-import ListarUserPerm from './features/admin/pages/pagesVeterinaria/listarUsuPerm/ListarUsuPerm'
 import ListarVeterianarias from './features/admin/pages/pagesVeterinaria/listarVeterianarias/ListarVeterinarias'
 
+import ListarUserPermVet from './features/admin/pages/pagesVeterinaria/listarUsuPermVet/ListarUsuPermVet'
+import AgregarUserVet from './features/admin/pages/pagesVeterinaria/AgregarUserVet/AgregarUserVet'
+import EditUserPermVet from './features/admin/pages/pagesVeterinaria/EditarUsuarioPerm/EditarUserPermVet'
 
 //Impotaciones veterinaria LayoUts
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
@@ -31,7 +31,6 @@ import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd
 
 function App() {
   return (
-    
     <BrowserRouter>
       <Routes>
         <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin/> </RutaProtegidaAdmin>}>
@@ -42,12 +41,12 @@ function App() {
           <Route path="AgregarVeterinaria" element={<AgregarVeterinaria/>}/>
           <Route path="ListarVeterinaria" element={<ListarVeterianarias/>} />
           <Route path="AgregarUserVet" element={<AgregarUserVet/>}/>
-          <Route path="ListarUsuariosPermVet" element={<ListarUserPerm/>}/>
+          <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet/>}/>
+          <Route path="EditarUserPermVet" element={<EditUserPermVet/>}></Route>
         </Route>
         <Route path="veterinaria" element={<RutaProtegidaAdmin><LayOutVeterinaria/></RutaProtegidaAdmin>}>
           <Route path="perdidas" element={<ListMascPerd />} />
         </Route>
-
 
         <Route path="/registrar" element={<RegistrarMascota />} />
         <Route path="/" element={<Header/>}/>

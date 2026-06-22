@@ -26,6 +26,7 @@ public class VeterinariaService {
         veterinaria.setDireccion(dto.getDireccion());
         veterinaria.setTelefono(dto.getTelefono());
         veterinaria.setCorreo(dto.getCorreo());
+        veterinaria.setDominio(dto.getCorreo());
 
         return veterinariaRepository.save(veterinaria);
     }

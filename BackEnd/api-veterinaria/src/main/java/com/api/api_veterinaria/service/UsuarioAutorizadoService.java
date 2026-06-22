@@ -34,6 +34,7 @@ public class UsuarioAutorizadoService {
         usuario.setNombreUser(usuariosDto.getNombreUser());
         usuario.setApellidoPa(usuariosDto.getApellidoPa());
         usuario.setApellidoMa(usuariosDto.getApellidoMa());
+        usuario.setEstadoUser(usuariosDto.getEstadoUsuario());
 
         Veterinaria veterinaria = null;
         if(idVeterinaria != null){
@@ -46,6 +47,33 @@ public class UsuarioAutorizadoService {
         }
         
         usuario.setVeterinaria(veterinaria);
+        
+        return usuarioAutorizadoRepository.save(usuario);
+    }
+
+    public UsuariosPermitidos usuarioPoriD(Long id){
+        UsuariosPermitidos usuario = usuarioAutorizadoRepository.findById(id).orElse(null);
+        return usuario;
+    }
+
+    public UsuariosPermitidos actualizarUsuarioPerm(UsuarioDTO usuarioDTO, Long id){
+        
+        UsuariosPermitidos usuario = usuarioAutorizadoRepository.findById(id).orElseThrow(()-> new RuntimeException("Usuario No encontrado"));
+
+        Long idVet = usuarioDTO.getVeterinaria().getIdVeterinaria();
+
+        Veterinaria vet = null;
+        if(idVet != null){
+            vet = veterinariaRepository.findById(idVet).orElse(null);
+        }
+        usuario.setVeterinaria(vet);
+        
+        usuario.setApellidoMa(usuarioDTO.getApellidoMa());
+        usuario.setApellidoPa(usuarioDTO.getApellidoPa());
+        usuario.setNombreUser(usuarioDTO.getNombreUser());
+        usuario.setCorreoUsuario(usuarioDTO.getCorreoUsuario());
+        usuario.setEstadoUser(usuarioDTO.getEstadoUsuario());
+        usuario.setRol(usuarioDTO.getRol());
         
         return usuarioAutorizadoRepository.save(usuario);
     }
