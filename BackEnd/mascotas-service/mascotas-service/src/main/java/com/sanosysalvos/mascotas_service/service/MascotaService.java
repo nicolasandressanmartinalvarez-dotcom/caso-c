@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.Repository.TipoRazaRepository;
-import com.sanosysalvos.mascotas_service.Repository.TipoMascotaRepository; // Importar nuevo repositorio
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
+import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.TipoMascotaRepository;
+import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
 import com.sanosysalvos.mascotas_service.model.TipoMascota; // Importar nuevo modelo
+import com.sanosysalvos.mascotas_service.model.EstadoMascota; // Importar Enum de Estado
 
 @Service
 public class MascotaService {
@@ -55,11 +56,7 @@ public class MascotaService {
         mascota.setLatitud(mascotaDTO.getLatitud());
         mascota.setLongitud(mascotaDTO.getLongitud());
 
-        // Asignar Estado de Mascota
-        if (mascotaDTO.getEstado() != null) {
-            mascota.setEstado(mascotaDTO.getEstado());
-        }
-
+        // Asignar Estado de Mascota convirtiendo el String a Enum
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
                 String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");

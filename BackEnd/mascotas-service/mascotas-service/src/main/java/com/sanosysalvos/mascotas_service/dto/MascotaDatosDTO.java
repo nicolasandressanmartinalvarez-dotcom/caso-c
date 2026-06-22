@@ -1,5 +1,6 @@
 package com.sanosysalvos.mascotas_service.dto;
 
+
 public class MascotaDatosDTO {
     private TipoMascota tipoMascota;
     private TipoRaza tipoRaza;
