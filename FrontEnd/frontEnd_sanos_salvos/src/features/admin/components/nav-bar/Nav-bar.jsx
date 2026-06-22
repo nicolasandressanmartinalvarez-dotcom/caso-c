@@ -10,14 +10,14 @@ import { NavLink } from 'react-router-dom';
 import Nav_Bar_CSS from './Nav-bar.module.css'
 import { useState } from "react";
 
-function Navbar () {
+function Navbar() {
     const [AbrirMenu, setAbrirMenu] = useState();
-    
-    const AbrirMenuSeleccionado = (Menu)=>{
+
+    const AbrirMenuSeleccionado = (Menu) => {
         setAbrirMenu(AbrirMenu === Menu ? null : Menu)
     }
 
-    return(
+    return (
         <nav className={Nav_Bar_CSS["nav-bar"]}>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('MenuMascota')}>Administrar Mascotas<FaDog /></button>
                 <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu==='MenuMascota' ? Nav_Bar_CSS.show : ''} `}>

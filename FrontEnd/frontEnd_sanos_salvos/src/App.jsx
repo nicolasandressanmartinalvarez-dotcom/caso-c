@@ -18,6 +18,9 @@ import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 import DashBoardAdmin from './features/admin/pages/dashBoardAdmin/DashBoardAdmin'
 import AgregarVeterinaria from './features/admin/pages/agregarVeterinaria/Veterinaria'
 import AgregarUserVet from './features/admin/pages/adminUserVet/AdminUserVet'
+import DashBoardAdmin from './features/admin/pages/DashBoardAdmin'
+import Veterinaria from './features/veterinaria/pages/Veterinaria'
+import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 
 
 function App() {
@@ -27,10 +30,14 @@ function App() {
       <Routes>
         <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin/> </RutaProtegidaAdmin>}>
           <Route index element={<Navigate to={"DashBoardAdmin"} replace />}/>
+          <Route path="veterinaria/perdidas" element={<ListMascPerd />} />
           <Route path="DashBoardAdmin" element={<DashBoardAdmin/>}/>
           <Route path="AgregarVeterinaria" element={<AgregarVeterinaria/>}/>
           <Route path="AgregarUserVet" element={<AgregarUserVet/>}/>
+          <Route path="agr" element={<Veterinaria/>}/>
+          
         </Route>
+        <Route path="/registrar" element={<RegistrarMascota />} />
         <Route path="/" element={<Header/>}/>
 
       </Routes>

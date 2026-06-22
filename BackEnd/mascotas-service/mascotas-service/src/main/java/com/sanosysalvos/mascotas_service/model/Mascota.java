@@ -31,13 +31,21 @@ public class Mascota {
     @Enumerated(EnumType.STRING)
     private EstadoMascota estado;
 
+    public EstadoMascota getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoMascota estado) {
+        this.estado = estado;
+    }
+
     private String correoReportante;
     private String imagen;
 
     private String color;
     private String tamanio;
     private String entidadReportante;
-    
+
     private Double latitud;
     private Double longitud;
 
