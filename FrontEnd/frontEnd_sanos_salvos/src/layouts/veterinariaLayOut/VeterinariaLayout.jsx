@@ -1,21 +1,24 @@
 import VetLayout from "./VeterinariaLayout.module.css";
-import { useState } from "react";
-//import ListMasc from "../pages/listMasc/listMasc";
-//import ListMascPerd from "../pages/listMascPerd/listMascPerd";
+import { Outlet } from "react-router-dom";
+import HeaderVeterinaria from "../../features/veterinaria/components/HeaderVeterinaria";
+import SidebarVeterinaria from "../../features/veterinaria/components/SidebarVeterinaria";
+import FooterVeterinaria from "../../features/veterinaria/components/FooterVeterinaria";
 
 function VeterinariaLayout() {
-    const [vista, setVista] = useState("misMascotas");
 
     return (
-        <div className="app-container">
-            <HeaderAdmin/> //Aca header
-            <div className="content-area">
-                <SideBar/> //Acam panel lateral
-                <main className="content-wrap">
-                    <Outlet/>
+        <div className={VetLayout["app-container"]}>
+            <HeaderVeterinaria />
+
+            <div className={VetLayout["content-area"]}>
+                <SidebarVeterinaria />
+
+                <main className={VetLayout["content-wrap"]}>
+                    <Outlet />
                 </main>
             </div>
-            <FooterAdmin/> //Aca footer
+
+            <FooterVeterinaria />
         </div>
     );
 }
