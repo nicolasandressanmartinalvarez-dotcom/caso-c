@@ -17,9 +17,15 @@ import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 
 //Importaciones paginas Admin
 import DashBoardAdmin from './features/admin/pages/dashBoardAdmin/DashBoardAdmin'
-import AgregarVeterinaria from './features/admin/pages/agregarVeterinaria/Veterinaria'
-import AgregarUserVet from './features/admin/pages/adminUserVet/AdminUserVet'
-import ListarVeterianarias from './features/admin/pages/listarVeterianarias/ListarVeterinarias'
+import AgregarVeterinaria from './features/admin/pages/pagesVeterinaria/agregarVeterinaria/Veterinaria'
+
+import AgregarUserVet from './features/admin/pages/pagesVeterinaria/adminUserVet/AdminUserVet'
+
+import ListarUserPerm from './features/admin/pages/pagesVeterinaria/listarUsuPerm/ListarUsuPerm'
+import ListarVeterianarias from './features/admin/pages/pagesVeterinaria/listarVeterianarias/ListarVeterinarias'
+
+
+//Impotaciones veterinaria LayoUts
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 
 
@@ -31,9 +37,12 @@ function App() {
         <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin/> </RutaProtegidaAdmin>}>
           <Route index element={<Navigate to={"DashBoardAdmin"} replace />}/>
           <Route path="DashBoardAdmin" element={<DashBoardAdmin/>}/>
+
+          //Apartado de Admin veterinaria 
           <Route path="AgregarVeterinaria" element={<AgregarVeterinaria/>}/>
           <Route path="ListarVeterinaria" element={<ListarVeterianarias/>} />
           <Route path="AgregarUserVet" element={<AgregarUserVet/>}/>
+          <Route path="ListarUsuariosPermVet" element={<ListarUserPerm/>}/>
         </Route>
         <Route path="veterinaria" element={<RutaProtegidaAdmin><LayOutVeterinaria/></RutaProtegidaAdmin>}>
           <Route path="perdidas" element={<ListMascPerd />} />

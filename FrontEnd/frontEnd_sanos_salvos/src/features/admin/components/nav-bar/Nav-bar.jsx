@@ -33,7 +33,7 @@ function Navbar() {
                     <li> <NavLink to="AgregarVeterinaria">Agregar Veterinaria</NavLink></li>
                     <li> <NavLink to="ListarVeterinaria">Listar Veterinaria</NavLink></li>
                     <li> <NavLink to="AgregarUserVet">Agregar usuarios</NavLink></li>
-                    
+                    <li> <NavLink to="ListarUsuariosPermVet">Listar Usuarios</NavLink></li>
                 </ul>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('Municipalidad')}> Administracion de Municipalidades<FaTreeCity /> </button>
                 <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu==='Municipalidad' ? Nav_Bar_CSS.show : ''}`}>
