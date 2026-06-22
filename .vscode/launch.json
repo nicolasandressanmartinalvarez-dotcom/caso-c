@@ -57,6 +57,27 @@
             "mainClass": "com.sanosysalvos.bff_service.BffServiceApplication",
             "projectName": "bff-service",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=63871 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=bff-service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MunicipalidadesServiceApplication<municipalidades-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sanosysalvos.municipalidades_service.MunicipalidadesServiceApplication",
+            "projectName": "municipalidades-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OrganizacionesServiceApplication<organizaciones-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sanosysalvos.organizaciones_service.OrganizacionesServiceApplication",
+            "projectName": "organizaciones-service",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]

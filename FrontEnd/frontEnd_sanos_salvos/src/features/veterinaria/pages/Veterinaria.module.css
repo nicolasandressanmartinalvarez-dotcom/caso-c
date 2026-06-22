@@ -1,0 +1,58 @@
+.contenedor-veterinaria {
+    padding: 30px;
+    color: #242b38;
+}
+
+.form-veterinaria {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+    background: #242b38;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #00d1ff;
+    margin-bottom: 30px;
+}
+
+.form-veterinaria input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+}
+
+.form-veterinaria button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #00d1ff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lista-veterinarias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-veterinaria {
+    background: #1e293b;
+    border: 1px solid #38bdf8;
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.card-veterinaria h3 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+.mensaje-veterinaria {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #00d1ff;
+}

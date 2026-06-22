@@ -12,10 +12,6 @@ function Home() {
   const mascotaSeleccionada = (mascota) =>{
     setCoordenadas(mascota)
   }
-
-  useEffect(()=>{
-    console.log(coordenadas)
-  },[coordenadas]);
   return (
     <>
       <section className={HomeCSS["section-home"]}>
