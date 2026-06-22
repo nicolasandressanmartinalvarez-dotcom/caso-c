@@ -11,6 +11,7 @@ import RutaProtegidaAdmin from './components/auth/RutaProtegidaAdmin'
 
 //Importaciones de los layOuts
 import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
+import LayOutVeterinaria from './layouts/veterinariaLayOut/VeterinariaLayout'
 
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 
@@ -18,8 +19,7 @@ import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 import DashBoardAdmin from './features/admin/pages/dashBoardAdmin/DashBoardAdmin'
 import AgregarVeterinaria from './features/admin/pages/agregarVeterinaria/Veterinaria'
 import AgregarUserVet from './features/admin/pages/adminUserVet/AdminUserVet'
-import DashBoardAdmin from './features/admin/pages/DashBoardAdmin'
-import Veterinaria from './features/veterinaria/pages/Veterinaria'
+import ListarVeterianarias from './features/admin/pages/listarVeterianarias/ListarVeterinarias'
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 
 
@@ -30,16 +30,18 @@ function App() {
       <Routes>
         <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin/> </RutaProtegidaAdmin>}>
           <Route index element={<Navigate to={"DashBoardAdmin"} replace />}/>
-          <Route path="veterinaria/perdidas" element={<ListMascPerd />} />
           <Route path="DashBoardAdmin" element={<DashBoardAdmin/>}/>
           <Route path="AgregarVeterinaria" element={<AgregarVeterinaria/>}/>
+          <Route path="ListarVeterinaria" element={<ListarVeterianarias/>} />
           <Route path="AgregarUserVet" element={<AgregarUserVet/>}/>
-          <Route path="agr" element={<Veterinaria/>}/>
-          
         </Route>
+        <Route path="veterinaria" element={<RutaProtegidaAdmin><LayOutVeterinaria/></RutaProtegidaAdmin>}>
+          <Route path="perdidas" element={<ListMascPerd />} />
+        </Route>
+
+
         <Route path="/registrar" element={<RegistrarMascota />} />
         <Route path="/" element={<Header/>}/>
-
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,163 @@
+.contenedor-lista {
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-lista {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.titulo-seccion h2 {
+    color: #1e293b;
+    font-size: 28px;
+    margin: 0 0 8px 0;
+}
+
+.titulo-seccion p {
+    color: #64748b;
+    margin: 0;
+    font-size: 15px;
+}
+
+.btn-nuevo {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #328E6E;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(50, 142, 110, 0.2);
+}
+
+.btn-nuevo:hover {
+    background-color: #27755a;
+    transform: translateY(-2px);
+}
+
+.grid-veterinarias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.card-vet {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-vet:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(50, 142, 110, 0.15);
+    border-color: #328E6E;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    color: #1e293b;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.badge-activo {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.card-body p {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icono {
+    color: #328E6E; 
+    font-size: 16px;
+    min-width: 16px;
+}
+
+.card-footer {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 15px;
+}
+
+.btn-accion {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #f8fafc;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-editar:hover {
+    background-color: #e2e8f0;
+    color: #1e293b;
+}
+
+.btn-eliminar {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.btn-eliminar:hover {
+    background-color: #fee2e2;
+    color: #991b1b;
+}

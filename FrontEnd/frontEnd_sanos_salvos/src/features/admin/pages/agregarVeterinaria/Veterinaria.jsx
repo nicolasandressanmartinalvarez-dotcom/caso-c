@@ -3,7 +3,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import VetCss from "./Veterinaria.module.css";
 
 function Veterinaria() {
-    const [veterinarias, setVeterinarias] = useState([]);
     const [mensaje, setMensaje] = useState("");
     const [form, setForm] = useState({
         nombreVeterinaria: "",
@@ -15,28 +14,6 @@ function Veterinaria() {
 
     const { getAccessTokenSilently } = useAuth0();
 
-    const cargarVeterinarias = async () => {
-        try {
-            const token = await getAccessTokenSilently();
-
-            const response = await fetch("http://localhost:8086/api/veterinaria", {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            const data = await response.json();
-            setVeterinarias(data);
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        cargarVeterinarias();
-    }, [getAccessTokenSilently]);
-
     const handleChange = (e) => {
         setForm({
             ...form,
@@ -46,10 +23,8 @@ function Veterinaria() {
 
     const registrarVeterinaria = async (e) => {
         e.preventDefault();
-
         try {
             const token = await getAccessTokenSilently();
-
             const response = await fetch("http://localhost:8086/api/veterinaria", {
                 method: "POST",
                 headers: {
@@ -60,21 +35,13 @@ function Veterinaria() {
             });
 
             if (response.ok) {
-                setMensaje("Veterinaria registrada correctamente");
-
+                setMensaje("Veterinaria registrada correctamente 🎉");
                 setForm({
-                    nombreVeterinaria: "",
-                    direccion: "",
-                    telefono: "",
-                    correo: "",
-                    dominio:""
+                    nombreVeterinaria: "", direccion: "", telefono: "", correo: "", dominio:""
                 });
-
-                cargarVeterinarias();
             } else {
                 setMensaje("Error al registrar veterinaria");
             }
-
         } catch (error) {
             console.error(error);
         }
@@ -82,35 +49,38 @@ function Veterinaria() {
 
     return (
         <section className={VetCss["contenedor-veterinaria"]}>
+            <div className={VetCss["form-card"]}>
+                <h2 className={VetCss["titulo-form"]}>Agregar Veterinaria</h2>
+                <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
+                    
+                    <div className={VetCss["input-group"]}>
+                        <label>Nombre Veterinaria</label>
+                        <input type="text" name="nombreVeterinaria" placeholder="Ej: VetCenter" value={form.nombreVeterinaria} onChange={handleChange} required/>
+                    </div>
 
-            <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
-                <input type="text" name="nombreVeterinaria" placeholder="Nombre veterinaria" value={form.nombreVeterinaria} onChange={handleChange} required/>
+                    <div className={VetCss["input-group"]}>
+                        <label>Dirección</label>
+                        <input type="text" name="direccion" placeholder="Ej: Av. Principal 123" value={form.direccion} onChange={handleChange} required />
+                    </div>
 
-                <input type="text" name="direccion" placeholder="Dirección" value={form.direccion} onChange={handleChange} required />
+                    <div className={VetCss["input-group"]}>
+                        <label>Teléfono</label>
+                        <input type="text"  name="telefono" placeholder="Ej: +56 9 1234 5678" value={form.telefono} onChange={handleChange} required/>
+                    </div>
 
-                <input type="text"  name="telefono" placeholder="Teléfono" value={form.telefono} onChange={handleChange} required/>
-
-                <input type="email" name="correo" placeholder="Correo" value={form.correo} onChange={handleChange} required/>
-                
-                <input type="text" name="dominio" placeholder="Donimio" value={form.dominio} onChange={handleChange} required/>
-
-                <button type="submit">Registrar Veterinaria</button>
-                {mensaje && <p className={VetCss["mensaje-veterinaria"]}>{mensaje}</p>}
-            </form>
-
-            <h2>Veterinarias Registradas</h2>
-
-            <div className={VetCss["lista-veterinarias"]}>
-                {veterinarias.map((v) => (
-                    <div className={VetCss["card-veterinaria"]} key={v.id}>
-                        <h3>{v.nombreVeterinaria}</h3>
-                        <p><strong>Dirección:</strong> {v.direccion}</p>
-                        <p><strong>Teléfono:</strong> {v.telefono}</p>
-                        <p><strong>Correo:</strong> {v.correo}</p>
-                        <p><strong>Dominio:</strong> {v.dominio}</p>
+                    <div className={VetCss["input-group"]}>
+                        <label>Correo Electrónico</label>
+                        <input type="email" name="correo" placeholder="Ej: contacto@vet.com" value={form.correo} onChange={handleChange} required/>
                     </div>
                     
-                ))}
+                    <div className={VetCss["input-group"]}>
+                        <label>Dominio</label>
+                        <input type="text" name="dominio" placeholder="Ej: vetcenter.cl" value={form.dominio} onChange={handleChange} required/>
+                    </div>
+
+                    <button type="submit" className={VetCss["btn-submit"]}>Registrar Veterinaria</button>
+                    {mensaje && <p className={VetCss["mensaje-veterinaria"]}>{mensaje}</p>}
+                </form>
             </div>
         </section>
     );
