@@ -44,6 +44,8 @@ function App() {
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet/>}/>
           <Route path="EditarUserPermVet" element={<EditUserPermVet/>}></Route>
         </Route>
+
+        
         <Route path="veterinaria" element={<RutaProtegidaAdmin><LayOutVeterinaria/></RutaProtegidaAdmin>}>
           <Route path="perdidas" element={<ListMascPerd />} />
         </Route>
