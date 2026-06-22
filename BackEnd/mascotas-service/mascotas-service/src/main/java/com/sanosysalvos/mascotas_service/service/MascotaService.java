@@ -16,8 +16,6 @@ import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
 import com.sanosysalvos.mascotas_service.repository.TipoMascotaRepository;
 import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
 import com.sanosysalvos.mascotas_service.model.TipoMascota; // Importar nuevo modelo
-import com.sanosysalvos.mascotas_service.model.EstadoMascota; // Importar Enum de Estado
-
 @Service
 public class MascotaService {
 
