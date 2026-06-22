@@ -26,7 +26,6 @@ function Veterinaria() {
 
             const data = await response.json();
             setVeterinarias(data);
-
         } catch (error) {
             console.error(error);
         }
@@ -60,7 +59,6 @@ function Veterinaria() {
 
             if (response.ok) {
                 setMensaje("Veterinaria registrada correctamente");
-
                 setForm({
                     nombreVeterinaria: "",
                     direccion: "",
@@ -72,58 +70,76 @@ function Veterinaria() {
             } else {
                 setMensaje("Error al registrar veterinaria");
             }
-
         } catch (error) {
             console.error(error);
+            setMensaje("Error al conectar con el servidor");
         }
     };
 
     return (
         <section className={VetCss["contenedor-veterinaria"]}>
-            <h2>Panel Veterinaria</h2>
+            <div className={VetCss["banner-veterinaria"]}>
+                <h1>Administración de Veterinarias</h1>
+                <p>Gestiona las clínicas veterinarias asociadas al sistema Sanos y Salvos.</p>
+            </div>
 
-            <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
-                <input
-                    type="text"
-                    name="nombreVeterinaria"
-                    placeholder="Nombre veterinaria"
-                    value={form.nombreVeterinaria}
-                    onChange={handleChange}
-                    required
-                />
+            <div className={VetCss["panel-formulario"]}>
+                <div className={VetCss["titulo-seccion"]}>
+                    <h2>Registrar Veterinaria</h2>
+                    <p>Agrega una nueva veterinaria colaboradora al sistema.</p>
+                </div>
 
-                <input
-                    type="text"
-                    name="direccion"
-                    placeholder="Dirección"
-                    value={form.direccion}
-                    onChange={handleChange}
-                    required
-                />
+                <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
+                    <input
+                        type="text"
+                        name="nombreVeterinaria"
+                        placeholder="Nombre veterinaria"
+                        value={form.nombreVeterinaria}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <input
-                    type="text"
-                    name="telefono"
-                    placeholder="Teléfono"
-                    value={form.telefono}
-                    onChange={handleChange}
-                    required
-                />
+                    <input
+                        type="text"
+                        name="direccion"
+                        placeholder="Dirección"
+                        value={form.direccion}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <input
-                    type="email"
-                    name="correo"
-                    placeholder="Correo"
-                    value={form.correo}
-                    onChange={handleChange}
-                    required
-                />
+                    <input
+                        type="text"
+                        name="telefono"
+                        placeholder="Teléfono"
+                        value={form.telefono}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <button type="submit">Registrar Veterinaria</button>
-                {mensaje && <p className={VetCss["mensaje-veterinaria"]}>{mensaje}</p>}
-            </form>
+                    <input
+                        type="email"
+                        name="correo"
+                        placeholder="Correo"
+                        value={form.correo}
+                        onChange={handleChange}
+                        required
+                    />
 
-            <h2>Veterinarias Registradas</h2>
+                    <button type="submit">Registrar Veterinaria</button>
+
+                    {mensaje && (
+                        <p className={VetCss["mensaje-veterinaria"]}>
+                            {mensaje}
+                        </p>
+                    )}
+                </form>
+            </div>
+
+            <div className={VetCss["titulo-seccion"]}>
+                <h2>Veterinarias Registradas</h2>
+                <p>Listado de veterinarias disponibles para colaborar con reportes de mascotas.</p>
+            </div>
 
             <div className={VetCss["lista-veterinarias"]}>
                 {veterinarias.map((v) => (

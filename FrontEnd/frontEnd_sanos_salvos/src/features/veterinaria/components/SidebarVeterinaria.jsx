@@ -1,27 +1,22 @@
 import { NavLink } from "react-router-dom";
+import "./SidebarVeterinaria.css";
 
 function SidebarVeterinaria() {
     return (
-        <aside>
-            <ul>
-                <li>
-                    <NavLink to="/veterinaria">
-                        Inicio
-                    </NavLink>
-                </li>
+        <aside className="sidebar-veterinaria">
+            <nav>
+                <NavLink to="/veterinaria" className="sidebar-link">
+                    Inicio
+                </NavLink>
 
-                <li>
-                    <NavLink to="/veterinaria/perdidas">
-                        Mascotas Perdidas
-                    </NavLink>
-                </li>
+                <NavLink to="/veterinaria/perdidas" className="sidebar-link">
+                    Mascotas Perdidas
+                </NavLink>
 
-                <li>
-                    <NavLink to="/veterinaria">
-                        Veterinarias
-                    </NavLink>
-                </li>
-            </ul>
+                <NavLink to="/veterinaria" className="sidebar-link">
+                    Veterinarias
+                </NavLink>
+            </nav>
         </aside>
     );
 }

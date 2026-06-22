@@ -19,8 +19,7 @@ function ListMascPerd() {
 
                 const data = await res.json();
 
-                console.log("DATA COMPLETA:", data);
-                console.log("ESTADOS:", data.map((m) => m.estado));
+
 
                 const mascotasPerdidas = data.filter((m) => m.estado === "PERDIDO");
                 setMascotas(mascotasPerdidas);
@@ -35,6 +34,9 @@ function ListMascPerd() {
     return (
         <section className="contenedor-perdidas">
             <h1>Mascotas Perdidas</h1>
+            <p className="subtitulo-perdidas">
+                Reportes activos de mascotas extraviadas registrados en el sistema.
+            </p>
 
             {mascotas.length === 0 ? (
                 <p>No hay mascotas perdidas registradas.</p>

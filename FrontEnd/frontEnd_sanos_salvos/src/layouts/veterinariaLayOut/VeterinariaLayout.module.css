@@ -1,0 +1,19 @@
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f4f7f5;
+    color: #14213d;
+}
+
+.content-area {
+    flex: 1;
+    display: flex;
+}
+
+.content-wrap {
+    flex: 1;
+    padding: 45px 55px;
+    background: #f4f7f5;
+    overflow-x: hidden;
+}

@@ -1,11 +1,12 @@
-
-
-
+import "./HeaderVeterinaria.css";
 
 function HeaderVeterinaria() {
     return (
-        <header>
-            <h2>Panel Veterinaria</h2>
+        <header className="header-veterinaria">
+            <div>
+                <h2>Centro Veterinario</h2>
+                <p>Gestión de reportes y mascotas</p>
+            </div>
         </header>
     );
 }
