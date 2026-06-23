@@ -1,6 +1,5 @@
 package com.api.api_veterinaria.model;
 
-import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +26,7 @@ public class UsuariosPermitidos {
     private String nombreUser;
     private String apellidoPa;
     private String apellidoMa;
+    private String estadoUser;
     private String idAuth0;
     
     @ManyToOne

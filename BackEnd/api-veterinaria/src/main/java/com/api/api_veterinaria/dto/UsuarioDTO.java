@@ -7,6 +7,7 @@ public class UsuarioDTO {
     private String nombreUser;
     private String apellidoPa;
     private String apellidoMa;
+    private String estadoUsuario;
     private Veterinaria Veterinaria;
 
     public static class Veterinaria {
@@ -25,6 +26,7 @@ public class UsuarioDTO {
     public String getNombreUser() {return nombreUser;}
     public String getApellidoPa() {return apellidoPa;}
     public String getApellidoMa() {return apellidoMa;}
+    public String getEstadoUsuario() {return estadoUsuario;}
     public String getCorreoUsuario() {return correoUsuario;}
     public String getRol() {return rol;}
     public String getIdAuth0() {return idAuth0;}
@@ -36,4 +38,6 @@ public class UsuarioDTO {
     public void setCorreoUsuario(String correoUsuario) {this.correoUsuario = correoUsuario;}
     public void setRol(String rol) {this.rol = rol;}
     public void setIdAuth0(String idAuth0) {this.idAuth0 = idAuth0;}
+    public void setEstadoUsuario(String estadoUsuario) {this.estadoUsuario = estadoUsuario;}
+    
 }
