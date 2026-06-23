@@ -48,13 +48,19 @@ public class MascotaService {
         }
 
         Mascota mascota = new Mascota();
+
         mascota.setNombre(mascotaDTO.getNombre());
         mascota.setDescripcion(mascotaDTO.getDescripcion());
         mascota.setCorreoReportante(mascotaDTO.getCorreoReportante());
         mascota.setLatitud(mascotaDTO.getLatitud());
         mascota.setLongitud(mascotaDTO.getLongitud());
 
-        // Asignar Estado de Mascota convirtiendo el String a Enum
+        // Asignar Estado de Mascota
+        if (mascotaDTO.getEstado() != null && !mascotaDTO.getEstado().isBlank()) {
+            mascota.setEstado(EstadoMascota.valueOf(mascotaDTO.getEstado()));
+        } else {
+            mascota.setEstado(EstadoMascota.PERDIDO);
+        }
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
                 String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_");

@@ -10,14 +10,14 @@ import { NavLink } from 'react-router-dom';
 import Nav_Bar_CSS from './Nav-bar.module.css'
 import { useState } from "react";
 
-function Navbar () {
+function Navbar() {
     const [AbrirMenu, setAbrirMenu] = useState();
-    
-    const AbrirMenuSeleccionado = (Menu)=>{
+
+    const AbrirMenuSeleccionado = (Menu) => {
         setAbrirMenu(AbrirMenu === Menu ? null : Menu)
     }
 
-    return(
+    return (
         <nav className={Nav_Bar_CSS["nav-bar"]}>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('MenuMascota')}>Administrar Mascotas<FaDog /></button>
                 <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu==='MenuMascota' ? Nav_Bar_CSS.show : ''} `}>
@@ -30,9 +30,10 @@ function Navbar () {
                 </ul>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('Veterinaria')}> Administracion de Veterinaria<GiPlantsAndAnimals /> </button>
                 <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu==='Veterinaria' ? Nav_Bar_CSS.show : ''}`}>
-                    <li> <NavLink>Agregar Veterinaria</NavLink></li>
-                    <li> <NavLink>Agregar usuarios</NavLink></li>
-                    
+                    <li> <NavLink to="AgregarVeterinaria">Agregar Veterinaria</NavLink></li>
+                    <li> <NavLink to="ListarVeterinaria">Listar Veterinaria</NavLink></li>
+                    <li> <NavLink to="AgregarUserVet">Agregar usuarios</NavLink></li>
+                    <li> <NavLink to="ListarUsuariosPermVet">Listar Usuarios</NavLink></li>
                 </ul>
                 <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={()=>AbrirMenuSeleccionado('Municipalidad')}> Administracion de Municipalidades<FaTreeCity /> </button>
                 <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu==='Municipalidad' ? Nav_Bar_CSS.show : ''}`}>

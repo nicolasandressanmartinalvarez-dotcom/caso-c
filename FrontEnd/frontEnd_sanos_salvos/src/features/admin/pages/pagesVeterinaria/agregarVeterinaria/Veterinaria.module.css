@@ -1,0 +1,88 @@
+.contenedor-veterinaria {
+    padding: 40px;
+    width: 100%;
+    height: 100%; 
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+}
+
+.form-card {
+    background: #ffffff;
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(50, 142, 110, 0.1);
+    width: 100%;
+    max-width: 500px;
+    border-top: 5px solid #328E6E;
+}
+
+.titulo-form {
+    color: #242b38;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.form-veterinaria {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.input-group input {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background-color: #fdfdfd;
+    font-size: 15px;
+    color: #334155;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #328E6E;
+    box-shadow: 0 0 0 3px rgba(50, 142, 110, 0.2);
+}
+
+.btn-submit {
+    margin-top: 10px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #328E6E, #4ba385);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(50, 142, 110, 0.2);
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #27755a, #328E6E);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(50, 142, 110, 0.3);
+}
+
+.mensaje-veterinaria {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #328E6E;
+}

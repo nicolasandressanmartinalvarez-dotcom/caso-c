@@ -1,5 +1,8 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.sourcePaths": [
+        "FrontEnd/frontEnd_sanos_salvos/src/features/admin/pages/pagesVeterinaria/EditarUsuarioPerm"
+    ]
 }

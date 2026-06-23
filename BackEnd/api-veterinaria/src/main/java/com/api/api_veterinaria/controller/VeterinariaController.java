@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.api.api_veterinaria.dto.VeterinariaDTO;
 import com.api.api_veterinaria.model.Veterinaria;
 import com.api.api_veterinaria.service.VeterinariaService;
 
@@ -21,7 +21,7 @@ public class VeterinariaController {
     }
 
     @PostMapping
-    public Veterinaria guardar(@RequestBody Veterinaria veterinaria) {
-        return veterinariaService.guardar(veterinaria);
+    public Veterinaria guardar(@RequestBody VeterinariaDTO veterinariaDTO) {
+        return veterinariaService.guardar(veterinariaDTO);
     }
 }
