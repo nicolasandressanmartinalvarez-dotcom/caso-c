@@ -22,8 +22,8 @@ public class SecurityConfig {
                                 .cors(Customizer.withDefaults())
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(authz -> authz
-                                                .requestMatchers("/api/veterinaria/**").authenticated()
-                                                .anyRequest().permitAll())
+                                                .requestMatchers("/api/veterinaria/**").authenticated().
+                                                requestMatchers("/api/usuarios/**"))
                                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
                 return http.build();

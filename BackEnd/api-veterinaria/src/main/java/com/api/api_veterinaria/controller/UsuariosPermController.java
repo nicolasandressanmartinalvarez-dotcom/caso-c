@@ -3,7 +3,6 @@ package com.api.api_veterinaria.controller;
 import java.util.List;
 
 import org.apache.hc.core5.http.HttpStatus;
-import org.apache.http.protocol.HTTP;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
