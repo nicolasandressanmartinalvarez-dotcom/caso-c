@@ -24,17 +24,35 @@ public class UsuariosPermServ {
     }
 
     public Usuarios buscarPorCorreo(String correoUsuario){
+
         return usuarioRepo.findByCorreoUsuario(correoUsuario);
     }
 
-    public Usuarios actualizUsuarios(String correo, Usuarios usuario){
-        
+
+    public Usuarios actualizUsuarios(String correo, Usuarios usuario) {
+    
         Usuarios usuarioEncontrado = usuarioRepo.findByCorreoUsuario(correo);
 
-        usuarioEncontrado.setCorreoUsuario(usuario.getCorreoUsuario());
-        usuarioEncontrado.setIdAuth0(usuario.getIdAuth0());
-        usuarioEncontrado.setEntidadPerteneciente(usuario.getEntidadPerteneciente());
+        if (usuarioEncontrado == null) {
+            return null;
+        }
+        if (usuario.getCorreoUsuario() != null && !usuario.getCorreoUsuario().isEmpty()) {
+            usuarioEncontrado.setCorreoUsuario(usuario.getCorreoUsuario());
+        }
+        
+        if (usuario.getEntidadPerteneciente() != null && !usuario.getEntidadPerteneciente().isEmpty()) {
+            usuarioEncontrado.setEntidadPerteneciente(usuario.getEntidadPerteneciente());
+        }
+        
+        if (usuario.getIdAuth0() != null && !usuario.getIdAuth0().isEmpty()) {
+            usuarioEncontrado.setIdAuth0(usuario.getIdAuth0());
+        }
         return usuarioRepo.save(usuarioEncontrado);
     }
 
+    public String borrarUsuario(Long id){
+        
+        usuarioRepo.deleteById(id);
+        return "Usuario Eliminado";
+    }
 }

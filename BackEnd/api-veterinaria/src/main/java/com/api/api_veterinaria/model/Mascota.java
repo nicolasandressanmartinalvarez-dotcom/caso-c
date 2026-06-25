@@ -27,6 +27,10 @@ public class Mascota {
     @JoinColumn(name = "tipo_mascota_id")
     private TipoMascota tipoMascota;
 
+    @ManyToOne
+    @JoinColumn(name="id_veterinaria")
+    private Veterinaria veterinaria;
+
     private String correoReportante;
     private String imagen;
 
