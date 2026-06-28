@@ -1,6 +1,6 @@
 package com.sanosysalvos.mascotas_service.service;
 
-import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
+import com.sanosysalvos.mascotas_service.Repository.TipoRazaRepository;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
 import org.springframework.stereotype.Service;
 

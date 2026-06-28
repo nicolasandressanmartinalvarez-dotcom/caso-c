@@ -1,7 +1,7 @@
 package com.sanosysalvos.mascotas_service.service;
 
 import com.sanosysalvos.mascotas_service.model.TipoMascota;
-import com.sanosysalvos.mascotas_service.repository.TipoMascotaRepository;
+import com.sanosysalvos.mascotas_service.Repository.TipoMascotaRepository;
 
 import org.springframework.stereotype.Service;
 import java.util.List;

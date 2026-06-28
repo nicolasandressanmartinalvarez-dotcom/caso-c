@@ -1,0 +1,37 @@
+.div-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background: linear-gradient(135deg, #1d4ed8, #60a5fa); /* Blue gradient */
+    color: white;
+    height: 70px;
+}
+.div-img {
+    width: 150px;
+    display: flex;
+    align-items: center;
+}
+.div-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+.boton_diseño {
+    transition:  0.3s ease;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1e3a8a;
+    cursor: pointer;
+    font-weight: 500;
+}
+.boton_diseño:hover {
+    background-color: #2563eb;
+}

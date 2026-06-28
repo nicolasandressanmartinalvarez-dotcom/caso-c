@@ -28,11 +28,11 @@ public class Mascota {
 
     private String estado;
 
-    public EstadoMascota getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoMascota estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

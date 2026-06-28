@@ -1,0 +1,242 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  color: #333;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #5c258d;
+  background: linear-gradient(135deg, #5c258d 0%, #4389a2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(92, 37, 141, 0.08);
+  border: 1px solid rgba(92, 37, 141, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #5c258d;
+  border-bottom: 2px solid #f0e6ff;
+  padding-bottom: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #4a4a4a;
+  font-size: 0.95rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #5c258d;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(92, 37, 141, 0.15);
+}
+
+.formGroup textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.button {
+  background: linear-gradient(135deg, #5c258d 0%, #4389a2 100%);
+  color: white;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(92, 37, 141, 0.2);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(92, 37, 141, 0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.exito {
+  color: #27ae60;
+  font-weight: 600;
+  background: #ebfcf2;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #c3f2d7;
+  text-align: center;
+}
+
+.error {
+  color: #c0392b;
+  font-weight: 600;
+  background: #fdf2f2;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #fbdad9;
+  text-align: center;
+}
+
+.alertasList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.alertasList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.alertasList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.alertasList::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.alertasList::-webkit-scrollbar-thumb:hover {
+  background: #5c258d;
+}
+
+.noAlerts {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}
+
+.alertaCard {
+  background: #faf7ff;
+  border-left: 5px solid #5c258d;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s;
+  border-top: 1px solid #f0e6ff;
+  border-right: 1px solid #f0e6ff;
+  border-bottom: 1px solid #f0e6ff;
+}
+
+.alertaCard:hover {
+  transform: translateX(4px);
+}
+
+.alertaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.badge {
+  background: #f0e6ff;
+  color: #5c258d;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.fecha {
+  color: #888;
+}
+
+.alertaDetalle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.alertaDetalle p {
+  margin: 0.2rem 0;
+}
+
+.alertaMensaje {
+  background: #fff;
+  border-radius: 6px;
+  padding: 0.75rem;
+  border: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.alertaMensaje p {
+  margin: 0;
+  line-height: 1.4;
+}

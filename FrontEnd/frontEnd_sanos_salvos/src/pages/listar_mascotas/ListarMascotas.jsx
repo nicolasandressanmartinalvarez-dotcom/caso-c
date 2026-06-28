@@ -31,7 +31,11 @@ function ListarMascotas({ setNuevaMascota }) {
             lat: coordenadasMascota.latitud,
             lng: coordenadasMascota.longitud
         }
-        setNuevaMascota(latitudYLongitud)
+        if (typeof setNuevaMascota === 'function') {
+            setNuevaMascota(latitudYLongitud)
+        } else {
+            console.log("Coordenadas de la mascota a localizar:", latitudYLongitud);
+        }
     }
 
     //Empieza el boton contactar

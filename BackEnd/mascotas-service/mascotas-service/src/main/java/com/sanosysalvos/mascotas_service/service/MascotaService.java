@@ -12,10 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.mascotas_service.model.Mascota;
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
-import com.sanosysalvos.mascotas_service.repository.MascotaRepository;
-import com.sanosysalvos.mascotas_service.repository.TipoMascotaRepository;
-import com.sanosysalvos.mascotas_service.repository.TipoRazaRepository;
+import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
+import com.sanosysalvos.mascotas_service.Repository.TipoMascotaRepository;
+import com.sanosysalvos.mascotas_service.Repository.TipoRazaRepository;
 import com.sanosysalvos.mascotas_service.model.TipoMascota; // Importar nuevo modelo
+
 @Service
 public class MascotaService {
 
@@ -57,9 +58,9 @@ public class MascotaService {
 
         // Asignar Estado de Mascota
         if (mascotaDTO.getEstado() != null && !mascotaDTO.getEstado().isBlank()) {
-            mascota.setEstado(EstadoMascota.valueOf(mascotaDTO.getEstado()));
+            mascota.setEstado(mascotaDTO.getEstado());
         } else {
-            mascota.setEstado(EstadoMascota.PERDIDO);
+            mascota.setEstado("PERDIDO");
         }
         if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
             try {
@@ -84,5 +85,6 @@ public class MascotaService {
         }
 
         return mascotaRepository.save(mascota);
+
     }
 }
