@@ -57,6 +57,7 @@ services:
       POSTGRES_PASSWORD: password-noti
     ports:
       - "5434:5432"
+  
 
 # Base de datos de veterinaria, usada por api-veterinaria
   db-veterinaria:
@@ -68,6 +69,16 @@ services:
       POSTGRES_PASSWORD: password-vet
     ports:
       - "5435:5432"
+  # Base de datos de usuarios
+  db-usuarios:
+    image: postgres:15
+    container_name: db-usuarios
+    environment:
+      POSTGRES_DB: usuarios_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5436:5432"
 
   # entorno grafico para administrar la base de datos PostgreSQL
   pgadmin:

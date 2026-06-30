@@ -25,8 +25,8 @@ function Navbar() {
             </ul>
             <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Organizacion')}> Administracion de Organizaciones<GrOrganization /> </button>
             <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu === 'Organizacion' ? Nav_Bar_CSS.show : ''}`}>
-                <li><NavLink to="AgregarOrganizacion">Agregar Organizacion</NavLink></li>
-                <li><NavLink to="ListarOrganizaciones">Listar Organizaciones</NavLink></li>
+                <li> <NavLink>Agregar Organizacion</NavLink></li>
+                <li> <NavLink>Agregar Usuarios</NavLink></li>
             </ul>
             <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Veterinaria')}> Administracion de Veterinaria<GiPlantsAndAnimals /> </button>
             <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu === 'Veterinaria' ? Nav_Bar_CSS.show : ''}`}>
@@ -34,11 +34,13 @@ function Navbar() {
                 <li> <NavLink to="ListarVeterinaria">Listar Veterinaria</NavLink></li>
                 <li> <NavLink to="AgregarUserVet">Agregar usuarios</NavLink></li>
                 <li> <NavLink to="ListarUsuariosPermVet">Listar Usuarios</NavLink></li>
+                <li> <NavLink to="AgrMascotaVeterinaria">Ingresar Mascota</NavLink></li>
+                <li> <NavLink to="ListarMascotaVeterinaria">Listar Mascotas Veterinaria</NavLink></li>
             </ul>
             <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Municipalidad')}> Administracion de Municipalidades<FaTreeCity /> </button>
             <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu === 'Municipalidad' ? Nav_Bar_CSS.show : ''}`}>
-                <li><NavLink to="AgregarMunicipalidad">Agregar Municipalidad</NavLink></li>
-                <li><NavLink to="ListarMunicipalidades">Listar Municipalidades</NavLink></li>
+                <li> <NavLink>Agregar Municipalidad</NavLink></li>
+                <li> <NavLink>Agregar usuarios</NavLink></li>
             </ul>
             <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Alertas')}> Administracion de alertas o avisos<HiBellAlert /></button>
             <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu === 'Alertas' ? Nav_Bar_CSS.show : ''}`}>

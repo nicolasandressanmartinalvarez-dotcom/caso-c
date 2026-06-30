@@ -90,6 +90,26 @@
             "projectName": "api-veterinaria",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UsuariosPermitidosApplication<usuarios_Permitidos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.api_User.usuarios_Permitidos.UsuariosPermitidosApplication",
+            "projectName": "usuarios_Permitidos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UsuariosPermApplication<usuarios-perm>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.api.usuarios_perm.UsuariosPermApplication",
+            "projectName": "usuarios-perm",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

@@ -116,11 +116,7 @@ function Map() {
                   onClick={() => setSeleccionado(m)}
                 />
 
-                <Circle
-                  center={{
-                    lat: Number(m.latitud),
-                    lng: Number(m.longitud)
-                  }}
+                <Circle center={{ lat: Number(m.latitud), lng: Number(m.longitud)}} 
                   radius={radio}
                   options={{
                     fillColor: "#00BFFF",
@@ -128,9 +124,8 @@ function Map() {
                     strokeColor: "#1E90FF",
                     strokeOpacity: 0.8,
                     strokeWeight: 2,
-                  }}
-                />
-              </>
+                  }}/>
+                </>
             ))}
 
           {seleccionado && (

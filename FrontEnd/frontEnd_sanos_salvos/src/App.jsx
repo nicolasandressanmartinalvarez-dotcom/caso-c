@@ -26,9 +26,11 @@ import AgregarVeterinaria from './features/admin/pages/pagesVeterinaria/agregarV
 import ListarVeterianarias from './features/admin/pages/pagesVeterinaria/listarVeterianarias/ListarVeterinarias'
 
 import ListarUserPermVet from './features/admin/pages/pagesVeterinaria/listarUsuPermVet/ListarUsuPermVet'
-import AgregarUserVet from './features/admin/pages/pagesVeterinaria/AgregarUserVet/AgregarUserVet'
-import EditUserPermVet from './features/admin/pages/pagesVeterinaria/EditarUsuarioPerm/EditarUserPermVet'
+import AgregarUserVet from './features/admin/pages/pagesVeterinaria/agregarVeterinaria/Veterinaria'
+import EditUserPermVet from './features/admin/pages/pagesVeterinaria/editarUsuarioPerm/EditarUserPermVet'
 
+import AgregarMascVet from './features/admin/pages/pagesVeterinaria/ingreMascVet/IngreMascoVete'
+import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/listarMacotasVeterinaria/ListarMascotasVeterinaria'
 //Impotaciones veterinaria LayoUts
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 
@@ -55,11 +57,21 @@ function App() {
           <Route path="AgregarUserVet" element={<AgregarUserVet />} />
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
           <Route path="EditarUserPermVet" element={<EditUserPermVet />}></Route>
+
           //Apartado de Admin municipalidades y organizaciones
           <Route path="ListarMunicipalidades" element={<ListarMunicipalidades />} />
           <Route path="AgregarMunicipalidad" element={<AgregarMunicipalidad />} />
           <Route path="ListarOrganizaciones" element={<ListarOrganizaciones />} />
           <Route path="AgregarOrganizacion" element={<AgregarOrganizacion />} />
+
+          //Apartado de Admin veterinaria
+          <Route path="AgregarVeterinaria" element={<AgregarVeterinaria />} />
+          <Route path="ListarVeterinaria" element={<ListarVeterianarias />} />
+          <Route path="AgregarUserVet" element={<AgregarUserVet />} />
+          <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
+          <Route path="EditarUserPermVet" element={<EditUserPermVet />}></Route>
+          <Route path="AgrMascotaVeterinaria" element={<AgregarMascVet />}></Route>
+          <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
         </Route>
 
         <Route path="/organizacion" element={<OrganizacionLayOut />}>
