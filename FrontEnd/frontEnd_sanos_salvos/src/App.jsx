@@ -11,7 +11,7 @@ import RutaProtegidaAdmin from './components/auth/RutaProtegidaAdmin'
 
 //Importaciones de los layOuts
 import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
-import VeterinariaLayout from "./layouts/veterinariaLayOut/VeterinariaLayout";
+import LayOutVeterinaria from "./layouts/veterinariaLayOut/VeterinariaLayout";
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 
 //Importaciones paginas Admin
@@ -33,13 +33,14 @@ import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd
 function App() {
   return (
     <BrowserRouter>
+      <Routes> 
         <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin/> </RutaProtegidaAdmin>}>
           <Route index element={<Navigate to={"DashBoardAdmin"} replace />}/>
           <Route path="DashBoardAdmin" element={<DashBoardAdmin/>}/>
 
           //Apartado de Admin veterinaria 
           <Route path="AgregarVeterinaria" element={<AgregarVeterinaria/>}/>
-          <Route path="ListarVeterinaria" element={<ListarVeterianarias/>} />
+          <Route path="ListarVeterinaria" element={<ListarVeterianarias/>} /> 
           <Route path="AgregarUserVet" element={<AgregarUserVet/>}/>
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet/>}/>
           <Route path="EditarUserPermVet" element={<EditUserPermVet/>}></Route>
@@ -48,7 +49,7 @@ function App() {
         </Route>
 
         
-        <Route path="veterinaria" element={<RutaProtegidaAdmin><LayOutVeterinaria/></RutaProtegidaAdmin>}>
+        <Route path="veterinaria" element={<LayOutVeterinaria/>}>
           <Route path="perdidas" element={<ListMascPerd />} />
         </Route>
 

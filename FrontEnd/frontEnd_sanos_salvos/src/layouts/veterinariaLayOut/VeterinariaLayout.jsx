@@ -1,18 +1,17 @@
-import VetLayout from "./VeterinariaLayout.module.css";
 import { Outlet } from "react-router-dom";
-import HeaderVeterinaria from "../../features/veterinaria/components/HeaderVeterinaria";
-import SidebarVeterinaria from "../../features/veterinaria/components/SidebarVeterinaria";
-import FooterVeterinaria from "../../features/veterinaria/components/FooterVeterinaria";
+import HeaderVeterinaria from "../../features/veterinaria/components/headerVeterinaria/HeaderVeterinaria";
+import SidebarVeterinaria from "../../features/veterinaria/components/sidebarVeterinaria/SidebarVeterinaria";
+import FooterVeterinaria from "../../features/veterinaria/components/footerVeterinaria/FooterVeterinaria";
 
 function VeterinariaLayout() {
 
     return (
-        <div className={VetLayout["app-container"]}>
+        <div className="app-container">
             <HeaderVeterinaria />
 
-            <div className={VetLayout["content-area"]}>
+            <div className="content-area">
                 <SidebarVeterinaria />
-                <main className={VetLayout["content-wrap"]}>
+                <main className="content-wrap">
                     <Outlet />
                 </main>
             </div>
