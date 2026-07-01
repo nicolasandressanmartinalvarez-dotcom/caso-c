@@ -27,7 +27,7 @@ function Header() {
         )}
         {isAuthenticated && (
         <>
-          <span>Bienvenido {user?.name}</span>
+          <span>Bienvenido {user?.nickname}</span>
           <button className={HeaderCSS["boton_diseño"]} onClick={logout}> Logout </button>
           <button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/registrar")}> Registrar Mascota </button>
         </>

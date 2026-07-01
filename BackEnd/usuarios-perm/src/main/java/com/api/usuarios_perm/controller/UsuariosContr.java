@@ -1,0 +1,65 @@
+package com.api.usuarios_perm.controller;
+
+import java.util.List;
+
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.usuarios_perm.model.Usuarios;
+import com.api.usuarios_perm.service.UsuariosPermServ;
+
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
+
+
+@RestController
+@RequestMapping("/api/usuarios")
+@AllArgsConstructor
+public class UsuariosContr {
+
+    private final UsuariosPermServ usuariosPermServ;
+
+    @GetMapping
+    public List<Usuarios> allUsuarios() {
+        return usuariosPermServ.todosLosUsuarios();
+    }
+    @PostMapping
+    public Usuarios guardUsuarios(@RequestBody Usuarios usuarios) {
+        return usuariosPermServ.ingresarUsuario(usuarios);
+    }
+
+    @GetMapping("/{correo}")
+    public ResponseEntity<Usuarios> buscarPorCorreo(@PathVariable String correo) {
+        
+        Usuarios usuarioEncontrado = usuariosPermServ.buscarPorCorreo(correo);
+        if (usuarioEncontrado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(usuarioEncontrado);
+}
+    
+    @PutMapping("/{correo}")
+    public Usuarios actualizarUser(@PathVariable String correo, @RequestBody Usuarios usuario) {
+        
+        return usuariosPermServ.actualizUsuarios(correo, usuario);
+    }
+
+    @DeleteMapping("/{id}")
+    public String eliminarUsuario(@PathVariable Long id){
+
+        return usuariosPermServ.borrarUsuario(id);
+    }
+
+    
+    
+}

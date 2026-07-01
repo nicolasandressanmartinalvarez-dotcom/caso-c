@@ -9,6 +9,20 @@ public class MascotaDTO {
     private Double latitud;
     private Double longitud;
     private String estado;
+    private Veterinaria veterinaria;
+
+
+    public static class Veterinaria{
+        private Long idVeterianaria;
+
+        public Long getIdVeterianaria() {
+            return idVeterianaria;
+        }
+
+        public void setIdVeterinaria(Long idVeterianaria) {
+            this.idVeterianaria = idVeterianaria;
+        }
+    }
 
     public static class TipoRaza {
         private Long idTipoRaza;
@@ -97,4 +111,14 @@ public class MascotaDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public Veterinaria getVeterinaria() {
+        return veterinaria;
+    }
+
+    public void setVeterinaria(Veterinaria veterinaria) {
+        this.veterinaria = veterinaria;
+    }
+
+    
 }
