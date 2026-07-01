@@ -12,12 +12,10 @@ function VeterinariaLayout() {
 
             <div className={VetLayout["content-area"]}>
                 <SidebarVeterinaria />
-
                 <main className={VetLayout["content-wrap"]}>
                     <Outlet />
                 </main>
             </div>
-
             <FooterVeterinaria />
         </div>
     );
