@@ -51,13 +51,6 @@ function App() {
           <Route index element={<Navigate to={"DashBoardAdmin"} replace />} />
           <Route path="DashBoardAdmin" element={<DashBoardAdmin />} />
 
-          //Apartado de Admin veterinaria
-          <Route path="AgregarVeterinaria" element={<AgregarVeterinaria />} />
-          <Route path="ListarVeterinaria" element={<ListarVeterianarias />} />
-          <Route path="AgregarUserVet" element={<AgregarUserVet />} />
-          <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
-          <Route path="EditarUserPermVet" element={<EditUserPermVet />}></Route>
-
           //Apartado de Admin municipalidades y organizaciones
           <Route path="ListarMunicipalidades" element={<ListarMunicipalidades />} />
           <Route path="AgregarMunicipalidad" element={<AgregarMunicipalidad />} />
@@ -80,6 +73,7 @@ function App() {
           <Route path="listar-mascotas" element={<ListarMascotas />} />
           <Route path="alertas" element={<AlertasComunidad />} />
         </Route>
+
         <Route path="/municipalidad" element={<RutaProtegidaMuni><MunicipalidadLayOut /></RutaProtegidaMuni>}>
           <Route index element={<Navigate to="listar-campañas" replace />} />
           <Route path="crear-campaña" element={<CrearCampana />} />

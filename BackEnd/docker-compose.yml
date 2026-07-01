@@ -80,6 +80,17 @@ services:
     ports:
       - "5436:5432"
 
+  # Base de datos de solicitudes
+  db-solicitudes:
+    image: postgres:15
+    container_name: db-solicitudes
+    environment:
+      POSTGRES_DB: solicitudes_db
+      POSTGRES_USER: admin-sol
+      POSTGRES_PASSWORD: password-sol
+    ports:
+      - "5437:5432"
+
   # entorno grafico para administrar la base de datos PostgreSQL
   pgadmin:
     image: dpage/pgadmin4
@@ -93,3 +104,4 @@ services:
       - db-mascotas
       - db-notificaciones
       - db-veterinaria
+      - db-solicitudes
