@@ -1,4 +1,4 @@
-package com.api.api_veterinaria.model;
+package com.sanosysalvos.municipalidades_service.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,22 +13,22 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "UsuriosAutorizados")
+@Table(name = "UsuariosAutorizadosMuni")
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuariosPermitidos {
+public class UsuariosPermitidosMuni {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String correoUsuario;
-    private String rol;
+    private Long id;
     private String nombreUser;
     private String apellidoPa;
     private String apellidoMa;
     private String estadoUser;
+    private String correoUsuario;
     private String idAuth0;
+    private String rol;
 
     @ManyToOne
-    @JoinColumn(name = "Id_Veterinaria")
-    private Veterinaria veterinaria;
+    @JoinColumn(name = "Id_Municipalidad")
+    private Municipalidad municipalidad;
 }

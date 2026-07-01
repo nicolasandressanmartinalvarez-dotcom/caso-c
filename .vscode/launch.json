@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UsuariosPermApplication",
+            "request": "launch",
+            "mainClass": "com.api.usuarios_perm.UsuariosPermApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "MascotasServiceApplication",
             "request": "launch",
             "mainClass": "com.sanosysalvos.mascotas_service.MascotasServiceApplication",

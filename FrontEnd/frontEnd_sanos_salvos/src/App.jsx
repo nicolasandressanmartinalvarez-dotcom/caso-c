@@ -7,12 +7,12 @@ import Footer from './components/footer/Footer'
 
 //Importaciones de las rutas
 import RutaProtegidaAdmin from './components/auth/RutaProtegidaAdmin'
-
-
+import RutaProtegidaMuni from './components/auth/RutaProtegidaMuni'
+import RutaProtegidaOrg from './components/auth/RutaProtegidaOrg'
 //Importaciones de los layOuts
 import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
 import LayOutVeterinaria from './layouts/veterinariaLayOut/VeterinariaLayout'
-import OrganizacionLayOut from './layouts/OrganizacionLayout/OrganizacionLayOut'
+import OrganizacionLayOut from './layouts/OrganizacionLayOut/OrganizacionLayOut'
 import MunicipalidadLayOut from './layouts/MunicipalidadLayOut/MunicipalidadLayOut'
 
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
@@ -37,8 +37,8 @@ import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd
 // Reemplaza las líneas comentadas por estos imports:
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
 import AgregarMunicipalidad from './features/municipalidad/pages/agregarMunicipalidad/AgregarMunicipalidad';
-import ListarOrganizaciones from './features/Organizacion/pages/listarOrganizacion/ListarOrganizaciones';
-import AgregarOrganizacion from './features/Organizacion/pages/agregarOrganizacion/AgregarOrganizacion';
+import ListarOrganizaciones from './features/organizacion/pages/listarOrganizacion/ListarOrganizaciones';
+import AgregarOrganizacion from './features/organizacion/pages/agregarOrganizacion/AgregarOrganizacion';
 import CrearCampana from './features/municipalidad/pages/campanas/CrearCampana';
 import ListarCampanas from './features/municipalidad/pages/campanas/ListarCampanas';
 
@@ -74,16 +74,18 @@ function App() {
           <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
         </Route>
 
-        <Route path="/organizacion" element={<OrganizacionLayOut />}>
+        <Route path="/organizacion" element={<RutaProtegidaOrg><OrganizacionLayOut /></RutaProtegidaOrg>}>
           <Route index element={<h1>Dashboard Organización</h1>} />
           <Route path="agregar-mascota" element={<RegistrarMascota />} />
           <Route path="listar-mascotas" element={<ListarMascotas />} />
           <Route path="alertas" element={<AlertasComunidad />} />
         </Route>
-        <Route path="/municipalidad" element={<MunicipalidadLayOut />}>
+        <Route path="/municipalidad" element={<RutaProtegidaMuni><MunicipalidadLayOut /></RutaProtegidaMuni>}>
           <Route index element={<Navigate to="listar-campañas" replace />} />
           <Route path="crear-campaña" element={<CrearCampana />} />
           <Route path="listar-campañas" element={<ListarCampanas />} />
+          <Route path="agregar-mascota" element={<RegistrarMascota />} />
+          <Route path="listar-mascotas" element={<ListarMascotas />} />
         </Route>
 
 

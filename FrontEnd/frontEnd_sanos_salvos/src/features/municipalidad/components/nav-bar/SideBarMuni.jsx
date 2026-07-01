@@ -23,6 +23,12 @@ function SideBarMuni() {
             <ul className={`${SideBarMuni_CSS["nav-bar-ul"]} ${AbrirMenu === 'Alertas' ? SideBarMuni_CSS.show : ''}`}>
                 <li><NavLink to="alertas-comunitarias">Alertas Comunitarias</NavLink></li>
             </ul>
+
+            <button className={SideBarMuni_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Mascotas')}>Gestión de Mascotas</button>
+            <ul className={`${SideBarMuni_CSS["nav-bar-ul"]} ${AbrirMenu === 'Mascotas' ? SideBarMuni_CSS.show : ''}`}>
+                <li><NavLink to="agregar-mascota">Registrar Mascota</NavLink></li>
+                <li><NavLink to="listar-mascotas">Listar Mascotas</NavLink></li>
+            </ul>
         </nav>
     )
 }
