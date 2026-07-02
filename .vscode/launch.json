@@ -76,7 +76,8 @@
             "mainClass": "com.sanosysalvos.municipalidades_service.MunicipalidadesServiceApplication",
             "projectName": "municipalidades-service",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
         },
         {
             "type": "java",
@@ -86,7 +87,8 @@
             "mainClass": "com.sanosysalvos.organizaciones_service.OrganizacionesServiceApplication",
             "projectName": "organizaciones-service",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
         },
         {
             "type": "java",
@@ -96,7 +98,8 @@
             "mainClass": "com.api.api_veterinaria.ApiVeterinariaApplication",
             "projectName": "api-veterinaria",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
         },
         {
             "type": "java",
@@ -115,6 +118,16 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.api.usuarios_perm.UsuariosPermApplication",
             "projectName": "usuarios-perm",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SolicitudesServiceApplication<solicitudes-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sanosysalvos.solicitudes_service.SolicitudesServiceApplication",
+            "projectName": "solicitudes-service",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
