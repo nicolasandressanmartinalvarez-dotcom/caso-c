@@ -77,4 +77,9 @@ public class UsuarioAutorizadoService {
         
         return usuarioAutorizadoRepository.save(usuario);
     }
+
+    public String borarUsuario(Long id){
+        usuarioAutorizadoRepository.deleteById(id);
+        return "Usuario eliminado";
+    }
 }

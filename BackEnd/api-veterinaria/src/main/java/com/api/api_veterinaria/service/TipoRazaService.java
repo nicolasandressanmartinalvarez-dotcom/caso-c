@@ -2,16 +2,18 @@ package com.api.api_veterinaria.service;
 
 import com.api.api_veterinaria.model.TipoRaza;
 import com.api.api_veterinaria.repository.TipoRazaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TipoRazaService {
 
-    @Autowired
-    private TipoRazaRepository tipoRazaRepository;
+    private final TipoRazaRepository tipoRazaRepository;
 
     // LISTAR TODAS LAS RAZAS
     public List<TipoRaza> listarTodos() {
@@ -20,8 +22,7 @@ public class TipoRazaService {
 
     // OBTENER POR ID
     public TipoRaza obtenerPorId(Long id) {
-        return tipoRazaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("TipoRaza no encontrada"));
+        return tipoRazaRepository.findById(id).orElse(null);
     }
 
     // GUARDAR (opcional admin)

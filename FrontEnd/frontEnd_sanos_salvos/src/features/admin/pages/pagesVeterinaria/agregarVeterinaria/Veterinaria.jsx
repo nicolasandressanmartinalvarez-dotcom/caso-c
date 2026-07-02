@@ -1,18 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import VetCss from "./Veterinaria.module.css";
+import { FaHospital, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 function Veterinaria() {
-    const [mensaje, setMensaje] = useState("");
-    const [form, setForm] = useState({
+    const { getAccessTokenSilently } = useAuth0();
+    
+    const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
+    const [cargando, setCargando] = useState(false);
+
+    const estadoInicial = {
         nombreVeterinaria: "",
         direccion: "",
         telefono: "",
         correo: "",
-        dominio:""
-    });
+        dominio: ""
+    };
 
-    const { getAccessTokenSilently } = useAuth0();
+    const [form, setForm] = useState(estadoInicial);
 
     const handleChange = (e) => {
         setForm({
@@ -23,8 +28,12 @@ function Veterinaria() {
 
     const registrarVeterinaria = async (e) => {
         e.preventDefault();
+        setCargando(true);
+        setMensaje({ texto: "Registrando veterinaria...", tipo: "info" });
+
         try {
             const token = await getAccessTokenSilently();
+
             const response = await fetch("http://localhost:8086/api/veterinaria", {
                 method: "POST",
                 headers: {
@@ -35,51 +44,92 @@ function Veterinaria() {
             });
 
             if (response.ok) {
-                setMensaje("Veterinaria registrada correctamente 🎉");
-                setForm({
-                    nombreVeterinaria: "", direccion: "", telefono: "", correo: "", dominio:""
-                });
+                setMensaje({ texto: "¡Veterinaria registrada con éxito!", tipo: "exito" });
+                setForm(estadoInicial); 
+                setTimeout(() => setMensaje({ texto: "", tipo: "" }), 4000);
             } else {
-                setMensaje("Error al registrar veterinaria");
+                setMensaje({ texto: "Error al registrar la veterinaria. Verifica los datos.", tipo: "error" });
             }
+
         } catch (error) {
-            console.error(error);
+            console.error("Error en la petición:", error);
+            setMensaje({ texto: "Error de conexión con el servidor.", tipo: "error" });
+        } finally {
+            setCargando(false);
         }
     };
 
     return (
         <section className={VetCss["contenedor-veterinaria"]}>
             <div className={VetCss["form-card"]}>
-                <h2 className={VetCss["titulo-form"]}>Agregar Veterinaria</h2>
+                <h2 className={VetCss["titulo-form"]}>
+                    <FaHospital className={VetCss["icono-titulo"]}/> Agregar Veterinaria
+                </h2>
+                <p className={VetCss["subtitulo"]}>Ingresa los datos de la nueva sucursal o clínica asociada.</p>
+
                 <form className={VetCss["form-veterinaria"]} onSubmit={registrarVeterinaria}>
                     
                     <div className={VetCss["input-group"]}>
-                        <label>Nombre Veterinaria</label>
-                        <input type="text" name="nombreVeterinaria" placeholder="Ej: VetCenter" value={form.nombreVeterinaria} onChange={handleChange} required/>
+                        <label>Nombre de la Veterinaria</label>
+                        <input type="text" name="nombreVeterinaria" placeholder="Ej: VetCenter Principal" value={form.nombreVeterinaria} onChange={handleChange} required/>
                     </div>
 
                     <div className={VetCss["input-group"]}>
-                        <label>Dirección</label>
-                        <input type="text" name="direccion" placeholder="Ej: Av. Principal 123" value={form.direccion} onChange={handleChange} required />
+                        <label>Dirección Física</label>
+                        <input type="text" name="direccion" placeholder="Ej: Av. Providencia 1234, Santiago" value={form.direccion} onChange={handleChange} required />
+                    </div>
+
+                    <div className={VetCss["row-group"]}>
+                        <div className={VetCss["input-group"]}>
+                            <label>Teléfono de Contacto</label>
+                            <input 
+                                type="text"  
+                                name="telefono" 
+                                placeholder="Ej: +56 9 1234 5678" 
+                                value={form.telefono} 
+                                onChange={handleChange} 
+                                required
+                            />
+                        </div>
+                        <div className={VetCss["input-group"]}>
+                            <label>Dominio Web</label>
+                            <input 
+                                type="text" 
+                                name="dominio" 
+                                placeholder="Ej: vetcenter.cl" 
+                                value={form.dominio} 
+                                onChange={handleChange} 
+                                required
+                            />
+                        </div>
                     </div>
 
                     <div className={VetCss["input-group"]}>
-                        <label>Teléfono</label>
-                        <input type="text"  name="telefono" placeholder="Ej: +56 9 1234 5678" value={form.telefono} onChange={handleChange} required/>
+                        <label>Correo Electrónico Oficial</label>
+                        <input 
+                            type="email" 
+                            name="correo" 
+                            placeholder="Ej: contacto@vetcenter.cl" 
+                            value={form.correo} 
+                            onChange={handleChange} 
+                            required
+                        />
                     </div>
+                    {mensaje.texto && (
+                        <div className={`${VetCss["mensaje-feedback"]} ${VetCss[mensaje.tipo]}`}>
+                            {mensaje.tipo === 'exito' && <FaCheckCircle />}
+                            {mensaje.tipo === 'error' && <FaExclamationCircle />}
+                            <span>{mensaje.texto}</span>
+                        </div>
+                    )}
 
-                    <div className={VetCss["input-group"]}>
-                        <label>Correo Electrónico</label>
-                        <input type="email" name="correo" placeholder="Ej: contacto@vet.com" value={form.correo} onChange={handleChange} required/>
-                    </div>
-                    
-                    <div className={VetCss["input-group"]}>
-                        <label>Dominio</label>
-                        <input type="text" name="dominio" placeholder="Ej: vetcenter.cl" value={form.dominio} onChange={handleChange} required/>
-                    </div>
-
-                    <button type="submit" className={VetCss["btn-submit"]}>Registrar Veterinaria</button>
-                    {mensaje && <p className={VetCss["mensaje-veterinaria"]}>{mensaje}</p>}
+                    <button 
+                        type="submit" 
+                        className={VetCss["btn-submit"]} 
+                        disabled={cargando}
+                    >
+                        {cargando ? 'Guardando...' : 'Registrar Veterinaria'}
+                    </button>
                 </form>
             </div>
         </section>
