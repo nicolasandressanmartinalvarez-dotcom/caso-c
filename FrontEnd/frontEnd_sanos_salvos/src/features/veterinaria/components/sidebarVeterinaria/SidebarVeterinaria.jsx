@@ -95,25 +95,8 @@ function SidebarVeterinaria() {
                 </li>
             </ul>
 
-            <button 
-                className="btn-sidebar"
-                onClick={() => abrirMenuSeleccionado("MenuAlertas")}
-            >
-                <span>
-                    Alertas <HiBellAlert />
-                </span>
-                <span className="sidebar-arrow">
-                    {abrirMenu === "MenuAlertas" ? "▲" : "▼"}
-                </span>
-            </button>
+            
 
-            <ul className={`sidebar-ul ${abrirMenu === "MenuAlertas" ? "show" : ""}`}>
-                <li>
-                    <NavLink to="/veterinaria/alertas">
-                        Ver alertas
-                    </NavLink>
-                </li>
-            </ul>
         </aside>
     );
 }
