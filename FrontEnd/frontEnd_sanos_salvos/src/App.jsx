@@ -34,14 +34,15 @@ import ListarUserPermVet from './features/admin/pages/pagesVeterinaria/listarUsu
 import AgregarUserVet from './features/admin/pages/pagesVeterinaria/egregarUserVet/AgregarUserVet'
 import EditUserPermVet from './features/admin/pages/pagesVeterinaria/editarUsuarioPerm/EditarUserPermVet'
 
-import AgregarMascVet from './components/ingreMascVet/IngreMascoVete'
+
+import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
 import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/listarMacotasVeterinaria/ListarMascotasVeterinaria'
 //Fin importaciones del apartado de veterinaria
 
 
-
 //Impotaciones veterinaria LayoUts
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
+import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
 
 
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
@@ -64,6 +65,7 @@ function App() {
           //Apartado de Admin municipalidades y organizaciones
           <Route path="ListarMunicipalidades" element={<ListarMunicipalidades />} />
           <Route path="AgregarMunicipalidad" element={<AgregarMunicipalidad />} />
+          
           <Route path="ListarOrganizaciones" element={<ListarOrganizaciones />} />
           <Route path="AgregarOrganizacion" element={<AgregarOrganizacion />} />
 
@@ -72,7 +74,7 @@ function App() {
           <Route path="ListarVeterinaria" element={<ListarVeterianarias />} />
           <Route path="AgregarUserVet" element={<AgregarUserVet />} />
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
-          <Route path="EditarUserPermVet" element={<EditUserPermVet />}></Route>
+          <Route path="EditarUserPermVet/:id" element ={<EditUserPermVet/>} />
           <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
         </Route>
 
@@ -94,6 +96,8 @@ function App() {
 
         <Route path="veterinaria" element={<RutaProtegidaVeterinaria><LayOutVeterinaria /></RutaProtegidaVeterinaria>}>
           <Route path="perdidas" element={<ListMascPerd />} />
+          <Route path="listar-mascotas" element={<ListarMascotasVet/>}></Route>
+          <Route path="ingresar-mascota" element={<AgregarMascVet/>}></Route>
         </Route>
 
 

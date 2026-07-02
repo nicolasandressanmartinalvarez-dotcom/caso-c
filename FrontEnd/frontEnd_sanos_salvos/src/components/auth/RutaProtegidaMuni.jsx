@@ -55,7 +55,7 @@ function RutaProtegidaMuni({ children }) {
     if (!usuario) {
         return <p>Error cargando usuario</p>;
     }
-    if (usuario.entidadPerteneciente !== "Municipalidad" && usuario.entidadPerteneciente !== "Admin") {
+    if (usuario.entidadPerteneciente !== "Municipalidad" && usuario.entidadPerteneciente !=='Admin') {
         return <Navigate to="/" replace />;
     }
     return children;

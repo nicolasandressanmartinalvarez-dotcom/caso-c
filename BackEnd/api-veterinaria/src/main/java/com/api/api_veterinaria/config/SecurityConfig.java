@@ -19,13 +19,14 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 http
-                                .cors(Customizer.withDefaults())
-                                .csrf(csrf -> csrf.disable())
-                                .authorizeHttpRequests(authz -> authz
-                                                .requestMatchers("/api/veterinaria/**").authenticated().
-                                                requestMatchers("/api/usuarios/**"))
-                                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
-
+                        .cors(Customizer.withDefaults())
+                        .csrf(csrf -> csrf.disable())
+                        .authorizeHttpRequests(authz -> authz
+                                .requestMatchers("/api/veterinaria/**").authenticated()
+                                .requestMatchers("/api/usuPermitidos/**").authenticated()
+                                .requestMatchers("/api/mascotas/**").authenticated()
+                                .anyRequest().permitAll())
+                        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
                 return http.build();
         }
 

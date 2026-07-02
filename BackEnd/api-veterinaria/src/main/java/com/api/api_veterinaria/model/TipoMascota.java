@@ -10,11 +10,13 @@ public class TipoMascota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTipoMascota;
 
-    private String nombre;
+    @Column(nullable = false, unique = true)
+    private String nombreTipoMascota;
 
     public TipoMascota() {
     }
 
+    // Getters y Setters
     public Long getIdTipoMascota() {
         return idTipoMascota;
     }
@@ -23,11 +25,11 @@ public class TipoMascota {
         this.idTipoMascota = idTipoMascota;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreTipoMascota() {
+        return nombreTipoMascota;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreTipoMascota(String nombreTipoMascota) {
+        this.nombreTipoMascota = nombreTipoMascota;
     }
 }

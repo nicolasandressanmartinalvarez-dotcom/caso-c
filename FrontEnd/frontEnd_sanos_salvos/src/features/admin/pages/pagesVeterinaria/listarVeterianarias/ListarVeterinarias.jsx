@@ -1,12 +1,34 @@
-import ListarVeterinariasCSS from './ListarVeterinarias.module.css';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaGlobe, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from 'react-router-dom';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaGlobe, FaEdit, FaTrashAlt } from "react-icons/fa";
+import ListarVeterinariasCSS from './ListarVeterinarias.module.css';
+
 function ListarVeterinarias() {
-    const veterinariasMock = [
-        { id: 1, nombreVeterinaria: "VetCenter Principal", direccion: "Av. Providencia 1234", telefono: "+56 9 1234 5678", correo: "contacto@vetcenter.cl", dominio: "vetcenter.cl" },
-        { id: 2, nombreVeterinaria: "Clínica San Roque", direccion: "Calle Los Leones 56", telefono: "+56 9 8765 4321", correo: "admin@sanroque.cl", dominio: "sanroque.cl" },
-        { id: 3, nombreVeterinaria: "Paws & Tails", direccion: "Av. Las Condes 400", telefono: "+56 9 1122 3344", correo: "hola@paws.cl", dominio: "paws.cl" }
-    ];
+    const [veterinarias, setVeterinarias] = useState([]);
+    const { getAccessTokenSilently } = useAuth0();
+
+    const cargarVeterinarias = async () => {
+        try {
+            const token = await getAccessTokenSilently();
+            const response = await fetch("http://localhost:8086/api/veterinaria", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setVeterinarias(data);
+            }
+        } catch (error) {
+            console.error("Error al cargar veterinarias:", error);
+        }
+    };
+
+    useEffect(() => {
+        cargarVeterinarias();
+    }, [getAccessTokenSilently]);
 
     return (
         <section className={ListarVeterinariasCSS["contenedor-lista"]}>
@@ -15,11 +37,13 @@ function ListarVeterinarias() {
                     <h2>Administrar Veterinarias</h2>
                     <p>Gestiona todas las sucursales y clínicas registradas en la red.</p>
                 </div>
-                <NavLink to="/admin/AgregarVeterinaria" className={ListarVeterinariasCSS["btn-nuevo"]}>+ Nueva Veterinaria</NavLink>
+                <NavLink to="/admin/AgregarVeterinaria" className={ListarVeterinariasCSS["btn-nuevo"]}>
+                    + Nueva Veterinaria
+                </NavLink>
             </div>
 
             <div className={ListarVeterinariasCSS["grid-veterinarias"]}>
-                {veterinariasMock.map((vet) => (
+                {veterinarias.map((vet) => (
                     <div className={ListarVeterinariasCSS["card-vet"]} key={vet.id}>
                         <div className={ListarVeterinariasCSS["card-header"]}>
                             <h3>{vet.nombreVeterinaria}</h3>
@@ -34,10 +58,10 @@ function ListarVeterinarias() {
                         </div>
 
                         <div className={ListarVeterinariasCSS["card-footer"]}>
-                            <button className={ListarVeterinariasCSS["btn-accion"] + " " + ListarVeterinariasCSS["btn-editar"]}>
+                            <button className={`${ListarVeterinariasCSS["btn-accion"]} ${ListarVeterinariasCSS["btn-editar"]}`}>
                                 <FaEdit /> Editar
                             </button>
-                            <button className={ListarVeterinariasCSS["btn-accion"] + " " + ListarVeterinariasCSS["btn-eliminar"]}>
+                            <button className={`${ListarVeterinariasCSS["btn-accion"]} ${ListarVeterinariasCSS["btn-eliminar"]}`}>
                                 <FaTrashAlt /> Eliminar
                             </button>
                         </div>
