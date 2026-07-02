@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import HeaderCSS from './Header.module.css'
 function Header() {
 
-  const { isLoading, isAuthenticated, error, loginWithRedirect: login, logout: auth0Logout, user, } = useAuth0(); 
+  const { isLoading, isAuthenticated, error, loginWithRedirect: login,getAccessTokenSilently, logout: auth0Logout, user, } = useAuth0(); 
   const navigate = useNavigate();
-
+  
   const signup = () =>
     login({ authorizationParams: { screen_hint: "signup" } });
 
