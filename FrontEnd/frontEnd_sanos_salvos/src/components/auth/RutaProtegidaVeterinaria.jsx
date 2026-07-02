@@ -2,8 +2,13 @@ import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
-function RutaProtegidaAdmin({ children }) {
-    const { isAuthenticated, isLoading, getAccessTokenSilently, user } = useAuth0();
+function RutaProtegidaVeterinaria({ children }) {
+    const { 
+        isAuthenticated, 
+        isLoading, 
+        getAccessTokenSilently, 
+        user 
+    } = useAuth0();
 
     const [usuario, setUsuario] = useState(null);
     const [loadingUser, setLoadingUser] = useState(true);
@@ -27,16 +32,20 @@ function RutaProtegidaAdmin({ children }) {
 
                 if (request.ok) {
                     const info = await request.json();
+                    console.log("Usuario encontrado:", info);
                     setUsuario(info);
                 } else {
                     console.error("Error en la respuesta del servidor");
+                    setUsuario(null);
                 }
             } catch (error) {
                 console.error("Error haciendo el fetch del usuario:", error);
+                setUsuario(null);
             } finally {
                 setLoadingUser(false);
             }
         };
+
         if (!isLoading) {
             if (isAuthenticated) {
                 buscarUser();
@@ -49,16 +58,20 @@ function RutaProtegidaAdmin({ children }) {
     if (isLoading || loadingUser) {
         return <p>Cargando.....</p>;
     }
+
     if (!isAuthenticated) {
         return <Navigate to="/" replace />;
     }
+
     if (!usuario) {
         return <p>Error cargando usuario</p>;
     }
-    if (usuario.entidadPerteneciente !== "Admin") {
+
+    if (usuario.entidadPerteneciente !== "Veterinaria") {
         return <Navigate to="/" replace />;
     }
+
     return children;
 }
 
-export default RutaProtegidaAdmin;
+export default RutaProtegidaVeterinaria;

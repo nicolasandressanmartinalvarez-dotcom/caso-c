@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import ListarMas from "./ListarMascotas.module.css"
+
 function ListarMascotas({ setNuevaMascota }) {
     const [mascota, setMascota] = useState([]);
     const [correos, setCorreos] = useState({ correoRemitente: "", correoEmisor: "" })
@@ -11,11 +12,8 @@ function ListarMascotas({ setNuevaMascota }) {
         const obtenerMascotas = async () => {
             try {
                 const token = await getAccessTokenSilently();
-                const res = await fetch('http://localhost:8085/api/bff/mascotas', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
+                const res = await fetch('http://localhost:8081/api/mascotas', {
+                    method: 'GET'
                 });
                 const data = await res.json();
                 setMascota(data);
@@ -70,7 +68,7 @@ function ListarMascotas({ setNuevaMascota }) {
     };
     return (
         <>
-            {isAuthenticated ? (
+            {mascota.length != 0 ? (
                 <section className={ListarMas["contenedor-masc"]}>
                     {mascota.map((m) => (
                         <div className={ListarMas["div-mascotas"]} key={m.id}>
@@ -109,7 +107,7 @@ function ListarMascotas({ setNuevaMascota }) {
                     ))}
                 </section>
             ) : (
-                <p className={ListarMas["noLogin"]}>Debe de iniciar sesion para ver a las mascotas</p>
+                <p className={ListarMas["noLogin"]}>No hay mascotas</p>
             )}
         </>
     );
