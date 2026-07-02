@@ -11,9 +11,9 @@ import RutaProtegidaMuni from './components/auth/RutaProtegidaMuni'
 import RutaProtegidaOrg from './components/auth/RutaProtegidaOrg'
 //Importaciones de los layOuts
 import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
-import LayOutVeterinaria from './layouts/veterinariaLayOut/VeterinariaLayout'
 import OrganizacionLayOut from './layouts/OrganizacionLayOut/OrganizacionLayOut'
 import MunicipalidadLayOut from './layouts/MunicipalidadLayOut/MunicipalidadLayOut'
+import LayOutVeterinaria from "./layouts/veterinariaLayOut/VeterinariaLayout";
 
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 import ListarMascotas from "./pages/listar_mascotas/ListarMascotas"
@@ -83,7 +83,8 @@ function App() {
         </Route>
 
 
-        <Route path="veterinaria" element={<RutaProtegidaAdmin><LayOutVeterinaria /></RutaProtegidaAdmin>}>
+        
+        <Route path="veterinaria" element={<LayOutVeterinaria/>}>
           <Route path="perdidas" element={<ListMascPerd />} />
         </Route>
         <Route path="/registrar" element={<RegistrarMascota />} />
