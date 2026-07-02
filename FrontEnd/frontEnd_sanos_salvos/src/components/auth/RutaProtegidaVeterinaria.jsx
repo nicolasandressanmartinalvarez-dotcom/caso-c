@@ -67,7 +67,7 @@ function RutaProtegidaVeterinaria({ children }) {
         return <p>Error cargando usuario</p>;
     }
 
-    if (usuario.entidadPerteneciente !== "Veterinaria") {
+    if (usuario.entidadPerteneciente !== "Veterinaria" && usuario.entidadPerteneciente != 'Admin') {
         return <Navigate to="/" replace />;
     }
 
