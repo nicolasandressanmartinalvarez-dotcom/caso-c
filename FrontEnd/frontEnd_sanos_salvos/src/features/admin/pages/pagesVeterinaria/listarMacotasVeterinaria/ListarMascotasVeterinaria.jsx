@@ -11,7 +11,6 @@ function ListarMascotasVeterinaria() {
 
     const IMAGEN_DEFAULT = "https://images.unsplash.com/photo-1543466835-00a73410f2ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60";
 
-
     const cargarMascotas = async () => {
         try {
             const token = await getAccessTokenSilently();
@@ -38,7 +37,7 @@ function ListarMascotasVeterinaria() {
         setMascotaSeleccionada(null);
         document.body.style.overflow = 'auto';
     };
-    console.log(mascotas)
+
     return (
         <section className={ListarMascotasCss["contenedor-lista"]}>
             <div className={ListarMascotasCss["header-lista"]}>
@@ -71,7 +70,6 @@ function ListarMascotasVeterinaria() {
                 {mascotas.map((mascota) => (
                     <div className={ListarMascotasCss["card-mascota"]} key={mascota.id}>
                         <div className={ListarMascotasCss["card-imagen-container"]}>
-                            {/* Aplicamos la función obtenerImagen */}
                             <img src={`http://localhost:8086/imagenes/${mascota.imagen}`} alt={mascota.nombre} className={ListarMascotasCss["card-imagen"]} />
                             <span className={`${ListarMascotasCss["badge-estado"]} ${ListarMascotasCss[mascota.estado?.toLowerCase()]}`}>
                                 {mascota.estado}
@@ -86,6 +84,7 @@ function ListarMascotasVeterinaria() {
                                 <li><strong>Raza:</strong> {mascota.tipoDeRaza?.nombreTipoRaza || "No especificada"}</li>
                                 <li><strong>Tamaño:</strong> {mascota.tamanio}</li>
                                 <li><strong>Color:</strong> {mascota.color}</li>
+                                <li><strong>Vterinaria: {mascota.veterinaria.nombreVeterinaria}</strong></li>
                             </ul>
                         </div>
                         <div className={ListarMascotasCss["card-footer"]}>
@@ -105,7 +104,6 @@ function ListarMascotasVeterinaria() {
                         </button>
                         <div className={ListarMascotasCss["modal-grid"]}>
                             <div className={ListarMascotasCss["modal-imagen-box"]}>
-                                {/* Aplicamos la función obtenerImagen también en el Modal */}
                                 <img  src={`http://localhost:8086/imagenes/${mascotaSeleccionada.imagen}`} alt={mascotaSeleccionada.nombre} />
                                 <span className={`${ListarMascotasCss["badge-estado-modal"]} ${ListarMascotasCss[mascotaSeleccionada.estado?.toLowerCase()]}`}>
                                     {mascotaSeleccionada.estado}
@@ -122,6 +120,7 @@ function ListarMascotasVeterinaria() {
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoMascota?.nombreTipoMascota || "No especificado"}</span>
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoDeRaza?.nombreTipoRaza || "No especificada"}</span>
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tamanio}</span>
+                                    <span className={ListarMascotasCss["tag"]}>Veterinara: {mascotaSeleccionada.veterinaria.nombreVeterinaria}</span>
                                 </div>
                                 <div className={ListarMascotasCss["modal-descripcion"]}>
                                     <h3><FaInfoCircle /> Descripción</h3>
