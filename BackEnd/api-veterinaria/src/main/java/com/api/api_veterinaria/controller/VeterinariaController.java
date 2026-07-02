@@ -24,4 +24,10 @@ public class VeterinariaController {
     public Veterinaria guardar(@RequestBody VeterinariaDTO veterinariaDTO) {
         return veterinariaService.guardar(veterinariaDTO);
     }
+
+    @DeleteMapping("{id}")
+    public String borrarUser(@PathVariable Long id){
+        veterinariaService.buscarPorId(id);
+        return "Usuario Borrado de la veterinaria";
+    }
 }
