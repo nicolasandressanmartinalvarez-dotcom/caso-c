@@ -1,12 +1,44 @@
+import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import ListarUsuPermCSS from './ListarUsuPermVet.module.css';
 import { FaSearch, FaUserEdit, FaTrashAlt, FaUserShield, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function ListarUsuPerm() {
-    const usuariosMock = [
-        { id: 1, rut: "18.456.789-0", nombre: "Carlos Mendoza", correo: "carlos.m@vetcenter.cl", rol: "Jefe Veterinaria", sucursal: "VetCenter Principal", estado: "Activo" },
-        { id: 2, rut: "19.876.543-K", nombre: "Ana Soto", correo: "ana.s@sanroque.cl", rol: "Veterinario", sucursal: "Clínica San Roque", estado: "Activo" },
-        { id: 3, rut: "20.123.456-7", nombre: "Felipe Lagos", correo: "felipe.l@paws.cl", rol: "Recepcionista", sucursal: "Paws & Tails", estado: "Inactivo" },
-    ];
+    const navigate = useNavigate();
+    const { getAccessTokenSilently } = useAuth0();
+    const [usuarios, setUsuarios] = useState([]);
+    const [filtrados, setFiltrados] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
+    const [filtroRol, setFiltroRol] = useState("");
+
+    const cargarUsuarios = async () => {
+        try {
+            const token = await getAccessTokenSilently();
+            const response = await fetch("http://localhost:8086/api/usuPermitidos", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await response.json();
+            setUsuarios(data);
+            setFiltrados(data);
+        } catch (error) {
+            console.error("Error al cargar usuarios:", error);
+        } 
+    };
+
+    useEffect(() => {
+        cargarUsuarios();
+    }, [getAccessTokenSilently]);
+
+    useEffect(() => {
+        let resultado = usuarios.filter((u) => {
+            const coincideBusqueda = (u.nombreUser || "").toLowerCase().includes(busqueda.toLowerCase()) || 
+                                     (u.correoUsuario || "").toLowerCase().includes(busqueda.toLowerCase());
+            const coincideRol = filtroRol === "" || u.rol === filtroRol;
+            return coincideBusqueda && coincideRol;
+        });
+        setFiltrados(resultado);
+    }, [busqueda, filtroRol, usuarios]);
 
     return (
         <section className={ListarUsuPermCSS["contenedor-usuarios"]}>
@@ -19,10 +51,10 @@ function ListarUsuPerm() {
             <div className={ListarUsuPermCSS["toolbar"]}>
                 <div className={ListarUsuPermCSS["search-box"]}>
                     <FaSearch className={ListarUsuPermCSS["search-icon"]} />
-                    <input type="text" placeholder="Buscar por RUT o nombre..." />
+                    <input type="text" placeholder="Buscar por nombre o correo..." value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
                 </div>
                 <div className={ListarUsuPermCSS["filter-box"]}>
-                    <select defaultValue="">
+                    <select value={filtroRol} onChange={(e) => setFiltroRol(e.target.value)}>
                         <option value="">Todos los roles</option>
                         <option value="Jefe Veterinaria">Jefe Veterinaria</option>
                         <option value="Veterinario">Veterinario</option>
@@ -43,30 +75,24 @@ function ListarUsuPerm() {
                         </tr>
                     </thead>
                     <tbody>
-                        {usuariosMock.map((user) => (
+                        {filtrados.map((user) => (
                             <tr key={user.id}>
-                                <td className={ListarUsuPermCSS["nombre-cell"]}>{user.nombre}</td>
-                                <td>{user.correo}</td>
+                                <td className={ListarUsuPermCSS["nombre-cell"]}>{user.nombreUser} {user.apellidoPa}</td>
+                                <td>{user.correoUsuario}</td>
+                                <td><span className={`${ListarUsuPermCSS["badge-rol"]} ${ListarUsuPermCSS[(user.rol || "").replace(/\s+/g, '-').toLowerCase()]}`}>{user.rol}</span></td>
+                                <td>{user.veterinaria?.nombreVeterinaria || "N/A"}</td>
                                 <td>
-                                    <span className={`${ListarUsuPermCSS["badge-rol"]} ${ListarUsuPermCSS[user.rol.replace(/\s+/g, '-').toLowerCase()]}`}>
-                                        {user.rol}
-                                    </span>
-                                </td>
-                                <td>{user.sucursal}</td>
-                                <td>
-                                    {user.estado === "Activo" ? (
+                                    {user.estadoUser === "Activo" ? (
                                         <span className={ListarUsuPermCSS["status-activo"]}><FaCheckCircle /> Activo</span>
                                     ) : (
                                         <span className={ListarUsuPermCSS["status-inactivo"]}><FaTimesCircle /> Inactivo</span>
                                     )}
                                 </td>
                                 <td className={ListarUsuPermCSS["acciones-cell"]}>
-                                    <button className={ListarUsuPermCSS["btn-icon"]} title="Editar permisos">
-                                        <FaUserEdit />
-                                    </button>
-                                    <button className={`${ListarUsuPermCSS["btn-icon"]} ${ListarUsuPermCSS["btn-delete"]}`} title="Revocar acceso">
-                                        <FaTrashAlt />
-                                    </button>
+                                    <button className={ListarUsuPermCSS["btn-icon"]} title="Editar permisos" onClick={() => navigate(`/admin/editarUserPermVet/${user.id}`)}>
+                                    <FaUserEdit />
+                                </button>
+                                    <button className={`${ListarUsuPermCSS["btn-icon"]} ${ListarUsuPermCSS["btn-delete"]}`} title="Revocar acceso"><FaTrashAlt /></button>
                                 </td>
                             </tr>
                         ))}

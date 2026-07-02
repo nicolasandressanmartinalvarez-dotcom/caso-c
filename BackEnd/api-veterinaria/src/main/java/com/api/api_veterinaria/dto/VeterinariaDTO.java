@@ -8,4 +8,5 @@ public class VeterinariaDTO {
     private String direccion;
     private String telefono;
     private String correo;
+    private String dominio;
 }

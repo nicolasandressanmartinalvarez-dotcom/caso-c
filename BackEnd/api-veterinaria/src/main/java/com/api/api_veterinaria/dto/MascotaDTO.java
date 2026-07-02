@@ -1,5 +1,8 @@
 package com.api.api_veterinaria.dto;
 
+import lombok.Data;
+
+@Data
 public class MascotaDTO {
     private TipoMascota tipoMascota;
     private TipoRaza tipoRaza;
@@ -10,6 +13,10 @@ public class MascotaDTO {
     private Double longitud;
     private String estado;
     private Veterinaria veterinaria;
+    private String tamanio;
+    private String genero;
+    private String imagen;
+    private String color;
 
 
     public static class Veterinaria{

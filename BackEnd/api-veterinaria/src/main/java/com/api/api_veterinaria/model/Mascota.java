@@ -15,7 +15,6 @@ public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String descripcion;
 
@@ -31,13 +30,14 @@ public class Mascota {
     @JoinColumn(name="id_veterinaria")
     private Veterinaria veterinaria;
 
+    private String estado;
     private String correoReportante;
     private String imagen;
-
     private String color;
     private String tamanio;
+    private String genero;
     private String entidadReportante;
-
     private Double latitud;
     private Double longitud;
+
 }

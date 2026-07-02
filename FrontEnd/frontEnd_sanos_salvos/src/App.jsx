@@ -74,7 +74,7 @@ function App() {
           <Route path="ListarVeterinaria" element={<ListarVeterianarias />} />
           <Route path="AgregarUserVet" element={<AgregarUserVet />} />
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
-          <Route path="EditarUserPermVet" element={<EditUserPermVet />}></Route>
+          <Route path="EditarUserPermVet/:id" element ={<EditUserPermVet/>} />
           <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
         </Route>
 

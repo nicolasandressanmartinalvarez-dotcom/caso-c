@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.hc.core5.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,6 +56,11 @@ public class UsuariosPermController {
             return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(e.getMessage());
         }
         
+    }
+
+    @DeleteMapping("/{id}")
+    public String borrarUser(@PathVariable Long id){
+        return usuAutorizadoService.borarUsuario(id);
     }
     
 }
