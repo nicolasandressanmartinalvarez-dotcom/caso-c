@@ -1,264 +1,278 @@
-import { useEffect, useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
-import { GoogleMap, LoadScript, Marker, InfoWindow, Circle } from "@react-google-maps/api";
+import IngreMascoVeteCSS from './RegistrarMasc.module.css';
+import { FaPaw, FaMapMarkerAlt, FaCamera, FaInfoCircle } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import MapPicker from '../../components/mapa_picker/Mapa_picker'; 
 
-import FormRegisMasc from './RegistrarMasc.module.css';
-
+// 1️⃣ REGLA DE REACT: Los componentes deben empezar con mayúscula
 function RegistrarMascota() {
-  const [tiposRaza, setTiposRaza] = useState([]);
-  const [tiposMascota, setTiposMascota] = useState([]);
-  const [mascota, setMascota] = useState({
+    const { getAccessTokenSilently } = useAuth0();
+    const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
 
-    nombre: '',
-    descripcion: '',
-    latitud: '',
-    longitud: '',
-    imagen: '',
-    tipoRazaId: '',
-    tipoMascotaId: '',
-    estado: 'PERDIDO'
-  });
+    const [coordenadas, setCoordenadas] = useState({ lat: -34.4390, lng: -71.0780 });
+    const [imagen, setImagen] = useState(null);
 
-  const circleRef = useRef(null);
-  const radio = 1000;
-  const [mensaje, setMensaje] = useState('');
-  const navigate = useNavigate();
-  const { getAccessTokenSilently, user } = useAuth0();
+    // --- NUEVOS ESTADOS PARA LOS CATÁLOGOS DINÁMICOS ---
+    const [tiposMascota, setTiposMascota] = useState([]);
+    const [razas, setRazas] = useState([]);
 
+    const [form, setForm] = useState({
+        nombre: "",
+        tipoMascota: "", 
+        tipoDeRaza: "",  
+        tamanio: "",
+        color: "",
+        genero: "",
+        estado: "",
+        correoReportante: "",
+        descripcion: ""
+    });
 
-  const [marcadorCentral, setMarcadorCentral] = useState({ lat: -33.400, lng: -70.600 });
-  const containerStyle = {
-    width: "100%",
-    height: "100%"
-  };
+    // --- EFECTO PARA CARGAR LAS APIs AL INICIAR LA VISTA ---
+    useEffect(() => {
+        const cargarCatalogos = async () => {
+            try {
+                const token = await getAccessTokenSilently();
+                const headers = { Authorization: `Bearer ${token}` };
 
-  useEffect(() => {
-    const cargarCatalogos = async () => {
-      try {
-        const token = await getAccessTokenSilently();
+                // 2️⃣ CORRECCIÓN: Ruta de Tipo Mascota ajustada al backend 
+                const resMascota = await fetch("http://localhost:8081/api/tipos-mascota", { headers });
+                if (resMascota.ok) {
+                    const dataMascota = await resMascota.json();
+                    setTiposMascota(dataMascota);
+                }
 
-        const respRazas = await fetch('http://localhost:8081/api/tipos-raza', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+                // 3️⃣ CORRECCIÓN: Ruta de Tipo Raza ajustada al backend
+                const resRaza = await fetch("http://localhost:8081/api/tipos-raza", { headers });
+                if (resRaza.ok) {
+                    const dataRaza = await resRaza.json();
+                    setRazas(dataRaza);
+                }
+            } catch (error) {
+                console.error("Error al cargar los catálogos desde el backend:", error);
+            }
+        };
 
-        const respTipos = await fetch('http://localhost:8081/api/tipos-mascota', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        cargarCatalogos();
+    }, [getAccessTokenSilently]);
 
-        const dataRazas = await respRazas.json();
-        const dataTipos = await respTipos.json();
-
-        setTiposRaza(dataRazas);
-        setTiposMascota(dataTipos);
-
-        console.log("Razas:", dataRazas);
-        console.log("Tipos:", dataTipos);
-
-      } catch (error) {
-        console.error('Error al cargar catálogos:', error);
-      }
+    const handleLocationSelect = (nuevaUbicacion) => {
+        setCoordenadas(nuevaUbicacion);
     };
-    cargarCatalogos();
-  }, [getAccessTokenSilently]);
 
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-
-    if (name === 'imagen') {
-      setMascota({
-        ...mascota,
-        imagen: files[0]
-      });
-    } else {
-      setMascota({
-        ...mascota,
-        [name]: value
-      });
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (
-      !mascota.nombre ||
-      !mascota.descripcion ||
-      !mascota.imagen ||
-      !mascota.tipoMascotaId ||
-      !mascota.tipoRazaId
-    ) {
-      setMensaje('Todos los campos son obligatorios');
-      return;
-    }
-    const datosMasc = {
-      nombre: mascota.nombre,
-      descripcion: mascota.descripcion,
-      correoReportante: user?.email || '',
-      latitud: mascota.latitud,
-      longitud: mascota.longitud,
-      estado: mascota.estado,
-      tipoMascota: {
-        idTipoMascota: Number(mascota.tipoMascotaId)
-      },
-      tipoRaza: {
-        idTipoRaza: Number(mascota.tipoRazaId)
-      }
-    };
-    console.log(datosMasc);
-    try {
-      const token = await getAccessTokenSilently();
-      const formData = new FormData();
-      formData.append('file', mascota.imagen);
-      formData.append('mascota', new Blob([JSON.stringify(datosMasc)], { type: "application/json" }));
-
-      const response = await fetch('http://localhost:8081/api/mascotas', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData
-      });
-
-      if (response.ok) {
-        setMensaje('Mascota registrada con éxito');
-        setMascota({
-          nombre: '',
-          descripcion: '',
-          latitud: '',
-          longitud: '',
-          imagen: '',
-          tipoRazaId: '',
-          tipoMascotaId: '',
-          estado: 'PERDIDO'
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
         });
-      } else {
-        setMensaje('Error al registrar la mascota.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setMensaje('Error de conexión con el servidor.');
-    }
-  };
-  const handleVolver = () => {
-    navigate(-1);
-  };
+    };
 
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setImagen(e.target.files[0]);
+        }
+    };
 
-  useEffect(() => { console.log(mascota) }, [mascota]);
+    // 4️⃣ CORRECCIÓN: Renombramos la función para que no choque con el nombre del componente
+    const registrarMascotaSubmit = async (e) => {
+        e.preventDefault();
+        setMensaje({ texto: "Enviando datos...", tipo: "info" });
 
-  return (
-    <section className={FormRegisMasc["section-form"]}>
-      <div className={FormRegisMasc["container-form"]}>
-        <h2>Registrar Mascota</h2>
+        try {
+            const token = await getAccessTokenSilently();
 
-        <form onSubmit={handleSubmit} method="POST">
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Nombre:</label>
-            <input type="text" name="nombre" value={mascota.nombre} onChange={handleChange} required />
-          </div>
+            // 5️⃣ Estructura DTO ajustada para el backend
+            const mascotaDTO = {
+                nombre: form.nombre,
+                descripcion: form.descripcion,
+                correoReportante: form.correoReportante,
+                latitud: coordenadas.lat,
+                longitud: coordenadas.lng,
+                estado: form.estado,
+                color: form.color,
+                tamanio: form.tamanio,
+                genero: form.genero,
+                tipoMascota: form.tipoMascota ? { idTipoMascota: Number(form.tipoMascota) } : null,
+                tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null
+            };
 
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Descripción:</label>
-            <textarea name="descripcion" value={mascota.descripcion} onChange={handleChange} required />
-          </div>
+            const formData = new FormData();
+            formData.append("mascota", new Blob([JSON.stringify(mascotaDTO)], {
+                type: "application/json"
+            }));
 
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Tipo de Mascota:</label>
-            <select name="tipoMascotaId" value={mascota.tipoMascotaId} onChange={handleChange} required>
-              <option value="">Seleccione tipo</option>
-              {tiposMascota.map((tipo) => (
-                <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
-              ))}
-            </select>
-          </div>
+            if (imagen) {
+                formData.append("file", imagen);
+            }
 
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Tipo de Raza:</label>
-            <select name="tipoRazaId" value={mascota.tipoRazaId} onChange={handleChange} required>
-              <option value="">Seleccione raza</option>
-              {tiposRaza.map((raza) => (
-                <option key={raza.id} value={raza.id}>{raza.nombre}</option>
-              ))}
-            </select>
-          </div>
+            const response = await fetch("http://localhost:8081/api/mascotas", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            });
 
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Estado:</label>
-            <select name="estado" value={mascota.estado} onChange={handleChange} required>
-              <option value="PERDIDO">Perdido</option>
-              <option value="ENCONTRADO">Encontrado</option>
-            </select>
-          </div>
+            if (response.ok) {
+                setMensaje({ texto: "¡Mascota registrada correctamente! 🎉", tipo: "exito" });
+                setForm({ nombre: "", tipoMascota: "", tipoDeRaza: "", tamanio: "", color: "", genero: "", estado: "", correoReportante: "", descripcion: "" });
+                setImagen(null);
+                document.querySelector('input[type="file"]').value = "";
+            } else {
+                setMensaje({ texto: "Error al registrar la mascota ❌", tipo: "error" });
+            }
 
-          <div className={FormRegisMasc["form-group"]}>
-            <label>Imagen:</label>
-            <input type="file" name="imagen" onChange={handleChange} required />
-          </div>
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            setMensaje({ texto: "Error de conexión con el servidor 🚨", tipo: "error" });
+        }
+    };
 
-          <div className={FormRegisMasc["form-group"]}>
-            <div className={FormRegisMasc["mini_mapa"]}>
-              <LoadScript googleMapsApiKey="AIzaSyATJpdjBoBdFkXUYvtfpU-t5pdGLDiEKYM">
-                <GoogleMap mapContainerStyle={containerStyle} center={marcadorCentral} zoom={14}>
-                  <Marker
-                    position={marcadorCentral}
-                    draggable={true}
-                    onDragEnd={(e) => {
-                      const nuevaPosicion = {
-                        lat: e.latLng.lat(),
-                        lng: e.latLng.lng()
-                      };
+    return (
+        <section className={IngreMascoVeteCSS["contenedor-ingreso"]}>
+            <div className={IngreMascoVeteCSS["form-card"]}>
+                <h2 className={IngreMascoVeteCSS["titulo-form"]}>
+                    <FaPaw className={IngreMascoVeteCSS["icono-titulo"]}/> Registrar Mascota
+                </h2>
+                <p className={IngreMascoVeteCSS["subtitulo"]}>Ingresa los datos de la mascota reportada en la sucursal.</p>
+                
+                <form className={IngreMascoVeteCSS["form-mascota"]} onSubmit={registrarMascotaSubmit}>
+                    
+                    <div className={IngreMascoVeteCSS["seccion-form"]}>
+                        <h3 className={IngreMascoVeteCSS["titulo-seccion"]}>Datos de la Mascota 🐶</h3>
+                        
+                        <div className={IngreMascoVeteCSS["row-group"]}>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Nombre (Si lo tiene)</label>
+                                <input type="text" name="nombre" value={form.nombre} onChange={handleChange} placeholder="Ej: Firulais" />
+                            </div>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Tipo de Mascota</label>
+                                <div className={IngreMascoVeteCSS["select-wrapper"]}>
+                                    <select name="tipoMascota" value={form.tipoMascota} onChange={handleChange}>
+                                        <option value="" disabled>Seleccionar...</option>
+                                        {tiposMascota.map((tipo) => (
+                                            <option key={tipo.idTipoMascota} value={tipo.idTipoMascota}>
+                                                {tipo.nombreTipoMascota}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-                      setMarcadorCentral(nuevaPosicion);
-                      setMascota((prevMascota) => ({
-                        ...prevMascota,
-                        latitud: nuevaPosicion.lat,
-                        longitud: nuevaPosicion.lng
-                      }));
-                    }}
-                  />
+                        <div className={IngreMascoVeteCSS["row-group"]}>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Raza</label>
+                                <div className={IngreMascoVeteCSS["select-wrapper"]}>
+                                    <select name="tipoDeRaza" value={form.tipoDeRaza} onChange={handleChange}>
+                                        <option value="" disabled>Seleccionar raza...</option>
+                                        {razas.map((raza) => (
+                                            <option key={raza.idTipoRaza} value={raza.idTipoRaza}>
+                                                {raza.nombreTipoRaza}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Tamaño</label>
+                                <div className={IngreMascoVeteCSS["select-wrapper"]}>
+                                    <select name="tamanio" value={form.tamanio} onChange={handleChange}>
+                                        <option value="" disabled>Seleccionar...</option>
+                                        <option value="pequeño">Pequeño</option>
+                                        <option value="mediano">Mediano</option>
+                                        <option value="grande">Grande</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-                  <Circle
-                    onLoad={(circle) => { circleRef.current = circle; }}
-                    onUnmount={() => {
-                      if (circleRef.current) {
-                        circleRef.current.setMap(null);
-                        circleRef.current = null;
-                      }
-                    }}
-                    center={marcadorCentral}
-                    radius={radio}
-                    options={{
-                      fillColor: "#00BFFF",
-                      fillOpacity: 0.2,
-                      strokeColor: "#1E90FF",
-                      strokeOpacity: 0.8,
-                      strokeWeight: 2,
-                    }}
-                  />
-                </GoogleMap>
-              </LoadScript>
+                        <div className={IngreMascoVeteCSS["row-group"]}>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Color Dominante</label>
+                                <input type="text" name="color" value={form.color} onChange={handleChange} placeholder="Ej: Negro con manchas" />
+                            </div>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Género</label>
+                                <div className={IngreMascoVeteCSS["select-wrapper"]}>
+                                    <select name="genero" value={form.genero} onChange={handleChange}>
+                                        <option value="" disabled>Seleccionar...</option>
+                                        <option value="macho">Macho</option>
+                                        <option value="hembra">Hembra</option>
+                                        <option value="desconocido">No se sabe</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={IngreMascoVeteCSS["seccion-form"]}>
+                        <h3 className={IngreMascoVeteCSS["titulo-seccion"]}>Detalles del Reporte 📋</h3>
+                        
+                        <div className={IngreMascoVeteCSS["row-group"]}>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Estado del Reporte</label>
+                                <div className={IngreMascoVeteCSS["select-wrapper"]}>
+                                    <select name="estado" value={form.estado} onChange={handleChange} required>
+                                        <option value="" disabled>Seleccionar...</option>
+                                        <option value="PERDIDO">Perdido</option>
+                                        <option value="ENCONTRADO">Encontrado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Entidad Reportante</label>
+                                <input type="text" name="entidadReportante" value="Usuario" readOnly className={IngreMascoVeteCSS["input-readonly"]} />
+                            </div>
+                        </div>
+
+                        <div className={IngreMascoVeteCSS["input-group"]}>
+                            <label>Correo de Contacto</label>
+                            <input type="email" name="correoReportante" value={form.correoReportante} onChange={handleChange} placeholder="Ej: dueño@correo.com" required/>
+                        </div>
+
+                        <div className={IngreMascoVeteCSS["input-group"]}>
+                            <label>Descripción / Observaciones</label>
+                            <textarea name="descripcion" value={form.descripcion} onChange={handleChange} rows="3" placeholder="Detalles extra..."></textarea>
+                        </div>
+
+                        <div className={IngreMascoVeteCSS["input-group"]}>
+                            <label><FaCamera /> Subir Fotografía</label>
+                            <input type="file" accept="image/*" onChange={handleFileChange} className={IngreMascoVeteCSS["input-file"]} />
+                        </div>
+                    </div>
+
+                    <div className={IngreMascoVeteCSS["seccion-form"]}>
+                        <h3 className={IngreMascoVeteCSS["titulo-seccion"]}><FaMapMarkerAlt /> Ubicación del Avistamiento 📍</h3>
+                        
+                        <MapPicker onLocationSelect={handleLocationSelect} />
+
+                        <div className={IngreMascoVeteCSS["row-group"]}>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Latitud</label>
+                                <input type="number" value={coordenadas.lat} readOnly className={IngreMascoVeteCSS["input-readonly"]} />
+                            </div>
+                            <div className={IngreMascoVeteCSS["input-group"]}>
+                                <label>Longitud</label>
+                                <input type="number" value={coordenadas.lng} readOnly className={IngreMascoVeteCSS["input-readonly"]} />
+                            </div>
+                        </div>
+                    </div>
+
+                    {mensaje.texto && (
+                        <p style={{ textAlign: "center", fontWeight: "bold", color: mensaje.tipo === "error" ? "#ef4444" : "#10b981" }}>
+                            {mensaje.texto}
+                        </p>
+                    )}
+
+                    <div className={IngreMascoVeteCSS["btn-group"]}>
+                        <button type="submit" className={IngreMascoVeteCSS["btn-submit"]}>Registrar Mascota</button>
+                    </div>
+                </form>
             </div>
-          </div>
-
-          <button type="submit" className={FormRegisMasc["button-form"]}>
-            Registrar Mascota
-          </button>
-        </form>
-
-        <button onClick={handleVolver} className={FormRegisMasc["button-volver"]}>
-          Volver
-        </button>
-
-        {mensaje && <p className={FormRegisMasc["mensaje"]}>{mensaje}</p>}
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 export default RegistrarMascota;

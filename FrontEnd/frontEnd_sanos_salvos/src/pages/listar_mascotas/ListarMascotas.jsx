@@ -8,15 +8,17 @@ function ListarMascotas({ setNuevaMascota }) {
     const { getAccessTokenSilently, user } = useAuth0();
     const { isAuthenticated, isLoading } = useAuth0();
 
+
     useEffect(() => {
         const obtenerMascotas = async () => {
             try {
-                const token = await getAccessTokenSilently();
+                
                 const res = await fetch('http://localhost:8081/api/mascotas', {
                     method: 'GET'
                 });
                 const data = await res.json();
                 setMascota(data);
+                const token = await getAccessTokenSilently();
             } catch (error) {
                 console.error(error);
             }
@@ -25,6 +27,7 @@ function ListarMascotas({ setNuevaMascota }) {
     }, []);
 
     const setCoordenadas = (coordenadasMascota) => {
+
         const latitudYLongitud = {
             lat: coordenadasMascota.latitud,
             lng: coordenadasMascota.longitud
@@ -42,6 +45,7 @@ function ListarMascotas({ setNuevaMascota }) {
         const password = "admin123";
         const credenciales = btoa(`${usuario}:${password}`);
 
+        
         const datosAEnviar = {
             correoRemitente: datMas.correoReportante,
             correoEmisor: user?.email
@@ -49,6 +53,7 @@ function ListarMascotas({ setNuevaMascota }) {
         setCorreos(datosAEnviar);
 
         try {
+            
             const response = await fetch('http://localhost:8085/api/bff/notificaciones', {
                 method: 'POST',
                 headers: {
