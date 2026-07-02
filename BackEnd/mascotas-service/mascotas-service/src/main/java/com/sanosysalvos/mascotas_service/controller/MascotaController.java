@@ -35,8 +35,8 @@ public class MascotaController {
         ObjectMapper mapper = new ObjectMapper();
         
         Long idTipoRaza = (mascotaJson.getTipoRaza() != null) ? mascotaJson.getTipoRaza().getIdTipoRaza() : null;
-        Long idTipoMascota = (mascotaJson.getTipoMascota() != null) ? mascotaDTO.getTipoMascota().getIdTipoMascota() : null;
+        Long idTipoMascota = (mascotaJson.getTipoMascota() != null) ? mascotaJson.getTipoMascota().getIdTipoMascota() : null;
         
-        return mascotaService.registrarMascota(mascotaDTO, idTipoRaza, idTipoMascota, file);
+        return mascotaService.registrarMascota(mascotaJson, idTipoRaza, idTipoMascota, file);
     }
 }
