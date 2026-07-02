@@ -42,6 +42,7 @@ import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/l
 
 //Impotaciones veterinaria LayoUts
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
+import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
 
 
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
@@ -95,6 +96,7 @@ function App() {
 
         <Route path="veterinaria" element={<RutaProtegidaVeterinaria><LayOutVeterinaria/></RutaProtegidaVeterinaria>}>
           <Route path="perdidas" element={<ListMascPerd />} />
+          <Route path="listar-mascotas" element={<ListarMascotasVet/>}></Route>
           <Route path="ingresar-mascota" element={<AgregarMascVet/>}></Route>
         </Route>
 
