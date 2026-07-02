@@ -1,7 +1,7 @@
 import IngreMascoVeteCSS from './IngreMascoVete.module.css';
 import { FaPaw, FaMapMarkerAlt, FaCamera, FaInfoCircle } from "react-icons/fa";
 import { useState } from "react";
-import MapPicker from '../../../../../components/mapa_picker/Mapa_picker';
+import MapPicker from '../../../../components/mapa_picker/Mapa_picker';
 
 function IngreMascoVete() {
     const [coordenadas, setCoordenadas] = useState({

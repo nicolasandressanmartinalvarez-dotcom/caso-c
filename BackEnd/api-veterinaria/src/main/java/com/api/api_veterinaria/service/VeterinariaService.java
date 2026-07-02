@@ -30,4 +30,7 @@ public class VeterinariaService {
 
         return veterinariaRepository.save(veterinaria);
     }
+    public Veterinaria buscarPorId(Long id){
+        return veterinariaRepository.getById(id);
+    }
 }
