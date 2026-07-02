@@ -1,0 +1,7 @@
+com\sanosysalvos\solicitudes_service\controller\SolicitudController.class
+com\sanosysalvos\solicitudes_service\repository\SolicitudRepository.class
+com\sanosysalvos\solicitudes_service\dto\SolicitudDTO.class
+com\sanosysalvos\solicitudes_service\model\Solicitud.class
+com\sanosysalvos\solicitudes_service\config\SecurityConfig.class
+com\sanosysalvos\solicitudes_service\service\SolicitudService.class
+com\sanosysalvos\solicitudes_service\SolicitudesServiceApplication.class

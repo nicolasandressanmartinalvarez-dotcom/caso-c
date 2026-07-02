@@ -1,0 +1,9 @@
+.div-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+    color: white;
+    height: 40px;
+}

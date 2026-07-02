@@ -1,67 +1,42 @@
 package com.sanosysalvos.mascotas_service.controller;
 
-import com.sanosysalvos.mascotas_service.model.Mascota;
-import com.sanosysalvos.mascotas_service.service.GeocodingService;
-import com.sanosysalvos.mascotas_service.service.KafkaService;
-import com.sanosysalvos.mascotas_service.Repository.MascotaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import java.io.IOException;
+import java.util.List;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.security.core.Authentication;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sanosysalvos.mascotas_service.dto.MascotaDatosDTO;
+import com.sanosysalvos.mascotas_service.model.Mascota;
+import com.sanosysalvos.mascotas_service.service.MascotaService;
 
 @RestController
 @RequestMapping("/api/mascotas")
 @CrossOrigin("*")
 public class MascotaController {
 
-    @Autowired
-    private MascotaRepository mascotaRepository;
+    private final MascotaService mascotaService;
 
-
+    public MascotaController(MascotaService mascotaService) {
+        this.mascotaService = mascotaService;
+    }
 
     @GetMapping
     public List<Mascota> getAllMascotas() {
-        return mascotaRepository.findAll();
+        return mascotaService.obtenerTodasLasMascotas();
     }
 
-    @PostMapping(consumes = { "multipart/form-data" })
-    public ResponseEntity<Mascota> createMascota(Authentication authentication,
-            @RequestParam("nombre") String nombre,
-            @RequestParam("descripcion") String descripcion,
-            @RequestParam("tipoDeRaza") String tipoDeRaza,
-            @RequestParam("correoReportante") String correoReportante,
-            @RequestParam("latitud") Double latitud,
-            @RequestParam("longitud") Double longitud,
-            @RequestParam("imagen") MultipartFile imagenArchivo) 
-        {
-        Mascota mascota = new Mascota();
-        mascota.setNombre(nombre);
-        mascota.setDescripcion(descripcion);
-        mascota.setTipoDeRaza(tipoDeRaza);
-        mascota.setCorreoReportante(correoReportante);
-        mascota.setLatitud(latitud);
-        mascota.setLongitud(longitud);
-        if (!imagenArchivo.isEmpty()) {
-            try {
-                String originalName = imagenArchivo.getOriginalFilename().replace(" ", "_"); // Cambia espacios por guiones bajos
-                String fileName = System.currentTimeMillis() + "_" + originalName;
-                Path path = Paths.get("uploads/" + fileName);
-                Files.createDirectories(path.getParent());
-                Files.write(path, imagenArchivo.getBytes());
-                mascota.setImagen(fileName);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-        Mascota nuevaMascota = mascotaRepository.save(mascota);
-        return new ResponseEntity<>(nuevaMascota, HttpStatus.CREATED);
-}
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Mascota createMascota(
+            @RequestPart("mascota") MascotaDatosDTO mascotaJson,
+            @RequestPart(value = "file", required = false) MultipartFile file) throws Exception {
+        
+        ObjectMapper mapper = new ObjectMapper();
+        
+        Long idTipoRaza = (mascotaJson.getTipoRaza() != null) ? mascotaJson.getTipoRaza().getIdTipoRaza() : null;
+        Long idTipoMascota = (mascotaJson.getTipoMascota() != null) ? mascotaJson.getTipoMascota().getIdTipoMascota() : null;
+        
+        return mascotaService.registrarMascota(mascotaJson, idTipoRaza, idTipoMascota, file);
+    }
 }

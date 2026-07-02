@@ -1,35 +1,112 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home"
 
 import './App.css'
-import Header from './components/header/Header'
-import Footer from './components/footer/Footer'
+
+
+//Importaciones de las rutas
+import RutaProtegidaAdmin from './components/auth/RutaProtegidaAdmin'
+import RutaProtegidaMuni from './components/auth/RutaProtegidaMuni'
+import RutaProtegidaOrg from './components/auth/RutaProtegidaOrg'
+
+//Importaciones de los layOuts
+import HomeLayOut from "./layouts/homeLayOut/HomeLayOut";
+import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
+import OrganizacionLayOut from './layouts/OrganizacionLayOut/OrganizacionLayOut'
+import MunicipalidadLayOut from './layouts/MunicipalidadLayOut/MunicipalidadLayOut'
+import LayOutVeterinaria from "./layouts/veterinariaLayOut/VeterinariaLayout";
 
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
-import ProtectedRoute from "./components/ProteccionRuta"
+import ListarMascotas from "./pages/listar_mascotas/ListarMascotas"
 
-function AppRoutes(){
-  return(
-    // Aca se cargan todas las rutas de los componentes a usar
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path="/registrar" element={ <ProtectedRoute> <RegistrarMascota/> </ProtectedRoute> } />
 
-    </Routes>
-  )
-}
+import AlertasComunidad from "./features/organizacion/pages/alertas/AlertasComunidad"
+
+//DashBoard Admin
+import DashBoardAdmin from './features/admin/pages/dashBoardAdmin/DashBoardAdmin'
+//DashBoard admin
+
+//Paginas de veterianria para admin
+import AgregarVeterinaria from './features/admin/pages/pagesVeterinaria/agregarVeterinaria/Veterinaria'
+import ListarVeterianarias from './features/admin/pages/pagesVeterinaria/listarVeterianarias/ListarVeterinarias'
+
+import ListarUserPermVet from './features/admin/pages/pagesVeterinaria/listarUsuPermVet/ListarUsuPermVet'
+import AgregarUserVet from './features/admin/pages/pagesVeterinaria/egregarUserVet/AgregarUserVet'
+import EditUserPermVet from './features/admin/pages/pagesVeterinaria/editarUsuarioPerm/EditarUserPermVet'
+
+
+import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
+import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/listarMacotasVeterinaria/ListarMascotasVeterinaria'
+//Fin importaciones del apartado de veterinaria
+
+
+//Impotaciones veterinaria LayoUts
+import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
+import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
+
+
+import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
+import AgregarMunicipalidad from './features/municipalidad/pages/agregarMunicipalidad/AgregarMunicipalidad';
+import ListarOrganizaciones from './features/organizacion/pages/listarOrganizacion/ListarOrganizaciones';
+import AgregarOrganizacion from './features/organizacion/pages/agregarOrganizacion/AgregarOrganizacion';
+import CrearCampana from './features/municipalidad/pages/campanas/CrearCampana';
+import ListarCampanas from './features/municipalidad/pages/campanas/ListarCampanas';
+import RutaProtegidaVeterinaria from "./components/auth/RutaProtegidaVeterinaria";
+
+
 function App() {
   return (
     <BrowserRouter>
-      <div className="app-container">
-        <Header/>
-          <div className="content-area">
-            <main className="content-wrap">
-              <AppRoutes/>
-            </main>
-          </div>
-        <Footer/>
-      </div>
+      <Routes>
+        <Route path="admin" element={<RutaProtegidaAdmin> <LayOutAdmin /> </RutaProtegidaAdmin>}>
+          <Route index element={<Navigate to={"DashBoardAdmin"} replace />} />
+          <Route path="DashBoardAdmin" element={<DashBoardAdmin />} />
+
+          //Apartado de Admin municipalidades y organizaciones
+          <Route path="ListarMunicipalidades" element={<ListarMunicipalidades />} />
+          <Route path="AgregarMunicipalidad" element={<AgregarMunicipalidad />} />
+          
+          <Route path="ListarOrganizaciones" element={<ListarOrganizaciones />} />
+          <Route path="AgregarOrganizacion" element={<AgregarOrganizacion />} />
+
+          //Apartado de Admin veterinaria
+          <Route path="AgregarVeterinaria" element={<AgregarVeterinaria />} />
+          <Route path="ListarVeterinaria" element={<ListarVeterianarias />} />
+          <Route path="AgregarUserVet" element={<AgregarUserVet />} />
+          <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
+          <Route path="EditarUserPermVet/:id" element ={<EditUserPermVet/>} />
+          <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
+        </Route>
+
+        <Route path="organizacion" element={<RutaProtegidaOrg><OrganizacionLayOut /></RutaProtegidaOrg>}>
+          <Route index element={<h1>Dashboard Organización</h1>} />
+          <Route path="agregar-mascota" element={<RegistrarMascota />} />
+          <Route path="listar-mascotas" element={<ListarMascotas />} />
+          <Route path="alertas" element={<AlertasComunidad />} />
+        </Route>
+
+        <Route path="municipalidad" element={<RutaProtegidaMuni><MunicipalidadLayOut /></RutaProtegidaMuni>}>
+          <Route index element={<Navigate to="listar-campañas" replace />} />
+          <Route path="crear-campaña" element={<CrearCampana />} />
+          <Route path="listar-campañas" element={<ListarCampanas />} />
+          <Route path="agregar-mascota" element={<RegistrarMascota />} />
+          <Route path="listar-mascotas" element={<ListarMascotas />} />
+        </Route>
+
+
+        <Route path="veterinaria" element={<RutaProtegidaVeterinaria><LayOutVeterinaria/></RutaProtegidaVeterinaria>}>
+          <Route path="perdidas" element={<ListMascPerd />} />
+          <Route path="listar-mascotas" element={<ListarMascotasVet/>}></Route>
+          <Route path="ingresar-mascota" element={<AgregarMascVet/>}></Route>
+        </Route>
+
+
+        <Route path="" element={<HomeLayOut/>}>
+          <Route index element={<Navigate to={"home"} replace />} />
+          <Route path="home" element={<Home/>} />
+          <Route path="registrar" element={<RegistrarMascota />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UsuariosPermApplication",
+            "request": "launch",
+            "mainClass": "com.api.usuarios_perm.UsuariosPermApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "MascotasServiceApplication",
             "request": "launch",
             "mainClass": "com.sanosysalvos.mascotas_service.MascotasServiceApplication",
@@ -47,7 +54,8 @@
             "mainClass": "com.sanosysalvos.eureka_server.EurekaServerApplication",
             "projectName": "eureka-server",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=58938 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=eureka-server"
         },
         {
             "type": "java",
@@ -56,6 +64,69 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.sanosysalvos.bff_service.BffServiceApplication",
             "projectName": "bff-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=58871 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=bff-service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MunicipalidadesServiceApplication<municipalidades-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sanosysalvos.municipalidades_service.MunicipalidadesServiceApplication",
+            "projectName": "municipalidades-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=52565 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=municipalidades-service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OrganizacionesServiceApplication<organizaciones-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sanosysalvos.organizaciones_service.OrganizacionesServiceApplication",
+            "projectName": "organizaciones-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=52568 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=organizaciones-service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiVeterinariaApplication<api-veterinaria>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.api.api_veterinaria.ApiVeterinariaApplication",
+            "projectName": "api-veterinaria",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UsuariosPermitidosApplication<usuarios_Permitidos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.api_User.usuarios_Permitidos.UsuariosPermitidosApplication",
+            "projectName": "usuarios_Permitidos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UsuariosPermApplication<usuarios-perm>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.api.usuarios_perm.UsuariosPermApplication",
+            "projectName": "usuarios-perm",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SolicitudesServiceApplication<solicitudes-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sanosysalvos.solicitudes_service.SolicitudesServiceApplication",
+            "projectName": "solicitudes-service",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

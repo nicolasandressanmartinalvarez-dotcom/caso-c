@@ -32,4 +32,5 @@ public class RegistroController {
     public Registro guardarMensage(@RequestBody Registro registro) {
         return registroService.agregaRegistro(registro);
     }
+    
 }

@@ -1,0 +1,170 @@
+/* ─── Contenedor principal ─────────────────────────────────────── */
+.contenedor {
+    min-height: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: linear-gradient(135deg, #f0f4ff 0%, #f8f0ff 100%);
+}
+
+/* ─── Card ─────────────────────────────────────────────────────── */
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(92, 37, 141, 0.12);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 720px;
+}
+
+/* ─── Cabecera ──────────────────────────────────────────────────── */
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid #f0e6ff;
+}
+
+.iconoTitulo {
+    font-size: 2.4rem;
+    line-height: 1;
+}
+
+.titulo {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #3d1a6e;
+}
+
+.subtitulo {
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* ─── Formulario ────────────────────────────────────────────────── */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #4a3060;
+    letter-spacing: 0.02em;
+}
+
+.input,
+.select,
+.textarea {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.97rem;
+    background: #fafafa;
+    color: #333;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    outline: none;
+    font-family: inherit;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    border-color: #7c3aed;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+}
+
+.textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c3aed' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* ─── Fila de dos columnas ──────────────────────────────────────── */
+.filaDos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 580px) {
+    .filaDos {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ─── Botón Submit ──────────────────────────────────────────────── */
+.btnSubmit {
+    margin-top: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(135deg, #5c258d 0%, #7c3aed 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 18px rgba(92, 37, 141, 0.25);
+}
+
+.btnSubmit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(92, 37, 141, 0.35);
+}
+
+.btnSubmit:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btnSubmit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ─── Mensajes de respuesta ─────────────────────────────────────── */
+.exito {
+    padding: 0.8rem 1rem;
+    background: #edfdf4;
+    border: 1.5px solid #6ee7b7;
+    border-radius: 10px;
+    color: #065f46;
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.error {
+    padding: 0.8rem 1rem;
+    background: #fef2f2;
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    color: #991b1b;
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.95rem;
+}
