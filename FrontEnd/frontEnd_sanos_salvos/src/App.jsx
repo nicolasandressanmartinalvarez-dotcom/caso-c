@@ -10,7 +10,7 @@ import RutaProtegidaMuni from './components/auth/RutaProtegidaMuni'
 import RutaProtegidaOrg from './components/auth/RutaProtegidaOrg'
 
 //Importaciones de los layOuts
-import HomeLayOut from "./layouts/homeLayOut/HomeLayOut";
+import HomeLayOut from "./layouts/HomeLayOut/HomeLayOut";
 import LayOutAdmin from './layouts/adminLayOut/AdminLayOut'
 import OrganizacionLayOut from './layouts/OrganizacionLayOut/OrganizacionLayOut'
 import MunicipalidadLayOut from './layouts/MunicipalidadLayOut/MunicipalidadLayOut'
@@ -34,7 +34,7 @@ import ListarUserPermVet from './features/admin/pages/pagesVeterinaria/listarUsu
 import AgregarUserVet from './features/admin/pages/pagesVeterinaria/egregarUserVet/AgregarUserVet'
 import EditUserPermVet from './features/admin/pages/pagesVeterinaria/editarUsuarioPerm/EditarUserPermVet'
 
-import AgregarMascVet from './features/admin/pages/pagesVeterinaria/ingreMascVet/IngreMascoVete'
+import AgregarMascVet from './components/ingreMascVet/IngreMascoVete'
 import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/listarMacotasVeterinaria/ListarMascotasVeterinaria'
 //Fin importaciones del apartado de veterinaria
 
@@ -73,7 +73,6 @@ function App() {
           <Route path="AgregarUserVet" element={<AgregarUserVet />} />
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
           <Route path="EditarUserPermVet" element={<EditUserPermVet />}></Route>
-          <Route path="AgrMascotaVeterinaria" element={<AgregarMascVet />}></Route>
           <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
         </Route>
 
@@ -93,15 +92,15 @@ function App() {
         </Route>
 
 
-        <Route path="veterinaria" element={<RutaProtegidaVeterinaria><LayOutVeterinaria/></RutaProtegidaVeterinaria>}>
+        <Route path="veterinaria" element={<RutaProtegidaVeterinaria><LayOutVeterinaria /></RutaProtegidaVeterinaria>}>
           <Route path="perdidas" element={<ListMascPerd />} />
         </Route>
 
 
-        <Route path="" element={<HomeLayOut/>}>
+        <Route path="" element={<HomeLayOut />}>
           <Route index element={<Navigate to={"home"} replace />} />
-          <Route path="home" element={<Home/>} />
-          <Route path="registrar" element={<RegistrarMascota />} />
+          <Route path="home" element={<Home />} />
+          <Route path="registrar" element={<AgregarMascVet />} />
         </Route>
       </Routes>
     </BrowserRouter>

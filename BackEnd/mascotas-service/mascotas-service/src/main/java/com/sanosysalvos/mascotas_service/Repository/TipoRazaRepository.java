@@ -1,4 +1,4 @@
-package com.sanosysalvos.mascotas_service.repository;
+package com.sanosysalvos.mascotas_service.Repository;
 
 import com.sanosysalvos.mascotas_service.model.TipoRaza;
 import org.springframework.data.jpa.repository.JpaRepository;
