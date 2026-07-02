@@ -29,13 +29,14 @@ public class MascotaController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mascota createMascota(
-            @RequestPart("mascota") MascotaDatosDTO mascotaJson,
+            @RequestPart("mascota") String mascotaJson,
             @RequestPart(value = "file", required = false) MultipartFile file) throws Exception {
         
         ObjectMapper mapper = new ObjectMapper();
+        MascotaDatosDTO mascotaDTO = mapper.readValue(mascotaJson, MascotaDatosDTO.class);
         
-        Long idTipoRaza = (mascotaJson.getTipoRaza() != null) ? mascotaJson.getTipoRaza().getIdTipoRaza() : null;
-        Long idTipoMascota = (mascotaJson.getTipoMascota() != null) ? mascotaDTO.getTipoMascota().getIdTipoMascota() : null;
+        Long idTipoRaza = (mascotaDTO.getTipoRaza() != null) ? mascotaDTO.getTipoRaza().getIdTipoRaza() : null;
+        Long idTipoMascota = (mascotaDTO.getTipoMascota() != null) ? mascotaDTO.getTipoMascota().getIdTipoMascota() : null;
         
         return mascotaService.registrarMascota(mascotaDTO, idTipoRaza, idTipoMascota, file);
     }
