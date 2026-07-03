@@ -24,7 +24,7 @@ function AgregarOrganizacion() {
         e.preventDefault();
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8082/api/organizaciones", {
+            const response = await fetch("http://localhost:8089/api/organizaciones", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

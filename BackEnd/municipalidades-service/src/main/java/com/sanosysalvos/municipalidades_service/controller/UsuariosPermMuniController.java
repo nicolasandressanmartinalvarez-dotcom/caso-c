@@ -11,7 +11,6 @@ import com.sanosysalvos.municipalidades_service.service.UsuariosPermitidosMuniSe
 
 @RestController
 @RequestMapping("/api/usuPermitidosMuni")
-@CrossOrigin("*")
 public class UsuariosPermMuniController {
 
     private final UsuariosPermitidosMuniService usuMuniService;

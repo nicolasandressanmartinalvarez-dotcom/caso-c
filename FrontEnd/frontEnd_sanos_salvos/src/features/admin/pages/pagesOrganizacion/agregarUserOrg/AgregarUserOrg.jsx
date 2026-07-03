@@ -24,7 +24,7 @@ function AdminUserOrg() {
     const cargarOrganizaciones = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8089/api/organizacion", {
+            const response = await fetch("http://localhost:8089/api/organizaciones", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -67,7 +67,7 @@ function AdminUserOrg() {
                 "Authorization": `Bearer ${token}`
             };
 
-            const URL_API_GLOBAL = "https://a1a3-191-116-30-200.ngrok-free.app/api/usuarios"; 
+            const URL_API_GLOBAL = "https://c122-191-116-44-218.ngrok-free.app/api/usuarios"; 
             const URL_API_ORGANIZACION = "http://localhost:8089/api/usuPermitidosOrg";
 
             // PASO 0: Filtrar duplicados locales

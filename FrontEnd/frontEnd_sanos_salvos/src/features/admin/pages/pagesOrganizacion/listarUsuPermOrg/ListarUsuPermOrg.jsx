@@ -18,11 +18,19 @@ function ListarUsuPermOrg() {
             const response = await fetch("http://localhost:8089/api/usuPermitidosOrg", {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            const data = await response.json();
-            setUsuarios(data);
-            setFiltrados(data);
+            if (response.ok) {
+                const data = await response.json();
+                setUsuarios(data);
+                setFiltrados(data);
+            } else {
+                console.error("Error al obtener los usuarios");
+                setUsuarios([]);
+                setFiltrados([]);
+            }
         } catch (error) {
             console.error("Error al cargar usuarios:", error);
+            setUsuarios([]);
+            setFiltrados([]);
         } 
     };
 

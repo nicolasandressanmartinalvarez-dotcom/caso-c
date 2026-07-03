@@ -12,7 +12,6 @@ import com.sanosysalvos.organizaciones_service.service.UsuariosPermitidosOrgServ
 
 @RestController
 @RequestMapping("/api/usuPermitidosOrg")
-@CrossOrigin("*")
 public class UsuariosPermOrgController {
 
     private final UsuariosPermitidosOrgService usuOrgService;

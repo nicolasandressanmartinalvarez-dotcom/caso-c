@@ -24,7 +24,7 @@ function AdminUserMuni() {
     const cargarMunicipalidades = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8080/api/municipalidad", {
+            const response = await fetch("http://localhost:8080/api/municipalidades", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -67,7 +67,7 @@ function AdminUserMuni() {
                 "Authorization": `Bearer ${token}`
             };
 
-            const URL_API_GLOBAL = "https://a1a3-191-116-30-200.ngrok-free.app/api/usuarios"; 
+            const URL_API_GLOBAL = "https://c122-191-116-44-218.ngrok-free.app/api/usuarios"; 
             const URL_API_MUNICIPALIDAD = "http://localhost:8080/api/usuPermitidosMuni";
 
             // PASO 0: Filtrar duplicados locales
@@ -203,7 +203,7 @@ function AdminUserMuni() {
                             <select name="idMunicipalidad" value={form.idMunicipalidad} onChange={handleChange} required>
                                 <option value="" disabled>Asigna una municipalidad...</option>
                                 {municipalidades.map((muni) => (
-                                    <option value={muni.id} key={muni.id}>{muni.nombreMunicipalidad}</option>
+                                    <option value={muni.id} key={muni.id}>{muni.nombre}</option>
                                 ))}
                             </select>
                         </div>

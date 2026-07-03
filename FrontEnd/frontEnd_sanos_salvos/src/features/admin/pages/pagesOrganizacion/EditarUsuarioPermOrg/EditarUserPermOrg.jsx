@@ -24,7 +24,7 @@ function EditarUserPermOrg() {
         const cargarDatos = async () => {
             try {
                 const token = await getAccessTokenSilently();
-                const resOrgs = await fetch("http://localhost:8089/api/organizacion", { 
+                const resOrgs = await fetch("http://localhost:8089/api/organizaciones", { 
                     headers: { Authorization: `Bearer ${token}` } 
                 });
                 const listaOrgs = await resOrgs.json();

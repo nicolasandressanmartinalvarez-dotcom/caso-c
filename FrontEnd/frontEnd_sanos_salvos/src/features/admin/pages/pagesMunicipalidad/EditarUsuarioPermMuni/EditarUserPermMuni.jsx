@@ -24,7 +24,7 @@ function EditarUserPermMuni() {
         const cargarDatos = async () => {
             try {
                 const token = await getAccessTokenSilently();
-                const resMunis = await fetch("http://localhost:8080/api/municipalidad", { 
+                const resMunis = await fetch("http://localhost:8080/api/municipalidades", { 
                     headers: { Authorization: `Bearer ${token}` } 
                 });
                 const listaMunis = await resMunis.json();
@@ -141,7 +141,7 @@ function EditarUserPermMuni() {
                                 <option value="" disabled>Selecciona una municipalidad...</option>
                                 {municipalidades.map((muni) => (
                                     <option key={muni.id} value={String(muni.id)}>
-                                        {muni.nombreMunicipalidad}
+                                        {muni.nombre}
                                     </option>
                                 ))}
                             </select>

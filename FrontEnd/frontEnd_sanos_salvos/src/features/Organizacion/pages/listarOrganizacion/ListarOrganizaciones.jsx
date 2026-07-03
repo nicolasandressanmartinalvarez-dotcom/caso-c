@@ -13,7 +13,7 @@ function ListarOrganizaciones() {
     const cargarOrganizaciones = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8082/api/organizaciones", {
+            const response = await fetch("http://localhost:8089/api/organizaciones", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await response.json();
@@ -33,7 +33,7 @@ function ListarOrganizaciones() {
         if (!confirm("¿Eliminar esta organización?")) return;
         try {
             const token = await getAccessTokenSilently();
-            await fetch(`http://localhost:8082/api/organizaciones/${id}`, {
+            await fetch(`http://localhost:8089/api/organizaciones/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
