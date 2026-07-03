@@ -56,7 +56,7 @@ import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
 
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
 import AgregarMunicipalidad from './features/municipalidad/pages/agregarMunicipalidad/AgregarMunicipalidad';
-import ListarOrganizaciones from './features/organizacion/pages/listarOrganizacion/ListarOrganizaciones';
+import ListarOrganizaciones from './features/admin/pages/pagesOrganizacion/listarOrganizacion/ListarOrganizaciones';
 import AgregarOrganizacion from './features/organizacion/pages/agregarOrganizacion/AgregarOrganizacion';
 import CrearCampana from './features/municipalidad/pages/campanas/CrearCampana';
 import ListarCampanas from './features/municipalidad/pages/campanas/ListarCampanas';
