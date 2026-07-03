@@ -37,7 +37,7 @@ function ListarMascotasVeterinaria() {
         setMascotaSeleccionada(null);
         document.body.style.overflow = 'auto';
     };
-
+    
     return (
         <section className={ListarMascotasCss["contenedor-lista"]}>
             <div className={ListarMascotasCss["header-lista"]}>
@@ -67,7 +67,8 @@ function ListarMascotasVeterinaria() {
             </div>
 
             <div className={ListarMascotasCss["grid-mascotas"]}>
-                {mascotas.map((mascota) => (
+                {mascotas.length === 0  ?  <><p>No hay mascotas registradas</p></> :
+                mascotas.map((mascota) => (
                     <div className={ListarMascotasCss["card-mascota"]} key={mascota.id}>
                         <div className={ListarMascotasCss["card-imagen-container"]}>
                             <img src={`http://localhost:8086/imagenes/${mascota.imagen}`} alt={mascota.nombre} className={ListarMascotasCss["card-imagen"]} />
