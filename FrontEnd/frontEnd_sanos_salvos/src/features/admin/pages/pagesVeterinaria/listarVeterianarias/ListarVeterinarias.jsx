@@ -43,7 +43,8 @@ function ListarVeterinarias() {
             </div>
 
             <div className={ListarVeterinariasCSS["grid-veterinarias"]}>
-                {veterinarias.map((vet) => (
+                {veterinarias.length === 0 ? <><p>No hay veterinarias registradas</p></> :
+                veterinarias.map((vet) => (
                     <div className={ListarVeterinariasCSS["card-vet"]} key={vet.id}>
                         <div className={ListarVeterinariasCSS["card-header"]}>
                             <h3>{vet.nombreVeterinaria}</h3>

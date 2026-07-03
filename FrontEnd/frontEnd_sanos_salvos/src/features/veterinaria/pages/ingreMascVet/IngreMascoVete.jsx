@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import MapPicker from '../../../../components/mapa_picker/Mapa_picker'; 
 
 function IngreMascoVete() {
-    const { getAccessTokenSilently } = useAuth0();
+   const { getAccessTokenSilently, user, isAuthenticated, isLoading: authLoading } = useAuth0();
     const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
 
     const [coordenadas, setCoordenadas] = useState({ lat: -34.4390, lng: -71.0780 });
@@ -78,31 +78,38 @@ function IngreMascoVete() {
 
         try {
             const token = await getAccessTokenSilently();
+            const headers = { Authorization: `Bearer ${token}` };
+            const responseUsuarios = await fetch("http://localhost:8086/api/usuPermitidos", { headers });
 
-            const mascotaDTO = {
-                nombre: form.nombre,
-                descripcion: form.descripcion,
-                correoReportante: form.correoReportante,
-                latitud: coordenadas.lat,
-                longitud: coordenadas.lng,
-                estado: form.estado,
-                color: form.color,
-                tamanio: form.tamanio,
-                genero: form.genero,
-                tipoMascota: form.tipoMascota ? { idTipoMascota: Number(form.tipoMascota) } : null,
-                tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null,
-                // TODO: Esto se reemplazará con el ID extraído de la sesión del usuario
-                veterinaria: { idVeterianaria: 1 } 
-            };
+            const usuariosPermitidos = await responseUsuarios.json();
+            const usuarioActual = usuariosPermitidos.find(u => u.correoUsuario === user.email);
+            const idVeterinaria = usuarioActual.veterinaria.id;
 
-            const formData = new FormData();
-            formData.append("mascota", new Blob([JSON.stringify(mascotaDTO)], {
-                type: "application/json"
-            }));
 
-            if (imagen) {
-                formData.append("file", imagen);
-            }
+                const mascotaDTO = {
+                    nombre: form.nombre,
+                    descripcion: form.descripcion,
+                    correoReportante: form.correoReportante,
+                    latitud: coordenadas.lat,
+                    longitud: coordenadas.lng,
+                    estado: form.estado,
+                    color: form.color,
+                    tamanio: form.tamanio,
+                    genero: form.genero,
+                    tipoMascota: form.tipoMascota ? { idTipoMascota: Number(form.tipoMascota) } : null,
+                    tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null,
+                    // TODO: Esto se reemplazará con el ID extraído de la sesión del usuario
+                    veterinaria: { idVeterianaria: idVeterinaria } 
+                };
+
+                const formData = new FormData();
+                formData.append("mascota", new Blob([JSON.stringify(mascotaDTO)], {
+                    type: "application/json"
+                }));
+
+                if (imagen) {
+                    formData.append("file", imagen);
+                }
 
             const response = await fetch("http://localhost:8086/api/mascotas", {
                 method: "POST",

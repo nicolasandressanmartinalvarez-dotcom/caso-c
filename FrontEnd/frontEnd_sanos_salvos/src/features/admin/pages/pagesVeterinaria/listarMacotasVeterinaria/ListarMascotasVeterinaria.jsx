@@ -37,7 +37,7 @@ function ListarMascotasVeterinaria() {
         setMascotaSeleccionada(null);
         document.body.style.overflow = 'auto';
     };
-    
+    console.log(mascotas)
     return (
         <section className={ListarMascotasCss["contenedor-lista"]}>
             <div className={ListarMascotasCss["header-lista"]}>
@@ -67,7 +67,7 @@ function ListarMascotasVeterinaria() {
             </div>
 
             <div className={ListarMascotasCss["grid-mascotas"]}>
-                {mascotas.length === 0  ?  <><p>No hay mascotas registradas</p></> :
+                {mascotas.length === 0 ? <><p>No hay mascotas registradas</p></> :
                 mascotas.map((mascota) => (
                     <div className={ListarMascotasCss["card-mascota"]} key={mascota.id}>
                         <div className={ListarMascotasCss["card-imagen-container"]}>
@@ -85,7 +85,7 @@ function ListarMascotasVeterinaria() {
                                 <li><strong>Raza:</strong> {mascota.tipoDeRaza?.nombreTipoRaza || "No especificada"}</li>
                                 <li><strong>Tamaño:</strong> {mascota.tamanio}</li>
                                 <li><strong>Color:</strong> {mascota.color}</li>
-                                <li><strong>Vterinaria: {mascota.veterinaria.nombreVeterinaria}</strong></li>
+                                <li><strong>Vterinaria: {mascota.veterinaria ? mascota.veterinaria.nombreVeterinaria : "No asignada"}</strong></li>
                             </ul>
                         </div>
                         <div className={ListarMascotasCss["card-footer"]}>
@@ -121,7 +121,8 @@ function ListarMascotasVeterinaria() {
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoMascota?.nombreTipoMascota || "No especificado"}</span>
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoDeRaza?.nombreTipoRaza || "No especificada"}</span>
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tamanio}</span>
-                                    <span className={ListarMascotasCss["tag"]}>Veterinara: {mascotaSeleccionada.veterinaria.nombreVeterinaria}</span>
+                                    <span className={ListarMascotasCss["tag"]}>Veterinaria: {mascotaSeleccionada.veterinaria ? mascotaSeleccionada.veterinaria.nombreVeterinaria : "No asignada"}</span>
+
                                 </div>
                                 <div className={ListarMascotasCss["modal-descripcion"]}>
                                     <h3><FaInfoCircle /> Descripción</h3>
