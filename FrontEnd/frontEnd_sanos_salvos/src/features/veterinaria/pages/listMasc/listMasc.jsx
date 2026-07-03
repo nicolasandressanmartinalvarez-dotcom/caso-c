@@ -1,248 +1,212 @@
-import { useEffect, useState } from "react";
-import ListMascCss from "./listMasc.module.css";
+import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import ListarMascotasCss from './listMasc.module.css';
+import { FaSearch, FaFilter, FaMapMarkerAlt, FaRuler, FaPalette, FaDog, FaCat, FaTimes, FaInfoCircle, FaMapMarkedAlt } from "react-icons/fa";
+import MapViewer from '../../../../components/mapa_picker/Mapa_picker';
 
-import {
-    FaSearch,
-    FaFilter,
-    FaMapMarkerAlt,
-    FaRuler,
-    FaPalette,
-    FaDog,
-    FaCat,
-    FaTimes,
-    FaInfoCircle,
-    FaMapMarkedAlt
-} from "react-icons/fa";
-
-import MapViewer from "../../../../features/admin/components/mapViewer/MapViewer";
-
-function ListMasc() {
-
+function ListarMascotaDeVeterinaria() {
+    // Extraemos user, isAuthenticated y isLoading de Auth0
+    const { getAccessTokenSilently, user, isAuthenticated, isLoading: authLoading } = useAuth0();
+    
     const [mascotas, setMascotas] = useState([]);
     const [mascotaSeleccionada, setMascotaSeleccionada] = useState(null);
+    const [cargandoDatos, setCargandoDatos] = useState(true);
+    const [error, setError] = useState(null);
 
-    // 🔥 TEMPORAL: luego lo sacamos de Auth0 o usuario logueado
-    const idVeterinaria = 1;
+    const IMAGEN_DEFAULT = "https://images.unsplash.com/photo-1543466835-00a73410f2ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60";
 
-    useEffect(() => {
-        cargarMascotas();
-    }, []);
+    const cargarDatos = async () => {
+        if (!user?.email) return;
 
-    const cargarMascotas = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:8086/api/mascotas/veterinaria/${idVeterinaria}`
-            );
+            setCargandoDatos(true);
+            const token = await getAccessTokenSilently();
+            const headers = { Authorization: `Bearer ${token}` };
 
-            if (!response.ok) {
-                console.error("Error al cargar mascotas");
+            // 1. Buscar al usuario en la API de usuPermitidos usando su correo
+            const responseUsuarios = await fetch("http://localhost:8086/api/usuPermitidos", { headers });
+            
+            if (!responseUsuarios.ok) throw new Error("Error al obtener los usuarios permitidos");
+            
+            const usuariosPermitidos = await responseUsuarios.json();
+            
+            // Filtramos al usuario logueado por su correo
+            const usuarioActual = usuariosPermitidos.find(u => u.correoUsuario === user.email);
+            if (!usuarioActual || !usuarioActual.veterinaria?.id) {
+                setError("El usuario no tiene una veterinaria asignada o no está permitido.");
+                setMascotas([]);
+                setCargandoDatos(false);
                 return;
             }
 
-            const data = await response.json();
-            setMascotas(data);
+            const idVeterinaria = usuarioActual.veterinaria.id;
+            
+            // 2. Obtener las mascotas filtradas directamente desde el Backend
+            const responseMascotas = await fetch(`http://localhost:8086/api/mascotas/veterinaria/${idVeterinaria}`, { headers });
+            
+            if (!responseMascotas.ok) throw new Error("Error al cargar las mascotas");
+
+            const dataMascotas = await responseMascotas.json();
+            setMascotas(dataMascotas);
 
         } catch (error) {
-            console.error("Error de conexión:", error);
+            console.error("Error en la carga de datos:", error);
+            setError(error.message);
+        } finally {
+            setCargandoDatos(false);
         }
     };
 
+    // Usamos useEffect para reaccionar cuando Auth0 termina de cargar
+    useEffect(() => {
+        if (isAuthenticated && !authLoading) {
+            cargarDatos();
+        } else if (!authLoading && !isAuthenticated) {
+            setCargandoDatos(false);
+            setError("Debes iniciar sesión para ver las mascotas.");
+        }
+    }, [isAuthenticated, authLoading, user, getAccessTokenSilently]);
+
     const abrirModal = (mascota) => {
         setMascotaSeleccionada(mascota);
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = 'hidden'; 
     };
 
     const cerrarModal = () => {
         setMascotaSeleccionada(null);
-        document.body.style.overflow = "auto";
+        document.body.style.overflow = 'auto';
     };
 
+    if (authLoading || cargandoDatos) {
+        return (
+            <section className={ListarMascotasCss["contenedor-lista"]}>
+                <p style={{ textAlign: "center", padding: "2rem" }}>Cargando directorio de mascotas...</p>
+            </section>
+        );
+    }
+
     return (
-        <section className={ListMascCss["contenedor-lista"]}>
-
-            {/* HEADER */}
-            <div className={ListMascCss["header-lista"]}>
-                <h2>🐾 Mascotas de la Veterinaria</h2>
-                <p>Listado filtrado por tu veterinaria</p>
-            </div>
-
-            {/* BARRA DE FILTROS (VISUAL POR AHORA) */}
-            <div className={ListMascCss["toolbar-filtros"]}>
-
-                <div className={ListMascCss["search-box"]}>
-                    <FaSearch />
-                    <input type="text" placeholder="Buscar mascota..." />
-                </div>
-
-                <div className={ListMascCss["filtros-group"]}>
-
-                    <div className={ListMascCss["select-wrapper"]}>
-                        <FaFilter />
-                        <select>
-                            <option>Estado</option>
-                            <option>Perdido</option>
-                            <option>Encontrado</option>
-                            <option>Adopción</option>
-                        </select>
-                    </div>
-
-                    <div className={ListMascCss["select-wrapper"]}>
-                        <FaRuler />
-                        <select>
-                            <option>Tamaño</option>
-                            <option>Pequeño</option>
-                            <option>Mediano</option>
-                            <option>Grande</option>
-                        </select>
-                    </div>
-
-                    <div className={ListMascCss["select-wrapper"]}>
-                        <FaDog />
-                        <select>
-                            <option>Tipo</option>
-                            <option>Perro</option>
-                            <option>Gato</option>
-                        </select>
-                    </div>
-
-                    <div className={ListMascCss["select-wrapper"]}>
-                        <FaPalette />
-                        <select>
-                            <option>Color</option>
-                            <option>Negro</option>
-                            <option>Blanco</option>
-                            <option>Café</option>
-                        </select>
-                    </div>
-
+        <section className={ListarMascotasCss["contenedor-lista"]}>
+            <div className={ListarMascotasCss["header-lista"]}>
+                <div className={ListarMascotasCss["titulo-seccion"]}>
+                    <h2>Directorio de Mascotas 🐾</h2>
+                    <p>Explora y filtra las mascotas reportadas en la red veterinaria.</p>
                 </div>
             </div>
 
-            {/* GRID */}
-            <div className={ListMascCss["grid-mascotas"]}>
+            <div className={ListarMascotasCss["toolbar-filtros"]}>
+                <div className={ListarMascotasCss["search-box"]}>
+                    <FaSearch className={ListarMascotasCss["icon-input"]} />
+                    <input type="text" placeholder="Buscar por nombre..." />
+                </div>
 
-                {mascotas.map((mascota) => (
-                    <div key={mascota.id} className={ListMascCss["card-mascota"]}>
-
-                        <div className={ListMascCss["card-imagen-container"]}>
-                            <img
-                                src={mascota.imagen}
-                                alt={mascota.nombre}
-                                className={ListMascCss["card-imagen"]}
-                            />
-
-                            <span className={`${ListMascCss["badge-estado"]}`}>
-                                {mascota.estado}
-                            </span>
-                        </div>
-
-                        <div className={ListMascCss["card-body"]}>
-
-                            <div className={ListMascCss["card-header"]}>
-                                <h3>{mascota.nombre}</h3>
-
-                                {mascota.tipoMascota?.nombre === "Perro"
-                                    ? <FaDog />
-                                    : <FaCat />
-                                }
-                            </div>
-
-                            <ul className={ListMascCss["mascota-detalles"]}>
-                                <li>
-                                    <strong>Raza:</strong>{" "}
-                                    {mascota.tipoDeRaza?.nombre}
-                                </li>
-
-                                <li>
-                                    <strong>Tamaño:</strong> {mascota.tamanio}
-                                </li>
-
-                                <li>
-                                    <strong>Color:</strong> {mascota.color}
-                                </li>
-                            </ul>
-
-                            <div className={ListMascCss["mascota-ubicacion"]}>
-                                <FaMapMarkerAlt />
-                                {mascota.ubicacion}
-                            </div>
-
-                        </div>
-
-                        <div className={ListMascCss["card-footer"]}>
-                            <button
-                                className={ListMascCss["btn-ver-mas"]}
-                                onClick={() => abrirModal(mascota)}
-                            >
-                                Ver Detalles
-                            </button>
-                        </div>
-
+                <div className={ListarMascotasCss["filtros-group"]}>
+                    <div className={ListarMascotasCss["select-wrapper"]}>
+                        <FaFilter className={ListarMascotasCss["icon-select"]}/>
+                        <select defaultValue="">
+                            <option value="">Estado (Todos)</option>
+                            <option value="perdido">Perdido</option>
+                            <option value="encontrado">Encontrado</option>
+                            <option value="adopcion">Adopción</option>
+                        </select>
                     </div>
-                ))}
-
+                </div>
             </div>
 
-            {/* MODAL */}
-            {mascotaSeleccionada && (
-                <div
-                    className={ListMascCss["modal-overlay"]}
-                    onClick={cerrarModal}
-                >
-                    <div
-                        className={ListMascCss["modal-content"]}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-
-                        <button
-                            className={ListMascCss["btn-cerrar-modal"]}
-                            onClick={cerrarModal}
-                        >
-                            <FaTimes />
-                        </button>
-
-                        <div className={ListMascCss["modal-grid"]}>
-
-                            <div className={ListMascCss["modal-imagen-box"]}>
-                                <img
-                                    src={mascotaSeleccionada.imagen}
-                                    alt={mascotaSeleccionada.nombre}
-                                />
-                            </div>
-
-                            <div className={ListMascCss["modal-info-box"]}>
-
-                                <h2>{mascotaSeleccionada.nombre}</h2>
-
-                                <p>
-                                    <FaMapMarkerAlt />
-                                    {mascotaSeleccionada.ubicacion}
-                                </p>
-
-                                <div className={ListMascCss["modal-descripcion"]}>
-                                    <h3><FaInfoCircle /> Descripción</h3>
-                                    <p>{mascotaSeleccionada.descripcion}</p>
-                                </div>
-
-                                <div className={ListMascCss["modal-mapa"]}>
-                                    <h3><FaMapMarkedAlt /> Ubicación</h3>
-
-                                    <MapViewer
-                                        latitud={mascotaSeleccionada.latitud}
-                                        longitud={mascotaSeleccionada.longitud}
+            {/* Manejo de Errores y Lista Vacía */}
+            {error ? (
+                <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
+                    <p>{error}</p>
+                </div>
+            ) : (
+                <div className={ListarMascotasCss["grid-mascotas"]}>
+                    {mascotas.length === 0 ? (
+                        <p style={{ gridColumn: "1 / -1", textAlign: "center" }}>No hay mascotas registradas para tu veterinaria.</p>
+                    ) : (
+                        mascotas.map((mascota) => (
+                            <div className={ListarMascotasCss["card-mascota"]} key={mascota.id}>
+                                <div className={ListarMascotasCss["card-imagen-container"]}>
+                                    <img 
+                                        src={mascota.imagen ? `http://localhost:8086/imagenes/${mascota.imagen}` : IMAGEN_DEFAULT} 
+                                        alt={mascota.nombre} 
+                                        className={ListarMascotasCss["card-imagen"]} 
                                     />
+                                    <span className={`${ListarMascotasCss["badge-estado"]} ${ListarMascotasCss[mascota.estado?.toLowerCase()]}`}>
+                                        {mascota.estado}
+                                    </span>
                                 </div>
-
+                                <div className={ListarMascotasCss["card-body"]}>
+                                    <div className={ListarMascotasCss["card-header"]}>
+                                        <h3>{mascota.nombre}</h3>
+                                        {mascota.tipoMascota?.nombreTipoMascota === "Perro" ? <FaDog className={ListarMascotasCss["icon-tipo"]}/> : <FaCat className={ListarMascotasCss["icon-tipo"]}/>}
+                                    </div>
+                                    <ul className={ListarMascotasCss["mascota-detalles"]}>
+                                        <li><strong>Raza:</strong> {mascota.tipoDeRaza?.nombreTipoRaza || "No especificada"}</li>
+                                        <li><strong>Tamaño:</strong> {mascota.tamanio}</li>
+                                        <li><strong>Color:</strong> {mascota.color}</li>
+                                        <li><strong>Veterinaria:</strong> {mascota.veterinaria ? mascota.veterinaria.nombreVeterinaria : "No asignada"}</li>
+                                    </ul>
+                                </div>
+                                <div className={ListarMascotasCss["card-footer"]}>
+                                    <button className={ListarMascotasCss["btn-ver-mas"]} onClick={() => abrirModal(mascota)}>
+                                        Ver Detalles
+                                    </button>
+                                </div>
                             </div>
-
-                        </div>
-
-                    </div>
+                        ))
+                    )}
                 </div>
             )}
 
+            {mascotaSeleccionada && (
+                <div className={ListarMascotasCss["modal-overlay"]} onClick={cerrarModal}>
+                    <div className={ListarMascotasCss["modal-content"]} onClick={(e) => e.stopPropagation()}>
+                        <button className={ListarMascotasCss["btn-cerrar-modal"]} onClick={cerrarModal}>
+                            <FaTimes />
+                        </button>
+                        <div className={ListarMascotasCss["modal-grid"]}>
+                            <div className={ListarMascotasCss["modal-imagen-box"]}>
+                                <img 
+                                    src={mascotaSeleccionada.imagen ? `http://localhost:8086/imagenes/${mascotaSeleccionada.imagen}` : IMAGEN_DEFAULT} 
+                                    alt={mascotaSeleccionada.nombre} 
+                                />
+                                <span className={`${ListarMascotasCss["badge-estado-modal"]} ${ListarMascotasCss[mascotaSeleccionada.estado?.toLowerCase()]}`}>
+                                    {mascotaSeleccionada.estado}
+                                </span>
+                            </div>
+                            <div className={ListarMascotasCss["modal-info-box"]}>
+                                <div>
+                                    <h2>{mascotaSeleccionada.nombre}</h2>
+                                    <p className={ListarMascotasCss["modal-subtitulo"]}>
+                                        <FaMapMarkerAlt className={ListarMascotasCss["icon-ubicacion"]}/> {mascotaSeleccionada.ubicacion || "Ubicación no especificada"}
+                                    </p>
+                                </div>
+                                <div className={ListarMascotasCss["modal-tags"]}>
+                                    <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoMascota?.nombreTipoMascota || "No especificado"}</span>
+                                    <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoDeRaza?.nombreTipoRaza || "No especificada"}</span>
+                                    <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tamanio}</span>
+                                    <span className={ListarMascotasCss["tag"]}>Veterinaria: {mascotaSeleccionada.veterinaria ? mascotaSeleccionada.veterinaria.nombreVeterinaria : "No asignada"}</span>
+                                </div>
+                                <div className={ListarMascotasCss["modal-descripcion"]}>
+                                    <h3><FaInfoCircle /> Descripción</h3>
+                                    <p>{mascotaSeleccionada.descripcion}</p>
+                                </div>
+                                <div className={ListarMascotasCss["modal-mapa"]}>
+                                    <h3><FaMapMarkedAlt /> Ubicación del Reporte</h3>
+                                    <MapViewer latitud={mascotaSeleccionada.latitud} longitud={mascotaSeleccionada.longitud} />
+                                </div>
+                                <div className={ListarMascotasCss["modal-acciones"]}>
+                                    <a href={`mailto:${mascotaSeleccionada.correoReportante}`} className={ListarMascotasCss["btn-contactar"]}>
+                                        Contactar: {mascotaSeleccionada.correoReportante}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
 
-export default ListMasc;
+export default ListarMascotaDeVeterinaria;

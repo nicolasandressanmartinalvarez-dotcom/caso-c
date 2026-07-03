@@ -51,25 +51,49 @@ function AdminUserVet() {
     const registrarUsuario = async (e) => {
         e.preventDefault();
         setCargando(true);
-        setMensaje({ texto: "Verificando usuario en el sistema global...", tipo: "info" });
+        setMensaje({ texto: "Verificando registros locales...", tipo: "info" });
 
         try {
             const token = await getAccessTokenSilently();
-            const headers = {
+            
+            // Headers diferenciados: El global necesita el bypass de Ngrok
+            const headersGlobal = {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "ngrok-skip-browser-warning": "69420" // 👈 ¡ESTO EVITA EL ERROR DE CORS DE NGROK!
+            };
+            
+            const headersLocal = {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             };
 
-            // URL de tu microservicio global de usuarios (Ajusta el puerto si es distinto a 8080)
-            const URL_API_GLOBAL = "http://localhost:8087/api/usuarios"; 
+            const URL_API_GLOBAL = "https://a1a3-191-116-30-200.ngrok-free.app/api/usuarios"; 
             const URL_API_VETERINARIA = "http://localhost:8086/api/usuPermitidos";
 
+            // PASO 0: Filtrar duplicados locales
+            const resLocalCheck = await fetch(URL_API_VETERINARIA, { headers: headersLocal });
+            if (resLocalCheck.ok) {
+                const usuariosLocales = await resLocalCheck.json();
+                const correoYaExiste = usuariosLocales.find(u => u.correoUsuario.toLowerCase() === form.correoUsuario.toLowerCase());
+                
+                if (correoYaExiste) {
+                    setMensaje({ 
+                        texto: "El usuario ya se encuentra registrado en el sistema de esta veterinaria 🚫", 
+                        tipo: "error" 
+                    });
+                    setCargando(false);
+                    return; // Detenemos la ejecución aquí
+                }
+            }
+
             // PASO 1: Buscar al usuario en la API Global por correo
-            const resBusqueda = await fetch(`${URL_API_GLOBAL}/${form.correoUsuario}`, { headers });
+            setMensaje({ texto: "Buscando usuario en la red global...", tipo: "info" });
+            const resBusqueda = await fetch(`${URL_API_GLOBAL}/${form.correoUsuario}`, { headers: headersGlobal });
             
             if (!resBusqueda.ok) {
                 setMensaje({ 
-                    texto: "El usuario no existe. Debe iniciar sesión en Auth0 al menos una vez.", 
+                    texto: "El usuario no existe en la red global. Debe iniciar sesión en la app principal primero.", 
                     tipo: "error" 
                 });
                 setCargando(false);
@@ -79,7 +103,7 @@ function AdminUserVet() {
             const dataUsuarioGlobal = await resBusqueda.json();
 
             // PASO 2: Actualizar la Entidad Perteneciente en la API Global
-            setMensaje({ texto: "Asignando entidad al usuario...", tipo: "info" });
+            setMensaje({ texto: "Asignando entidad global al usuario...", tipo: "info" });
             const payloadActualizacion = {
                 correoUsuario: form.correoUsuario,
                 idAuth0: dataUsuarioGlobal.idAuth0,
@@ -88,7 +112,7 @@ function AdminUserVet() {
 
             const resActualizacion = await fetch(`${URL_API_GLOBAL}/${form.correoUsuario}`, {
                 method: "PUT",
-                headers,
+                headers: headersGlobal,
                 body: JSON.stringify(payloadActualizacion)
             });
 
@@ -113,7 +137,7 @@ function AdminUserVet() {
 
             const resGuardadoLocal = await fetch(URL_API_VETERINARIA, {
                 method: "POST",
-                headers,
+                headers: headersLocal,
                 body: JSON.stringify(payloadLocal)
             });
 
@@ -127,12 +151,11 @@ function AdminUserVet() {
 
         } catch (error) {
             console.error("Error en el proceso:", error);
-            setMensaje({ texto: "Error de conexión o proceso fallido 🚨", tipo: "error" });
+            setMensaje({ texto: "Error de conexión o proceso fallido (Revisa que Ngrok esté activo) 🚨", tipo: "error" });
         } finally {
             setCargando(false);
         }
     };
-
     return (
         <section className={AdminUserVetCSS["contenedor-usuario"]}>
             <div className={AdminUserVetCSS["form-card"]}>
@@ -180,13 +203,12 @@ function AdminUserVet() {
                             <select name="idVeterinaria" value={form.idVeterinaria} onChange={handleChange} required>
                                 <option value="" disabled>Asigna una sucursal...</option>
                                 {veterinarias.map((v) => (
-                                    <option value={v.id} key={v.id}>{v.nombreVeterinaria}</option>
+                                    <option value={v.id} key={v.idVeterinaria}>{v.nombreVeterinaria}</option>
                                 ))}
                             </select>
                         </div>
                     </div>
 
-                    {/* Mensajes de Feedback visuales */}
                     {mensaje.texto && (
                         <div style={{
                             padding: "12px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", marginTop: "10px", display: "flex", alignItems: "center", gap: "8px",
