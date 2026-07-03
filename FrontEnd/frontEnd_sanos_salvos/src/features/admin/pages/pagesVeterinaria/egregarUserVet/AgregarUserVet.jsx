@@ -156,7 +156,6 @@ function AdminUserVet() {
             setCargando(false);
         }
     };
-
     return (
         <section className={AdminUserVetCSS["contenedor-usuario"]}>
             <div className={AdminUserVetCSS["form-card"]}>
@@ -204,7 +203,7 @@ function AdminUserVet() {
                             <select name="idVeterinaria" value={form.idVeterinaria} onChange={handleChange} required>
                                 <option value="" disabled>Asigna una sucursal...</option>
                                 {veterinarias.map((v) => (
-                                    <option value={v.idVeterinaria} key={v.idVeterinaria}>{v.nombreVeterinaria}</option>
+                                    <option value={v.id} key={v.idVeterinaria}>{v.nombreVeterinaria}</option>
                                 ))}
                             </select>
                         </div>
