@@ -34,6 +34,15 @@ import ListarUserPermVet from './features/admin/pages/pagesVeterinaria/listarUsu
 import AgregarUserVet from './features/admin/pages/pagesVeterinaria/egregarUserVet/AgregarUserVet'
 import EditUserPermVet from './features/admin/pages/pagesVeterinaria/editarUsuarioPerm/EditarUserPermVet'
 
+// Paginas de Organizaciones y Municipalidades para admin
+import ListarUserPermOrg from './features/admin/pages/pagesOrganizacion/listarUsuPermOrg/ListarUsuPermOrg'
+import AgregarUserOrg from './features/admin/pages/pagesOrganizacion/agregarUserOrg/AgregarUserOrg'
+import EditUserPermOrg from './features/admin/pages/pagesOrganizacion/EditarUsuarioPermOrg/EditarUserPermOrg'
+
+import ListarUserPermMuni from './features/admin/pages/pagesMunicipalidad/listarUsuPermMuni/ListarUsuPermMuni'
+import AgregarUserMuni from './features/admin/pages/pagesMunicipalidad/agregarUserMuni/AgregarUserMuni'
+import EditUserPermMuni from './features/admin/pages/pagesMunicipalidad/EditarUsuarioPermMuni/EditarUserPermMuni'
+
 
 import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
 import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/listarMacotasVeterinaria/ListarMascotasVeterinaria'
@@ -65,9 +74,15 @@ function App() {
           //Apartado de Admin municipalidades y organizaciones
           <Route path="ListarMunicipalidades" element={<ListarMunicipalidades />} />
           <Route path="AgregarMunicipalidad" element={<AgregarMunicipalidad />} />
+          <Route path="AgregarUserMuni" element={<AgregarUserMuni />} />
+          <Route path="ListarUsuariosPermMuni" element={<ListarUserPermMuni />} />
+          <Route path="EditarUserPermMuni/:id" element={<EditUserPermMuni />} />
           
           <Route path="ListarOrganizaciones" element={<ListarOrganizaciones />} />
           <Route path="AgregarOrganizacion" element={<AgregarOrganizacion />} />
+          <Route path="AgregarUserOrg" element={<AgregarUserOrg />} />
+          <Route path="ListarUsuariosPermOrg" element={<ListarUserPermOrg />} />
+          <Route path="EditarUserPermOrg/:id" element={<EditUserPermOrg />} />
 
           //Apartado de Admin veterinaria
           <Route path="AgregarVeterinaria" element={<AgregarVeterinaria />} />
