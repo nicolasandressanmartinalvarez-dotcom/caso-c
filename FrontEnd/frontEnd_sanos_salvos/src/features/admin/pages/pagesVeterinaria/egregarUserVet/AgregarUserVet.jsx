@@ -60,14 +60,13 @@ function AdminUserVet() {
             const headersGlobal = {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
-                "ngrok-skip-browser-warning": "69420" // 👈 ¡ESTO EVITA EL ERROR DE CORS DE NGROK!
+                "ngrok-skip-browser-warning": "69420"
             };
             
             const headersLocal = {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             };
-
             const URL_API_GLOBAL = "https://c122-191-116-44-218.ngrok-free.app/api/usuarios"; 
             const URL_API_VETERINARIA = "http://localhost:8086/api/usuPermitidos";
 
