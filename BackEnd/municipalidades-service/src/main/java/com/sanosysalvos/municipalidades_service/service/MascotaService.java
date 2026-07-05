@@ -54,6 +54,11 @@ public class MascotaService {
         mascota.setCorreoReportante(mascotaDTO.getCorreoReportante());
         mascota.setLatitud(mascotaDTO.getLatitud());
         mascota.setLongitud(mascotaDTO.getLongitud());
+        
+        mascota.setColor(mascotaDTO.getColor());
+        mascota.setTamanio(mascotaDTO.getTamanio());
+        mascota.setGenero(mascotaDTO.getGenero());
+        mascota.setEntidadReportante("Municipalidad");
 
         // Asignar Estado de Mascota
         if (mascotaDTO.getEstado() != null) {

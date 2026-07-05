@@ -12,7 +12,7 @@ import com.sanosysalvos.organizaciones_service.service.MascotaService;
 
 @RestController
 @RequestMapping("/api/mascotas")
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*")
 public class MascotaController {
 
     private final MascotaService mascotaService;

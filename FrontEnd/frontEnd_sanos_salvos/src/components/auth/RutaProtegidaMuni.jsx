@@ -17,7 +17,7 @@ function RutaProtegidaMuni({ children }) {
 
             try {
                 const token = await getAccessTokenSilently();
-                const request = await fetch(`https://c122-191-116-44-218.ngrok-free.app/api/usuarios/${user.email}`, {
+                const request = await fetch(`https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios/${user.email}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -55,7 +55,7 @@ function RutaProtegidaMuni({ children }) {
     if (!usuario) {
         return <p>Error cargando usuario</p>;
     }
-    if (usuario.entidadPerteneciente !== "Municipalidad" && usuario.entidadPerteneciente !=='Admin') {
+    if (usuario.entidadPerteneciente !== "Municipalidad" && usuario.entidadPerteneciente !== 'Admin') {
         return <Navigate to="/" replace />;
     }
     return children;

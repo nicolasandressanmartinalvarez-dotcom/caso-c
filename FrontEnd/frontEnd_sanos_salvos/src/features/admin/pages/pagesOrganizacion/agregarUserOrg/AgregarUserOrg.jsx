@@ -55,19 +55,19 @@ function AdminUserOrg() {
 
         try {
             const token = await getAccessTokenSilently();
-            
+
             const headersGlobal = {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
                 "ngrok-skip-browser-warning": "69420"
             };
-            
+
             const headersLocal = {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             };
 
-            const URL_API_GLOBAL = "https://c122-191-116-44-218.ngrok-free.app/api/usuarios"; 
+            const URL_API_GLOBAL = "https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios";
             const URL_API_ORGANIZACION = "http://localhost:8089/api/usuPermitidosOrg";
 
             // PASO 0: Filtrar duplicados locales
@@ -75,11 +75,11 @@ function AdminUserOrg() {
             if (resLocalCheck.ok) {
                 const usuariosLocales = await resLocalCheck.json();
                 const correoYaExiste = usuariosLocales.find(u => u.correoUsuario.toLowerCase() === form.correoUsuario.toLowerCase());
-                
+
                 if (correoYaExiste) {
-                    setMensaje({ 
-                        texto: "El usuario ya se encuentra registrado en esta organización 🚫", 
-                        tipo: "error" 
+                    setMensaje({
+                        texto: "El usuario ya se encuentra registrado en esta organización 🚫",
+                        tipo: "error"
                     });
                     setCargando(false);
                     return;
@@ -89,11 +89,11 @@ function AdminUserOrg() {
             // PASO 1: Buscar al usuario en la API Global por correo
             setMensaje({ texto: "Buscando usuario en la red global...", tipo: "info" });
             const resBusqueda = await fetch(`${URL_API_GLOBAL}/${form.correoUsuario}`, { headers: headersGlobal });
-            
+
             if (!resBusqueda.ok) {
-                setMensaje({ 
-                    texto: "El usuario no existe en la red global. Debe iniciar sesión en la app principal primero.", 
-                    tipo: "error" 
+                setMensaje({
+                    texto: "El usuario no existe en la red global. Debe iniciar sesión en la app principal primero.",
+                    tipo: "error"
                 });
                 setCargando(false);
                 return;
@@ -160,29 +160,29 @@ function AdminUserOrg() {
         <section className={AdminUserOrgCSS["contenedor-usuario"]}>
             <div className={AdminUserOrgCSS["form-card"]}>
                 <h2 className={AdminUserOrgCSS["titulo-form"]}>
-                    <FaUserShield className={AdminUserOrgCSS["icono-titulo"]}/> Agregar Usuario Organización
+                    <FaUserShield className={AdminUserOrgCSS["icono-titulo"]} /> Agregar Usuario Organización
                 </h2>
                 <form className={AdminUserOrgCSS["form-usuario"]} onSubmit={registrarUsuario}>
-                    
+
                     <div className={AdminUserOrgCSS["input-group"]}>
                         <label>Nombres</label>
-                        <input type="text" name="nombreUser" value={form.nombreUser} onChange={handleChange} placeholder="Ej: Juan Andrés" required/>
+                        <input type="text" name="nombreUser" value={form.nombreUser} onChange={handleChange} placeholder="Ej: Juan Andrés" required />
                     </div>
-                    
+
                     <div className={AdminUserOrgCSS["row-group"]}>
                         <div className={AdminUserOrgCSS["input-group"]}>
                             <label>Apellido Paterno</label>
-                            <input type="text" name="apellidoPa" value={form.apellidoPa} onChange={handleChange} placeholder="Ej: Pérez" required/>
+                            <input type="text" name="apellidoPa" value={form.apellidoPa} onChange={handleChange} placeholder="Ej: Pérez" required />
                         </div>
                         <div className={AdminUserOrgCSS["input-group"]}>
                             <label>Apellido Materno</label>
-                            <input type="text" name="apellidoMa" value={form.apellidoMa} onChange={handleChange} placeholder="Ej: Silva" required/>
+                            <input type="text" name="apellidoMa" value={form.apellidoMa} onChange={handleChange} placeholder="Ej: Silva" required />
                         </div>
                     </div>
 
                     <div className={AdminUserOrgCSS["input-group"]}>
                         <label>Correo Electrónico (Debe estar registrado en Auth0)</label>
-                        <input type="email" name="correoUsuario" value={form.correoUsuario} onChange={handleChange} placeholder="Ej: juan.perez@org.com" required/>
+                        <input type="email" name="correoUsuario" value={form.correoUsuario} onChange={handleChange} placeholder="Ej: juan.perez@org.com" required />
                     </div>
 
                     <div className={AdminUserOrgCSS["input-group"]}>

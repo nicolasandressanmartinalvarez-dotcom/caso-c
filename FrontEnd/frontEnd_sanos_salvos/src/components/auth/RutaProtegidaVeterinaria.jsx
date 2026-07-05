@@ -3,11 +3,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
 function RutaProtegidaVeterinaria({ children }) {
-    const { 
-        isAuthenticated, 
-        isLoading, 
-        getAccessTokenSilently, 
-        user 
+    const {
+        isAuthenticated,
+        isLoading,
+        getAccessTokenSilently,
+        user
     } = useAuth0();
 
     const [usuario, setUsuario] = useState(null);
@@ -22,7 +22,7 @@ function RutaProtegidaVeterinaria({ children }) {
 
             try {
                 const token = await getAccessTokenSilently();
-                const request = await fetch(`https://c122-191-116-44-218.ngrok-free.app/api/usuarios/${user.email}`, {
+                const request = await fetch(`https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios/${user.email}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

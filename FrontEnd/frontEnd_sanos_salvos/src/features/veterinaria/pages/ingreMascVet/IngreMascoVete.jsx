@@ -110,7 +110,6 @@ function IngreMascoVete() {
                 if (imagen) {
                     formData.append("file", imagen);
                 }
-
             const response = await fetch("http://localhost:8086/api/mascotas", {
                 method: "POST",
                 headers: {

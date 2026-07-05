@@ -55,19 +55,19 @@ function AdminUserMuni() {
 
         try {
             const token = await getAccessTokenSilently();
-            
+
             const headersGlobal = {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
                 "ngrok-skip-browser-warning": "69420"
             };
-            
+
             const headersLocal = {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             };
 
-            const URL_API_GLOBAL = "https://c122-191-116-44-218.ngrok-free.app/api/usuarios"; 
+            const URL_API_GLOBAL = "https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios";
             const URL_API_MUNICIPALIDAD = "http://localhost:8080/api/usuPermitidosMuni";
 
             // PASO 0: Filtrar duplicados locales
@@ -75,11 +75,11 @@ function AdminUserMuni() {
             if (resLocalCheck.ok) {
                 const usuariosLocales = await resLocalCheck.json();
                 const correoYaExiste = usuariosLocales.find(u => u.correoUsuario.toLowerCase() === form.correoUsuario.toLowerCase());
-                
+
                 if (correoYaExiste) {
-                    setMensaje({ 
-                        texto: "El usuario ya se encuentra registrado en esta municipalidad 🚫", 
-                        tipo: "error" 
+                    setMensaje({
+                        texto: "El usuario ya se encuentra registrado en esta municipalidad 🚫",
+                        tipo: "error"
                     });
                     setCargando(false);
                     return;
@@ -89,11 +89,11 @@ function AdminUserMuni() {
             // PASO 1: Buscar al usuario en la API Global por correo
             setMensaje({ texto: "Buscando usuario en la red global...", tipo: "info" });
             const resBusqueda = await fetch(`${URL_API_GLOBAL}/${form.correoUsuario}`, { headers: headersGlobal });
-            
+
             if (!resBusqueda.ok) {
-                setMensaje({ 
-                    texto: "El usuario no existe en la red global. Debe iniciar sesión en la app principal primero.", 
-                    tipo: "error" 
+                setMensaje({
+                    texto: "El usuario no existe en la red global. Debe iniciar sesión en la app principal primero.",
+                    tipo: "error"
                 });
                 setCargando(false);
                 return;
@@ -160,29 +160,29 @@ function AdminUserMuni() {
         <section className={AdminUserMuniCSS["contenedor-usuario"]}>
             <div className={AdminUserMuniCSS["form-card"]}>
                 <h2 className={AdminUserMuniCSS["titulo-form"]}>
-                    <FaUserShield className={AdminUserMuniCSS["icono-titulo"]}/> Agregar Usuario Municipalidad
+                    <FaUserShield className={AdminUserMuniCSS["icono-titulo"]} /> Agregar Usuario Municipalidad
                 </h2>
                 <form className={AdminUserMuniCSS["form-usuario"]} onSubmit={registrarUsuario}>
-                    
+
                     <div className={AdminUserMuniCSS["input-group"]}>
                         <label>Nombres</label>
-                        <input type="text" name="nombreUser" value={form.nombreUser} onChange={handleChange} placeholder="Ej: Juan Andrés" required/>
+                        <input type="text" name="nombreUser" value={form.nombreUser} onChange={handleChange} placeholder="Ej: Juan Andrés" required />
                     </div>
-                    
+
                     <div className={AdminUserMuniCSS["row-group"]}>
                         <div className={AdminUserMuniCSS["input-group"]}>
                             <label>Apellido Paterno</label>
-                            <input type="text" name="apellidoPa" value={form.apellidoPa} onChange={handleChange} placeholder="Ej: Pérez" required/>
+                            <input type="text" name="apellidoPa" value={form.apellidoPa} onChange={handleChange} placeholder="Ej: Pérez" required />
                         </div>
                         <div className={AdminUserMuniCSS["input-group"]}>
                             <label>Apellido Materno</label>
-                            <input type="text" name="apellidoMa" value={form.apellidoMa} onChange={handleChange} placeholder="Ej: Silva" required/>
+                            <input type="text" name="apellidoMa" value={form.apellidoMa} onChange={handleChange} placeholder="Ej: Silva" required />
                         </div>
                     </div>
 
                     <div className={AdminUserMuniCSS["input-group"]}>
                         <label>Correo Electrónico (Debe estar registrado en Auth0)</label>
-                        <input type="email" name="correoUsuario" value={form.correoUsuario} onChange={handleChange} placeholder="Ej: juan.perez@muni.com" required/>
+                        <input type="email" name="correoUsuario" value={form.correoUsuario} onChange={handleChange} placeholder="Ej: juan.perez@muni.com" required />
                     </div>
 
                     <div className={AdminUserMuniCSS["input-group"]}>

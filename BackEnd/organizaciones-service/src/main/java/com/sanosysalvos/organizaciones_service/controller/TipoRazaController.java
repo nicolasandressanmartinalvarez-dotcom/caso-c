@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipos-raza")
-@CrossOrigin("*") 
+@CrossOrigin(originPatterns = "*")
 public class TipoRazaController {
 
     private final TipoRazaService tipoRazaService;
@@ -25,7 +25,7 @@ public class TipoRazaController {
 
     // Crear un tipo de raza
     @PostMapping
-    public TipoRaza guardarRaza(@RequestBody TipoRaza tipoRaza) {        
+    public TipoRaza guardarRaza(@RequestBody TipoRaza tipoRaza) {
         return tipoRazaService.guardarTipoRaza(tipoRaza);
     }
 
@@ -33,5 +33,5 @@ public class TipoRazaController {
     @GetMapping("{id}")
     public TipoRaza buscarPorId(@PathVariable Long id) {
         return tipoRazaService.buscarTipoRazaPorId(id);
-    } 
+    }
 }

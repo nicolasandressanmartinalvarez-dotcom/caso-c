@@ -38,6 +38,11 @@ public class Mascota {
     @com.fasterxml.jackson.annotation.JsonBackReference
     private Municipalidad municipalidad;
 
+    private String color;
+    private String tamanio;
+    private String genero;
+    private String entidadReportante;
+
     public Mascota() {
     }
 
@@ -128,5 +133,37 @@ public class Mascota {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(String tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getEntidadReportante() {
+        return entidadReportante;
+    }
+
+    public void setEntidadReportante(String entidadReportante) {
+        this.entidadReportante = entidadReportante;
     }
 }

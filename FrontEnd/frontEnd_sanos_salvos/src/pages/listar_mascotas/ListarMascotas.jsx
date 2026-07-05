@@ -12,7 +12,7 @@ function ListarMascotas({ setNuevaMascota }) {
     useEffect(() => {
         const obtenerMascotas = async () => {
             try {
-                
+
                 const res = await fetch('http://localhost:8081/api/mascotas', {
                     method: 'GET'
                 });
@@ -45,7 +45,7 @@ function ListarMascotas({ setNuevaMascota }) {
         const password = "admin123";
         const credenciales = btoa(`${usuario}:${password}`);
 
-        
+
         const datosAEnviar = {
             correoRemitente: datMas.correoReportante,
             correoEmisor: user?.email
@@ -53,7 +53,7 @@ function ListarMascotas({ setNuevaMascota }) {
         setCorreos(datosAEnviar);
 
         try {
-            
+
             const response = await fetch('http://localhost:8085/api/bff/notificaciones', {
                 method: 'POST',
                 headers: {
@@ -85,12 +85,12 @@ function ListarMascotas({ setNuevaMascota }) {
 
                                 <div>
                                     <h2>Tipo</h2>
-                                    <p>{m.tipoMascota ? m.tipoMascota.nombre : "Sin tipo"}</p>
+                                    <p>{m.tipoMascota ? m.tipoMascota.nombreTipoMascota : "Sin tipo"}</p>
                                 </div>
 
                                 <div>
                                     <h2>Raza</h2>
-                                    <p>{m.tipoDeRaza ? m.tipoDeRaza.nombre : "Sin raza"}</p>
+                                    <p>{m.tipoDeRaza ? m.tipoDeRaza.nombreTipoRaza : "Sin raza"}</p>
                                 </div>
 
                                 <div>

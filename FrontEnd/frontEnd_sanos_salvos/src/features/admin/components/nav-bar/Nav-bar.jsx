@@ -29,6 +29,7 @@ function Navbar() {
                 <li> <NavLink to="AgregarOrganizacion">Agregar Organizacion</NavLink></li>
                 <li> <NavLink to="AgregarUserOrg">Agregar Usuarios</NavLink></li>
                 <li> <NavLink to="ListarUsuariosPermOrg">Listar Usuarios</NavLink></li>
+                <li> <NavLink to="ListarMascotasOrgAdmin">Listar Mascotas Organización</NavLink></li>
             </ul>
             <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Veterinaria')}> Administracion de Veterinaria<GiPlantsAndAnimals /> </button>
             <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu === 'Veterinaria' ? Nav_Bar_CSS.show : ''}`}>
@@ -44,6 +45,7 @@ function Navbar() {
                 <li> <NavLink to="AgregarMunicipalidad">Agregar Municipalidad</NavLink></li>
                 <li> <NavLink to="AgregarUserMuni">Agregar Usuarios</NavLink></li>
                 <li> <NavLink to="ListarUsuariosPermMuni">Listar Usuarios</NavLink></li>
+                <li> <NavLink to="ListarMascotasMuniAdmin">Listar Mascotas Municipalidad</NavLink></li>
             </ul>
             <button className={Nav_Bar_CSS["btn-nav-bar"]} onClick={() => AbrirMenuSeleccionado('Alertas')}> Administracion de alertas o avisos<HiBellAlert /></button>
             <ul className={`${Nav_Bar_CSS["nav-bar-ul"]} ${AbrirMenu === 'Alertas' ? Nav_Bar_CSS.show : ''}`}>

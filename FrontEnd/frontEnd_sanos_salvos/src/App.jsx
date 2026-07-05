@@ -8,6 +8,7 @@ import './App.css'
 import RutaProtegidaAdmin from './components/auth/RutaProtegidaAdmin'
 import RutaProtegidaMuni from './components/auth/RutaProtegidaMuni'
 import RutaProtegidaOrg from './components/auth/RutaProtegidaOrg'
+import RutaProtegidaVeterinaria from "./components/auth/RutaProtegidaVeterinaria";
 
 //Importaciones de los layOuts
 import HomeLayOut from "./layouts/HomeLayOut/HomeLayOut";
@@ -44,7 +45,6 @@ import AgregarUserMuni from './features/admin/pages/pagesMunicipalidad/agregarUs
 import EditUserPermMuni from './features/admin/pages/pagesMunicipalidad/EditarUsuarioPermMuni/EditarUserPermMuni'
 
 
-import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
 import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/listarMacotasVeterinaria/ListarMascotasVeterinaria'
 //Fin importaciones del apartado de veterinaria
 
@@ -52,15 +52,26 @@ import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/l
 //Impotaciones veterinaria LayoUts
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
+import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
 
-
+// importaciones de Paneles de Municipalidades
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
 import AgregarMunicipalidad from './features/municipalidad/pages/agregarMunicipalidad/AgregarMunicipalidad';
+
+// importaciones de Paneles de Organizaciones
 import ListarOrganizaciones from './features/admin/pages/pagesOrganizacion/listarOrganizacion/ListarOrganizaciones';
 import AgregarOrganizacion from './features/organizacion/pages/agregarOrganizacion/AgregarOrganizacion';
 import CrearCampana from './features/municipalidad/pages/campanas/CrearCampana';
 import ListarCampanas from './features/municipalidad/pages/campanas/ListarCampanas';
-import RutaProtegidaVeterinaria from "./components/auth/RutaProtegidaVeterinaria";
+
+// Importaciones de Paneles de Mascotas para Organización y Municipalidad
+import AgregarMascotaMuni from './features/municipalidad/pages/agregarMascota/AgregarMascotaMuni';
+import AgregarMascotaOrg from './features/Organizacion/pages/agregarMascota/AgregarMascotaOrg';
+import ListarMascotasMuniAdmin from './features/admin/pages/pagesMunicipalidad/listarMascotasMuni/ListarMascotasMuniAdmin';
+import ListarMascotasOrgAdmin from './features/admin/pages/pagesOrganizacion/listarMascotasOrg/ListarMascotasOrgAdmin';
+
+//Paginas de usuarios usuarios
+import AgregarMascUsusario from './pages/registrar_mascotas/RegistrarMascota'
 
 
 function App() {
@@ -77,7 +88,7 @@ function App() {
           <Route path="AgregarUserMuni" element={<AgregarUserMuni />} />
           <Route path="ListarUsuariosPermMuni" element={<ListarUserPermMuni />} />
           <Route path="EditarUserPermMuni/:id" element={<EditUserPermMuni />} />
-          
+
           <Route path="ListarOrganizaciones" element={<ListarOrganizaciones />} />
           <Route path="AgregarOrganizacion" element={<AgregarOrganizacion />} />
           <Route path="AgregarUserOrg" element={<AgregarUserOrg />} />
@@ -89,13 +100,15 @@ function App() {
           <Route path="ListarVeterinaria" element={<ListarVeterianarias />} />
           <Route path="AgregarUserVet" element={<AgregarUserVet />} />
           <Route path="ListarUsuariosPermVet" element={<ListarUserPermVet />} />
-          <Route path="EditarUserPermVet/:id" element ={<EditUserPermVet/>} />
+          <Route path="EditarUserPermVet/:id" element={<EditUserPermVet />} />
           <Route path="ListarMascotaVeterinaria" element={<ListarMascotasVeterinaria />}></Route>
+          <Route path="ListarMascotasMuniAdmin" element={<ListarMascotasMuniAdmin />}></Route>
+          <Route path="ListarMascotasOrgAdmin" element={<ListarMascotasOrgAdmin />}></Route>
         </Route>
 
         <Route path="organizacion" element={<RutaProtegidaOrg><OrganizacionLayOut /></RutaProtegidaOrg>}>
           <Route index element={<h1>Dashboard Organización</h1>} />
-          <Route path="agregar-mascota" element={<RegistrarMascota />} />
+          <Route path="agregar-mascota" element={<AgregarMascotaOrg />} />
           <Route path="listar-mascotas" element={<ListarMascotas />} />
           <Route path="alertas" element={<AlertasComunidad />} />
         </Route>
@@ -104,22 +117,22 @@ function App() {
           <Route index element={<Navigate to="listar-campañas" replace />} />
           <Route path="crear-campaña" element={<CrearCampana />} />
           <Route path="listar-campañas" element={<ListarCampanas />} />
-          <Route path="agregar-mascota" element={<RegistrarMascota />} />
+          <Route path="agregar-mascota" element={<AgregarMascotaMuni />} />
           <Route path="listar-mascotas" element={<ListarMascotas />} />
         </Route>
 
 
         <Route path="veterinaria" element={<RutaProtegidaVeterinaria><LayOutVeterinaria /></RutaProtegidaVeterinaria>}>
           <Route path="perdidas" element={<ListMascPerd />} />
-          <Route path="listar-mascotas" element={<ListarMascotasVet/>}></Route>
-          <Route path="ingresar-mascota" element={<AgregarMascVet/>}></Route>
+          <Route path="listar-mascotas" element={<ListarMascotasVet />}></Route>
+          <Route path="ingresar-mascota" element={<AgregarMascVet />}></Route>
         </Route>
 
 
         <Route path="" element={<HomeLayOut />}>
           <Route index element={<Navigate to={"home"} replace />} />
           <Route path="home" element={<Home />} />
-          <Route path="registrar" element={<AgregarMascVet />} />
+          <Route path="registrar" element={<AgregarMascUsusario />} />
         </Route>
       </Routes>
     </BrowserRouter>

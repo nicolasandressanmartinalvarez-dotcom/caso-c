@@ -7,7 +7,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipos-mascota")
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*")
 public class TipoMascotaController {
 
     private final TipoMascotaService tipoMascotaService;

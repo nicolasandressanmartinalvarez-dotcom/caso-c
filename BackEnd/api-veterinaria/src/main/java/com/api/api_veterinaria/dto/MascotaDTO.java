@@ -18,8 +18,7 @@ public class MascotaDTO {
     private String imagen;
     private String color;
 
-
-    public static class Veterinaria{
+    public static class Veterinaria {
         private Long idVeterianaria;
 
         public Long getIdVeterianaria() {
@@ -127,5 +126,4 @@ public class MascotaDTO {
         this.veterinaria = veterinaria;
     }
 
-    
 }

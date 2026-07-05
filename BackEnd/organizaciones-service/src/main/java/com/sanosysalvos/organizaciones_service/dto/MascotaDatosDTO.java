@@ -9,6 +9,11 @@ public class MascotaDatosDTO {
     private Double latitud;
     private Double longitud;
     private String estado;
+    private String color;
+    private String tamanio;
+    private String genero;
+    private String imagen;
+    private String entidadReportante;
 
     public static class TipoRaza {
         private Long idTipoRaza;
@@ -67,6 +72,26 @@ public class MascotaDatosDTO {
         return estado;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public String getTamanio() {
+        return tamanio;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public String getEntidadReportante() {
+        return entidadReportante;
+    }
+
     // Setters
     public void setTipoMascota(TipoMascota tipoMascota) {
         this.tipoMascota = tipoMascota;
@@ -98,5 +123,25 @@ public class MascotaDatosDTO {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setTamanio(String tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setEntidadReportante(String entidadReportante) {
+        this.entidadReportante = entidadReportante;
     }
 }
