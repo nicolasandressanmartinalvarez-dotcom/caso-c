@@ -78,6 +78,14 @@ public class UsuarioAutorizadoService {
         return usuarioAutorizadoRepository.save(usuario);
     }
 
+    public List<UsuariosPermitidos> listarPorVeterinaria(Long idVeterinaria) {
+        return usuarioAutorizadoRepository.findAll()
+                .stream()
+                .filter(m -> m.getVeterinaria() != null
+                        && m.getVeterinaria().getId().equals(idVeterinaria))
+                .toList();
+    }
+
     public String borarUsuario(Long id){
         usuarioAutorizadoRepository.deleteById(id);
         return "Usuario eliminado";

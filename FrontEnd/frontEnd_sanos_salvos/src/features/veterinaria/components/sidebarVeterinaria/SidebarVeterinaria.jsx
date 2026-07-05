@@ -93,6 +93,11 @@ function SidebarVeterinaria() {
                         Reportes recibidos
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to="/veterinaria/listar-empleados">
+                        Listar empleados
+                    </NavLink>
+                </li>
             </ul>
 
 

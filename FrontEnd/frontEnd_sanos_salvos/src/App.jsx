@@ -53,6 +53,7 @@ import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/l
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
 import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
+import ListarEmp from './features/veterinaria/pages/listarEmpleado/listarEmp'
 
 // importaciones de Paneles de Municipalidades
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
@@ -126,6 +127,7 @@ function App() {
           <Route path="perdidas" element={<ListMascPerd />} />
           <Route path="listar-mascotas" element={<ListarMascotasVet />}></Route>
           <Route path="ingresar-mascota" element={<AgregarMascVet />}></Route>
+          <Route path="listar-empleados" element={<ListarEmp />}></Route> 
         </Route>
 
 
