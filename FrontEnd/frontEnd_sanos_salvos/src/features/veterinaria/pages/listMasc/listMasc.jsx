@@ -32,7 +32,7 @@ function ListarMascotaDeVeterinaria() {
             
             // Filtramos al usuario logueado por su correo
             const usuarioActual = usuariosPermitidos.find(u => u.correoUsuario === user.email);
-            if (!usuarioActual || !usuarioActual.veterinaria?.id) {
+            if (!usuarioActual  || !usuarioActual.veterinaria?.id) {
                 setError("El usuario no tiene una veterinaria asignada o no está permitido.");
                 setMascotas([]);
                 setCargandoDatos(false);

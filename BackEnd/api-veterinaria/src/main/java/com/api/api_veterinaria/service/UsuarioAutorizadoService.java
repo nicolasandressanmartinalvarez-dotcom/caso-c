@@ -21,6 +21,16 @@ public class UsuarioAutorizadoService {
         this.veterinariaRepository = veterinariaRepositor;
     }
 
+
+    public List<UsuariosPermitidos> listarUsuariosPorVeterinaria(Long idVeterinaria) {
+        return usuarioAutorizadoRepository.findAll()
+                .stream()
+                .filter(m -> m.getVeterinaria() != null
+                        && m.getVeterinaria().getId().equals(idVeterinaria))
+                .toList();
+    }
+
+
     public List<UsuariosPermitidos> obtenerUsuarios(){
         return usuarioAutorizadoRepository.findAll();
     }
