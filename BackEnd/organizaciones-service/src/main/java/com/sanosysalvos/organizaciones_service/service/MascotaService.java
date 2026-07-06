@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sanosysalvos.organizaciones_service.repository.OrganizacionRepository;
 import com.sanosysalvos.organizaciones_service.repository.MascotaRepository;
 import com.sanosysalvos.organizaciones_service.repository.TipoRazaRepository;
 import com.sanosysalvos.organizaciones_service.repository.TipoMascotaRepository; // Importar nuevo repositorio
@@ -16,6 +17,8 @@ import com.sanosysalvos.organizaciones_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.organizaciones_service.model.Mascota;
 import com.sanosysalvos.organizaciones_service.model.TipoRaza;
 import com.sanosysalvos.organizaciones_service.model.TipoMascota; // Importar nuevo modelo
+import com.sanosysalvos.organizaciones_service.model.Organizacion;
+import com.sanosysalvos.organizaciones_service.repository.OrganizacionRepository;
 
 @Service
 public class MascotaService {
@@ -29,8 +32,15 @@ public class MascotaService {
     @Autowired
     private TipoMascotaRepository tipoMascotaRepository; // Inyectar nuevo repositorio
 
+    @Autowired
+    private OrganizacionRepository organizacionRepository;
+
     public List<Mascota> obtenerTodasLasMascotas() {
         return mascotaRepository.findAll();
+    }
+
+    public List<Mascota> listarPorOrganizacion(Long organizacionId) {
+        return mascotaRepository.findByOrganizacionId(organizacionId);
     }
 
     // Firma modificada agregando: Long idTipoMascota
@@ -77,7 +87,6 @@ public class MascotaService {
                 throw new RuntimeException("Error al guardar la imagen en el servidor", e);
             }
         }
-
         if (tipoRaza != null) {
             mascota.setTipoDeRaza(tipoRaza);
         }
@@ -85,6 +94,13 @@ public class MascotaService {
         // Asignar el Tipo de Mascota si se encontró
         if (tipoMascota != null) {
             mascota.setTipoMascota(tipoMascota);
+        }
+
+        if (mascotaDTO.getOrganizacion() != null && mascotaDTO.getOrganizacion().getId() != null) {
+            Organizacion organizacion = organizacionRepository.findById(mascotaDTO.getOrganizacion().getId()).orElse(null);
+            if (organizacion != null) {
+                mascota.setOrganizacion(organizacion);
+            }
         }
 
         return mascotaRepository.save(mascota);

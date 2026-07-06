@@ -16,6 +16,8 @@ import com.sanosysalvos.municipalidades_service.dto.MascotaDatosDTO;
 import com.sanosysalvos.municipalidades_service.model.Mascota;
 import com.sanosysalvos.municipalidades_service.model.TipoRaza;
 import com.sanosysalvos.municipalidades_service.model.TipoMascota; // Importar nuevo modelo
+import com.sanosysalvos.municipalidades_service.model.Municipalidad;
+import com.sanosysalvos.municipalidades_service.repository.MunicipalidadRepository;
 
 @Service
 public class MascotaService {
@@ -29,8 +31,15 @@ public class MascotaService {
     @Autowired
     private TipoMascotaRepository tipoMascotaRepository; // Inyectar nuevo repositorio
 
+    @Autowired
+    private MunicipalidadRepository municipalidadRepository;
+
     public List<Mascota> obtenerTodasLasMascotas() {
         return mascotaRepository.findAll();
+    }
+
+    public List<Mascota> listarPorMunicipalidad(Long municipalidadId) {
+        return mascotaRepository.findByMunicipalidadId(municipalidadId);
     }
 
     // Firma modificada agregando: Long idTipoMascota
@@ -85,6 +94,13 @@ public class MascotaService {
         // Asignar el Tipo de Mascota si se encontró
         if (tipoMascota != null) {
             mascota.setTipoMascota(tipoMascota);
+        }
+
+        if (mascotaDTO.getMunicipalidad() != null && mascotaDTO.getMunicipalidad().getId() != null) {
+            Municipalidad municipalidad = municipalidadRepository.findById(mascotaDTO.getMunicipalidad().getId()).orElse(null);
+            if (municipalidad != null) {
+                mascota.setMunicipalidad(municipalidad);
+            }
         }
 
         return mascotaRepository.save(mascota);

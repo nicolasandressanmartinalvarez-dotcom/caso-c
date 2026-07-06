@@ -27,6 +27,28 @@ public class MascotaDatosDTO {
         }
     }
 
+    public static class MunicipalidadDto {
+        private Long id;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+    }
+
+    private MunicipalidadDto municipalidad;
+
+    public MunicipalidadDto getMunicipalidad() {
+        return municipalidad;
+    }
+
+    public void setMunicipalidad(MunicipalidadDto municipalidad) {
+        this.municipalidad = municipalidad;
+    }
+
     public static class TipoMascota {
         private Long idTipoMascota;
 
