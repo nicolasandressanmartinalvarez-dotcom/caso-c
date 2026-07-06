@@ -88,7 +88,7 @@ function ListarUsuPermMuni() {
                                 <td className={ListarUsuPermCSS["nombre-cell"]}>{user.nombreUser} {user.apellidoPa}</td>
                                 <td>{user.correoUsuario}</td>
                                 <td><span className={`${ListarUsuPermCSS["badge-rol"]} ${ListarUsuPermCSS[(user.rol || "").replace(/\s+/g, '-').toLowerCase()] || ''}`}>{user.rol}</span></td>
-                                <td>{user.municipalidad?.nombreMunicipalidad || "N/A"}</td>
+                                <td>{user.municipalidad?.nombre || user.veterinaria?.municipalidad?.nombre || user.organizacion?.municipalidad?.nombre || "N/A"}</td>
                                 <td>
                                     {user.estadoUser === "Activo" ? (
                                         <span className={ListarUsuPermCSS["status-activo"]}><FaCheckCircle /> Activo</span>
