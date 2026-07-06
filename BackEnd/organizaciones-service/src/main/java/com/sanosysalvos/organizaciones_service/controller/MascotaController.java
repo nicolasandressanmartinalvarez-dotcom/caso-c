@@ -26,6 +26,11 @@ public class MascotaController {
         return mascotaService.obtenerTodasLasMascotas();
     }
 
+    @GetMapping("/organizacion/{idOrganizacion}")
+    public List<Mascota> listarPorOrganizacion(@PathVariable Long idOrganizacion) {
+        return mascotaService.listarPorOrganizacion(idOrganizacion);
+    }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mascota createMascota(
             @RequestPart("mascota") MascotaDatosDTO mascotaDTO,

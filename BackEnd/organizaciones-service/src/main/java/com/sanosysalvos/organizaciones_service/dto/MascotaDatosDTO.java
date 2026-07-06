@@ -27,6 +27,28 @@ public class MascotaDatosDTO {
         }
     }
 
+    public static class OrganizacionDto {
+        private Long id;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+    }
+
+    private OrganizacionDto organizacion;
+
+    public OrganizacionDto getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(OrganizacionDto organizacion) {
+        this.organizacion = organizacion;
+    }
+
     public static class TipoMascota {
         private Long idTipoMascota;
 

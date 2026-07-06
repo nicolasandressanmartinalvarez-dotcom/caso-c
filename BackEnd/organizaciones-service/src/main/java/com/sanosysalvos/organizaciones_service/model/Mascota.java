@@ -34,9 +34,9 @@ public class Mascota {
     private Double longitud;
 
     @ManyToOne
-    @JoinColumn(name = "municipalidad_id")
+    @JoinColumn(name = "organizacion_id")
     @com.fasterxml.jackson.annotation.JsonBackReference
-    private Municipalidad municipalidad;
+    private Organizacion organizacion;
 
     private String color;
     private String tamanio;
@@ -111,12 +111,12 @@ public class Mascota {
         this.longitud = longitud;
     }
 
-    public Municipalidad getMunicipalidad() {
-        return municipalidad;
+    public Organizacion getOrganizacion() {
+        return organizacion;
     }
 
-    public void setMunicipalidad(Municipalidad municipalidad) {
-        this.municipalidad = municipalidad;
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
     }
 
     public TipoMascota getTipoMascota() {

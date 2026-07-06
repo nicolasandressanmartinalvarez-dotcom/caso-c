@@ -24,7 +24,7 @@ public class Municipalidad {
     private Double latitud;
     private Double longitud;
 
-    @OneToMany(mappedBy = "municipalidad", cascade = CascadeType.ALL, orphanRemoval = true)
-    @com.fasterxml.jackson.annotation.JsonManagedReference
-    private List<Mascota> mascotas;
+    // @OneToMany(mappedBy = "municipalidad", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @com.fasterxml.jackson.annotation.JsonManagedReference
+    // private List<Mascota> mascotas;
 }

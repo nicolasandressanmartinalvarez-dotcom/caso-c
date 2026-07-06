@@ -69,6 +69,8 @@ import AgregarMascotaMuni from './features/municipalidad/pages/agregarMascota/Ag
 import AgregarMascotaOrg from './features/Organizacion/pages/agregarMascota/AgregarMascotaOrg';
 import ListarMascotasMuniAdmin from './features/admin/pages/pagesMunicipalidad/listarMascotasMuni/ListarMascotasMuniAdmin';
 import ListarMascotasOrgAdmin from './features/admin/pages/pagesOrganizacion/listarMascotasOrg/ListarMascotasOrgAdmin';
+import ListarMascotasOrg from './features/organizacion/pages/listarMascota/ListarMascotasOrg';
+import ListarMascotasMuni from './features/municipalidad/pages/listarMascota/ListarMascotasMuni';
 
 //Paginas de usuarios usuarios
 import AgregarMascUsusario from './pages/registrar_mascotas/RegistrarMascota'
@@ -109,7 +111,7 @@ function App() {
         <Route path="organizacion" element={<RutaProtegidaOrg><OrganizacionLayOut /></RutaProtegidaOrg>}>
           <Route index element={<h1>Dashboard Organización</h1>} />
           <Route path="agregar-mascota" element={<AgregarMascotaOrg />} />
-          <Route path="listar-mascotas" element={<ListarMascotas />} />
+          <Route path="listar-mascotas" element={<ListarMascotasOrg />} />
           <Route path="alertas" element={<AlertasComunidad />} />
         </Route>
 
@@ -118,7 +120,7 @@ function App() {
           <Route path="crear-campaña" element={<CrearCampana />} />
           <Route path="listar-campañas" element={<ListarCampanas />} />
           <Route path="agregar-mascota" element={<AgregarMascotaMuni />} />
-          <Route path="listar-mascotas" element={<ListarMascotas />} />
+          <Route path="listar-mascotas" element={<ListarMascotasMuni />} />
         </Route>
 
 

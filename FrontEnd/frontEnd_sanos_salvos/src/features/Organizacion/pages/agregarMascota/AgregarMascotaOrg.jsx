@@ -76,6 +76,18 @@ function AgregarMascotaOrg() {
             const token = await getAccessTokenSilently();
             // const headers = { Authorization: `Bearer ${token}` };
 
+            // Obtener id de organizacion del usuario actual
+            const responseUsuarios = await fetch("http://localhost:8089/api/usuPermitidosOrg", { headers: { Authorization: `Bearer ${token}` } });
+            const usuariosPermitidos = await responseUsuarios.json();
+            const usuarioActual = usuariosPermitidos.find(u => u.correoUsuario === user.email);
+            
+            if (!usuarioActual || !usuarioActual.organizacion?.id) {
+                setMensaje({ texto: "Error: No tienes una organización asignada 🚨", tipo: "error" });
+                return;
+            }
+            
+            const idOrganizacion = usuarioActual.organizacion.id;
+
             const mascotaDTO = {
                 nombre: form.nombre,
                 descripcion: form.descripcion,
@@ -87,7 +99,8 @@ function AgregarMascotaOrg() {
                 tamanio: form.tamanio,
                 genero: form.genero,
                 tipoMascota: form.tipoMascota ? { idTipoMascota: Number(form.tipoMascota) } : null,
-                tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null
+                tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null,
+                organizacion: { id: idOrganizacion }
             };
 
             const formData = new FormData();

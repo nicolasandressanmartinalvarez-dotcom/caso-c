@@ -76,11 +76,17 @@ function AgregarMascotaMuni() {
             const token = await getAccessTokenSilently();
             // const headers = { Authorization: `Bearer ${token}` };
             
-            // Si en el futuro backend requiere id de municipalidad, se puede obtener asi:
-            // const responseUsuarios = await fetch("http://localhost:8080/api/usuPermitidosMuni", { headers });
-            // const usuariosPermitidos = await responseUsuarios.json();
-            // const usuarioActual = usuariosPermitidos.find(u => u.correoUsuario === user.email);
-            // const idMunicipalidad = usuarioActual.municipalidad.id;
+            // Obtener id de municipalidad del usuario actual
+            const responseUsuarios = await fetch("http://localhost:8080/api/usuPermitidosMuni", { headers: { Authorization: `Bearer ${token}` } });
+            const usuariosPermitidos = await responseUsuarios.json();
+            const usuarioActual = usuariosPermitidos.find(u => u.correoUsuario === user.email);
+            
+            if (!usuarioActual || !usuarioActual.municipalidad?.id) {
+                setMensaje({ texto: "Error: No tienes una municipalidad asignada 🚨", tipo: "error" });
+                return;
+            }
+            
+            const idMunicipalidad = usuarioActual.municipalidad.id;
 
             const mascotaDTO = {
                 nombre: form.nombre,
@@ -93,7 +99,8 @@ function AgregarMascotaMuni() {
                 tamanio: form.tamanio,
                 genero: form.genero,
                 tipoMascota: form.tipoMascota ? { idTipoMascota: Number(form.tipoMascota) } : null,
-                tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null
+                tipoRaza: form.tipoDeRaza ? { idTipoRaza: Number(form.tipoDeRaza) } : null,
+                municipalidad: { id: idMunicipalidad }
             };
 
             const formData = new FormData();

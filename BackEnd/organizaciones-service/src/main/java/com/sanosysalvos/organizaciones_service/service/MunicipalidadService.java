@@ -28,9 +28,10 @@ public class MunicipalidadService {
 
     // Crear o guardar una municipalidad
     public Municipalidad guardar(Municipalidad municipalidad) {
-        if (municipalidad.getMascotas() != null) {
-            municipalidad.getMascotas().forEach(mascota -> mascota.setMunicipalidad(municipalidad));
-        }
+        // if (municipalidad.getMascotas() != null) {
+        // municipalidad.getMascotas().forEach(mascota ->
+        // mascota.setOrganizacion(null));
+        // }
         return repository.save(municipalidad);
     }
 
