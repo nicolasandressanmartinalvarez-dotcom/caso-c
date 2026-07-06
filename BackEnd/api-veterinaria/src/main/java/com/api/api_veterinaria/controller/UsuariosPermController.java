@@ -66,11 +66,6 @@ public class UsuariosPermController {
         
     }
 
-    @GetMapping("/veterinaria/{idVeterinaria}")
-    public List<UsuariosPermitidos> listarPorVeterinaria(@PathVariable Long idVeterinaria) {
-        return usuAutorizadoService.listarUsuariosPorVeterinaria(idVeterinaria);
-    }
-
 
     @DeleteMapping("/{id}")
     public String borrarUser(@PathVariable Long id){
