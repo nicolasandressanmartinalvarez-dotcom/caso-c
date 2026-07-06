@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.api_veterinaria.dto.UsuarioDTO;
+import com.api.api_veterinaria.model.Mascota;
 import com.api.api_veterinaria.model.UsuariosPermitidos;
 import com.api.api_veterinaria.service.UsuarioAutorizadoService;
 
@@ -37,6 +38,13 @@ public class UsuariosPermController {
         return usuAutorizadoService.obtenerUsuarios();
     }
     
+
+    @GetMapping("/veterinaria/{idVeterinaria}")
+    public List<UsuariosPermitidos> listarPorVeterinaria(@PathVariable Long idVeterinaria) {
+        return usuAutorizadoService.listarPorVeterinaria(idVeterinaria);
+    }
+
+
     @PostMapping
     public UsuariosPermitidos gUsuariosPermitidos(@RequestBody UsuarioDTO usuarioDTO) {
         
