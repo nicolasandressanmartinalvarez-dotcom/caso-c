@@ -35,6 +35,7 @@ public class Mascota {
     private String estado;
     private String correoReportante;
     private String imagen;
+    private String genero;
     private String color;
     private String tamanio;
     private String entidadReportante;

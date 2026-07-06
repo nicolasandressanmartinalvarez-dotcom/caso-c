@@ -17,11 +17,21 @@ import OrganizacionLayOut from './layouts/OrganizacionLayOut/OrganizacionLayOut'
 import MunicipalidadLayOut from './layouts/MunicipalidadLayOut/MunicipalidadLayOut'
 import LayOutVeterinaria from "./layouts/veterinariaLayOut/VeterinariaLayout";
 
+//Paginas publicas
 import RegistrarMascota from "./pages/registrar_mascotas/RegistrarMascota"
 import ListarMascotas from "./pages/listar_mascotas/ListarMascotas"
 
 
+//Importaciones de panel de organizacion
 import AlertasComunidad from "./features/organizacion/pages/alertas/AlertasComunidad"
+import AgregarMascotaOrg from './features/Organizacion/pages/agregarMascota/AgregarMascotaOrg';
+import ListarMascotasOrg from './features/organizacion/pages/listarMascota/ListarMascotasOrg';
+
+//Importaciones paginas panel de muni
+import CrearCampana from './features/municipalidad/pages/campanas/CrearCampana';
+import ListarCampanas from './features/municipalidad/pages/campanas/ListarCampanas';
+
+
 
 //DashBoard Admin
 import DashBoardAdmin from './features/admin/pages/dashBoardAdmin/DashBoardAdmin'
@@ -49,11 +59,12 @@ import ListarMascotasVeterinaria from './features/admin/pages/pagesVeterinaria/l
 //Fin importaciones del apartado de veterinaria
 
 
-//Impotaciones veterinaria LayoUts
+//Impotaciones de paginas de la veterinaria
 import ListMascPerd from './features/veterinaria/pages/listMascPerd/ListMascPerd';
 import ListarMascotasVet from './features/veterinaria/pages/listMasc/listMasc';
 import AgregarMascVet from './features/veterinaria/pages/ingreMascVet/IngreMascoVete'
 import ListarEmp from './features/veterinaria/pages/listarEmpleado/listarEmp'
+
 
 // importaciones de Paneles de Municipalidades
 import ListarMunicipalidades from './features/municipalidad/pages/listarMunicipalidades/ListarMunicipalidades';
@@ -62,15 +73,10 @@ import AgregarMunicipalidad from './features/municipalidad/pages/agregarMunicipa
 // importaciones de Paneles de Organizaciones
 import ListarOrganizaciones from './features/admin/pages/pagesOrganizacion/listarOrganizacion/ListarOrganizaciones';
 import AgregarOrganizacion from './features/organizacion/pages/agregarOrganizacion/AgregarOrganizacion';
-import CrearCampana from './features/municipalidad/pages/campanas/CrearCampana';
-import ListarCampanas from './features/municipalidad/pages/campanas/ListarCampanas';
-
 // Importaciones de Paneles de Mascotas para Organización y Municipalidad
 import AgregarMascotaMuni from './features/municipalidad/pages/agregarMascota/AgregarMascotaMuni';
-import AgregarMascotaOrg from './features/Organizacion/pages/agregarMascota/AgregarMascotaOrg';
 import ListarMascotasMuniAdmin from './features/admin/pages/pagesMunicipalidad/listarMascotasMuni/ListarMascotasMuniAdmin';
 import ListarMascotasOrgAdmin from './features/admin/pages/pagesOrganizacion/listarMascotasOrg/ListarMascotasOrgAdmin';
-import ListarMascotasOrg from './features/organizacion/pages/listarMascota/ListarMascotasOrg';
 import ListarMascotasMuni from './features/municipalidad/pages/listarMascota/ListarMascotasMuni';
 
 //Paginas de usuarios usuarios

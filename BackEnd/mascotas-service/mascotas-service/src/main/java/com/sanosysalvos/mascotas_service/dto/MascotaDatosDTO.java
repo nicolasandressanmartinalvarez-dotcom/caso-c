@@ -10,6 +10,7 @@ public class MascotaDatosDTO {
     private Double latitud;
     private Double longitud;
     private String estado;
+    private String genero;
 
     public static class TipoRaza {
         private Long idTipoRaza;
@@ -99,5 +100,13 @@ public class MascotaDatosDTO {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 }
