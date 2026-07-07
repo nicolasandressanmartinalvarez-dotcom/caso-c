@@ -111,7 +111,7 @@ function AgregarMascotaOrg() {
             if (imagen) {
                 formData.append("file", imagen);
             }
-
+            console.log(mascotaDTO)
             const response = await fetch("http://localhost:8089/api/mascotas", {
                 method: "POST",
                 headers: {
@@ -134,7 +134,7 @@ function AgregarMascotaOrg() {
             setMensaje({ texto: "Error de conexión con el servidor 🚨", tipo: "error" });
         }
     };
-
+    
     return (
         <section className={IngreMascoOrgCSS["contenedor-ingreso"]}>
             <div className={IngreMascoOrgCSS["form-card"]}>

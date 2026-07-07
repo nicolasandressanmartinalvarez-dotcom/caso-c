@@ -6,7 +6,7 @@ function Header() {
 
   const { isLoading, isAuthenticated, error, loginWithRedirect: login,getAccessTokenSilently, logout: auth0Logout, user, } = useAuth0(); 
   const navigate = useNavigate();
-  const [datosUser, setDatosUser] = useState();
+  const [datosUser, setDatosUser] = useState([]);
   const [cargDatos, setCargandoDatos] = useState(true);
   const signup = () =>
     login({ authorizationParams: { screen_hint: "signup" } });
@@ -27,7 +27,7 @@ function Header() {
         "ngrok-skip-browser-warning": "69420"
     };
 
-    const URL_API_GLOBAL = "https://660a-191-116-44-218.ngrok-free.app/api/usuarios"; 
+    const URL_API_GLOBAL = "https://7ad5-191-116-1-132.ngrok-free.app/api/usuarios"; 
     const resBusqueda = await fetch(`${URL_API_GLOBAL}/${user.email}`, { headers: headersGlobal });
 
     if (!resBusqueda.ok) throw new Error("Error al obtener el usuario");
@@ -46,8 +46,6 @@ function Header() {
     obtenerUsuario();
   }
 }, [user, isAuthenticated, isLoading]);
-
-  console.log(datosUser);
   if (isLoading) return <p>Cargando...</p>;
   return (
     <header className={HeaderCSS["div-header"]}>

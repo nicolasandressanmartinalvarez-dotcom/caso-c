@@ -36,8 +36,7 @@ function ListarMascotasVeterinaria() {
     const cerrarModal = () => {
         setMascotaSeleccionada(null);
         document.body.style.overflow = 'auto';
-    };
-    console.log(mascotas)
+    };  
     return (
         <section className={ListarMascotasCss["contenedor-lista"]}>
             <div className={ListarMascotasCss["header-lista"]}>

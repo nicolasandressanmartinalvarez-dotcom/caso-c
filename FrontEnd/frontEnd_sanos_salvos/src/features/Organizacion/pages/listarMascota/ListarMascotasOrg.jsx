@@ -40,10 +40,9 @@ function ListarMascotasOrg() {
                 setCargandoDatos(false);
                 return;
             }
-
+            
             const idOrganizacion = usuarioActual.organizacion.id;
             setNombreEntidad(usuarioActual.organizacion.nombre);
-            
             // 2. Obtener las mascotas filtradas directamente desde el Backend (Puerto 8089)
             const responseMascotas = await fetch(`http://localhost:8089/api/mascotas/organizacion/${idOrganizacion}`, { headers });
             
@@ -51,6 +50,7 @@ function ListarMascotasOrg() {
 
             const dataMascotas = await responseMascotas.json();
             setMascotas(dataMascotas);
+            console.log(usuarioActual)
 
         } catch (error) {
             console.error("Error en la carga de datos:", error);
@@ -147,7 +147,7 @@ function ListarMascotasOrg() {
                                         <li><strong>Raza:</strong> {mascota.tipoDeRaza?.nombreTipoRaza || "No especificada"}</li>
                                         <li><strong>Tamaño:</strong> {mascota.tamanio || "No especificado"}</li>
                                         <li><strong>Color:</strong> {mascota.color || "No especificado"}</li>
-                                        <li><strong>Organización:</strong> {nombreEntidad}</li>
+                                        <li><strong>Organización:</strong> {mascota.organizacion ? mascota.organizacion.nombre : <p>Sin oraganizacion asignada</p>}</li>
                                     </ul>
                                 </div>
                                 <div className={ListarMascotasCss["card-footer"]}>

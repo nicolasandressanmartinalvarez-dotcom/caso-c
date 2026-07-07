@@ -67,7 +67,7 @@ function AdminUserOrg() {
                 "Authorization": `Bearer ${token}`
             };
 
-            const URL_API_GLOBAL = "https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios";
+            const URL_API_GLOBAL = "https://7ad5-191-116-1-132.ngrok-free.app/api/usuarios";
             const URL_API_ORGANIZACION = "http://localhost:8089/api/usuPermitidosOrg";
 
             // PASO 0: Filtrar duplicados locales

@@ -17,7 +17,7 @@ function RutaProtegidaOrg({ children }) {
 
             try {
                 const token = await getAccessTokenSilently();
-                const request = await fetch(`https://660a-191-116-44-218.ngrok-free.app/api/usuarios/${user.email}`, {
+                const request = await fetch(`https://7ad5-191-116-1-132.ngrok-free.app/api/usuarios/${user.email}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
