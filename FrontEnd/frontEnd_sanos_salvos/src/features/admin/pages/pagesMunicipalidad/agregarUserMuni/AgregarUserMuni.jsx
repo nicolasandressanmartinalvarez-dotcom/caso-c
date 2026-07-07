@@ -24,7 +24,7 @@ function AdminUserMuni() {
     const cargarMunicipalidades = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8080/api/municipalidades", {
+            const response = await fetch("http://localhost:8082/api/municipalidades", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -68,7 +68,7 @@ function AdminUserMuni() {
             };
 
             const URL_API_GLOBAL = "https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios";
-            const URL_API_MUNICIPALIDAD = "http://localhost:8080/api/usuPermitidosMuni";
+            const URL_API_MUNICIPALIDAD = "http://localhost:8082/api/usuPermitidosMuni";
 
             // PASO 0: Filtrar duplicados locales
             const resLocalCheck = await fetch(URL_API_MUNICIPALIDAD, { headers: headersLocal });

@@ -26,7 +26,7 @@ function ListarMascotasMuni() {
             const headers = { Authorization: `Bearer ${token}` };
 
             // 1. Buscar al usuario en la API de usuPermitidosMuni usando su correo (Puerto 8080)
-            const responseUsuarios = await fetch("http://localhost:8080/api/usuPermitidosMuni", { headers });
+            const responseUsuarios = await fetch("http://localhost:8082/api/usuPermitidosMuni", { headers });
             
             if (!responseUsuarios.ok) throw new Error("Error al obtener los usuarios permitidos de la municipalidad");
             
@@ -45,7 +45,7 @@ function ListarMascotasMuni() {
             setNombreEntidad(usuarioActual.municipalidad.nombre);
             
             // 2. Obtener las mascotas filtradas directamente desde el Backend (Puerto 8080)
-            const responseMascotas = await fetch(`http://localhost:8080/api/mascotas/municipalidad/${idMunicipalidad}`, { headers });
+            const responseMascotas = await fetch(`http://localhost:8082/api/mascotas/municipalidad/${idMunicipalidad}`, { headers });
             
             if (!responseMascotas.ok) throw new Error("Error al cargar las mascotas");
 

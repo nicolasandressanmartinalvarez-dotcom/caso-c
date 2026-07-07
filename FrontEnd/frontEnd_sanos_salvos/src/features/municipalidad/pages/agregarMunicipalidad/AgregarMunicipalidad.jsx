@@ -29,7 +29,7 @@ function AgregarMunicipalidad() {
                 latitud: form.latitud ? parseFloat(form.latitud) : null,
                 longitud: form.longitud ? parseFloat(form.longitud) : null
             };
-            const response = await fetch("http://localhost:8080/api/municipalidades", {
+            const response = await fetch("http://localhost:8082/api/municipalidades", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

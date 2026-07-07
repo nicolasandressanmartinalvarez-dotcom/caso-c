@@ -15,7 +15,7 @@ function ListarUsuPermMuni() {
     const cargarUsuarios = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8080/api/usuPermitidosMuni", {
+            const response = await fetch("http://localhost:8082/api/usuPermitidosMuni", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {

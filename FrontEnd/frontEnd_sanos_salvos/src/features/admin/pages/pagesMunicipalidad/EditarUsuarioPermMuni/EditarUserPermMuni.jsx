@@ -24,13 +24,13 @@ function EditarUserPermMuni() {
         const cargarDatos = async () => {
             try {
                 const token = await getAccessTokenSilently();
-                const resMunis = await fetch("http://localhost:8080/api/municipalidades", { 
+                const resMunis = await fetch("http://localhost:8082/api/municipalidades", { 
                     headers: { Authorization: `Bearer ${token}` } 
                 });
                 const listaMunis = await resMunis.json();
                 setMunicipalidades(listaMunis);
 
-                const resUser = await fetch(`http://localhost:8080/api/usuPermitidosMuni`, { 
+                const resUser = await fetch(`http://localhost:8082/api/usuPermitidosMuni`, { 
                     headers: { Authorization: `Bearer ${token}` } 
                 });
                 const data = await resUser.json();
@@ -68,7 +68,7 @@ function EditarUserPermMuni() {
                 municipalidad: { idMunicipalidad: Number(usuario.idMunicipalidad) }
             };
 
-            await fetch(`http://localhost:8080/api/usuPermitidosMuni/${id}`, {
+            await fetch(`http://localhost:8082/api/usuPermitidosMuni/${id}`, {
                 method: "PUT",
                 headers: { 
                     "Content-Type": "application/json",
