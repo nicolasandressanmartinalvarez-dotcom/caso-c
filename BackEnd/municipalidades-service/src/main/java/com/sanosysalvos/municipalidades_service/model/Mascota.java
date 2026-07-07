@@ -35,7 +35,6 @@ public class Mascota {
 
     @ManyToOne
     @JoinColumn(name = "municipalidad_id")
-    @com.fasterxml.jackson.annotation.JsonBackReference
     private Municipalidad municipalidad;
 
     private String color;

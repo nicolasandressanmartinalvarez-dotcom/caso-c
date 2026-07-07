@@ -14,7 +14,7 @@ function ListarMascotasMuniAdmin() {
     const cargarMascotas = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const response = await fetch("http://localhost:8080/api/mascotas", {
+            const response = await fetch("http://localhost:8082/api/mascotas", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await response.json();
@@ -37,7 +37,7 @@ function ListarMascotasMuniAdmin() {
         setMascotaSeleccionada(null);
         document.body.style.overflow = 'auto';
     };
-
+    console.log(mascotas)
     return (
         <section className={ListarMascotasCss["contenedor-lista"]}>
             <div className={ListarMascotasCss["header-lista"]}>

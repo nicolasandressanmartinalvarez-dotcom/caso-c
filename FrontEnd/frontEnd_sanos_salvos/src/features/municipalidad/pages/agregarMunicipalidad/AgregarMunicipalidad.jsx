@@ -29,12 +29,13 @@ function AgregarMunicipalidad() {
                 latitud: form.latitud ? parseFloat(form.latitud) : null,
                 longitud: form.longitud ? parseFloat(form.longitud) : null
             };
-            const response = await fetch("http://localhost:8080/api/municipalidades", {
+            const misHeaders = new Headers();
+            misHeaders.append("Content-Type", "application/json");
+            misHeaders.append("Authorization", `Bearer ${token}`);
+
+            const response = await fetch("http://localhost:8082/api/municipalidades", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
+                headers: misHeaders,
                 body: JSON.stringify(body)
             });
 
@@ -42,7 +43,7 @@ function AgregarMunicipalidad() {
                 setMensaje("✅ Municipalidad registrada correctamente");
                 setForm({ nombre: "", comuna: "", region: "", correoInstitucional: "", telefono: "", latitud: "", longitud: "" });
             } else {
-                setMensaje("❌ Error al registrar la municipalidad");
+                setMensaje("❌ Error al registrar. Revisa la consola del servidor backend.");
             }
         } catch (error) {
             console.error(error);
@@ -53,7 +54,7 @@ function AgregarMunicipalidad() {
     return (
         <section className={CSS["contenedor"]}>
             <div className={CSS["form-card"]}>
-                <h2 className={CSS["titulo-form"]}>Agregar Municipalidad</h2>
+                <h2 className={CSS["titulo-form"]}>Agregar Municipalidad 🏢</h2>
                 <form className={CSS["form"]} onSubmit={registrar}>
                     <div className={CSS["input-group"]}>
                         <label>Nombre</label>
@@ -85,7 +86,7 @@ function AgregarMunicipalidad() {
                             <input type="number" step="any" name="longitud" placeholder="Ej: -70.6483" value={form.longitud} onChange={handleChange} />
                         </div>
                     </div>
-                    <button type="submit" className={CSS["btn-submit"]}>Registrar Municipalidad</button>
+                    <button type="submit" className={CSS["btn-submit"]}>Registrar Municipalidad 💾</button>
                     {mensaje && <p className={CSS["mensaje"]}>{mensaje}</p>}
                 </form>
             </div>

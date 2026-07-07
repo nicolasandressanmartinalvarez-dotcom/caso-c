@@ -27,7 +27,7 @@ function Header() {
         "ngrok-skip-browser-warning": "69420"
     };
 
-    const URL_API_GLOBAL = "https://7ad5-191-116-1-132.ngrok-free.app/api/usuarios"; 
+    const URL_API_GLOBAL = " https://d4b7-191-116-1-132.ngrok-free.app/api/usuarios"; 
     const resBusqueda = await fetch(`${URL_API_GLOBAL}/${user.email}`, { headers: headersGlobal });
 
     if (!resBusqueda.ok) throw new Error("Error al obtener el usuario");

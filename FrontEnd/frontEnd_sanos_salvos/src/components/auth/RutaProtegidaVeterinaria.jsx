@@ -22,7 +22,7 @@ function RutaProtegidaVeterinaria({ children }) {
 
             try {
                 const token = await getAccessTokenSilently();
-                const request = await fetch(`https://7ad5-191-116-1-132.ngrok-free.app/api/usuarios/${user.email}`, {
+                const request = await fetch(`https://d4b7-191-116-1-132.ngrok-free.app/api/usuarios/${user.email}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
