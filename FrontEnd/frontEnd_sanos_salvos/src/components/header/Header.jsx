@@ -27,7 +27,7 @@ function Header() {
         "ngrok-skip-browser-warning": "69420"
     };
 
-    const URL_API_GLOBAL = " https://d4b7-191-116-1-132.ngrok-free.app/api/usuarios"; 
+    const URL_API_GLOBAL = "https://sliceable-tilt-untamed.ngrok-free.dev/api/usuarios"; 
     const resBusqueda = await fetch(`${URL_API_GLOBAL}/${user.email}`, { headers: headersGlobal });
 
     if (!resBusqueda.ok) throw new Error("Error al obtener el usuario");
@@ -71,7 +71,7 @@ function Header() {
             <p></p>
           ) : (
             datosUser?.entidadPerteneciente === "Admin" ? <button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/admin")}>Ir a mi panel</button>:
-            datosUser.entidadPerteneciente === "Veterina" ?<button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/veterinaira")}>Ir a mi panel</button>:
+            datosUser.entidadPerteneciente === "Veterinaria" ?<button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/veterinaria")}>Ir a mi panel</button>:
             datosUser.entidadPerteneciente === "Municipalidad" ?<button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/municipalidad")}>Ir a mi panel</button>:
             datosUser.entidadPerteneciente === "Organizacion" ?<button className={HeaderCSS["boton_diseño"]} onClick={() => navigate("/organizacion")}>Ir a mi panel</button>:
             <p></p>

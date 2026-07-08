@@ -37,7 +37,6 @@ function ListarMascotasOrgAdmin() {
         setMascotaSeleccionada(null);
         document.body.style.overflow = 'auto';
     };
-
     return (
         <section className={ListarMascotasCss["contenedor-lista"]}>
             <div className={ListarMascotasCss["header-lista"]}>
@@ -85,7 +84,7 @@ function ListarMascotasOrgAdmin() {
                                 <li><strong>Raza:</strong> {mascota.tipoDeRaza?.nombreTipoRaza || "No especificada"}</li>
                                 <li><strong>Tamaño:</strong> {mascota.tamanio || "No especificado"}</li>
                                 <li><strong>Color:</strong> {mascota.color || "No especificado"}</li>
-                                <li><strong>Organización:</strong> {mascota.municipalidad ? mascota.municipalidad.nombreMuni : "No asignada"}</li>
+                                <li><strong>Organización:</strong> {mascota.organizacion ? mascota.organizacion.nombre : "No asignada"}</li>
                             </ul>
                         </div>
                         <div className={ListarMascotasCss["card-footer"]}>
@@ -121,7 +120,7 @@ function ListarMascotasOrgAdmin() {
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoMascota?.nombreTipoMascota || "No especificado"}</span>
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tipoDeRaza?.nombreTipoRaza || "No especificada"}</span>
                                     <span className={ListarMascotasCss["tag"]}>{mascotaSeleccionada.tamanio || "No especificado"}</span>
-                                    <span className={ListarMascotasCss["tag"]}>Organización: {mascotaSeleccionada.municipalidad ? mascotaSeleccionada.municipalidad.nombreMuni : "No asignada"}</span>
+                                    <span className={ListarMascotasCss["tag"]}>Organización: {mascotaSeleccionada.organizacion ? mascotaSeleccionada.organizacion.nombre : "No asignada"}</span>
                                 </div>
                                 <div className={ListarMascotasCss["modal-descripcion"]}>
                                     <h3><FaInfoCircle /> Descripción</h3>
